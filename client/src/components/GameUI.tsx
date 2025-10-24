@@ -183,42 +183,43 @@ export function GameUI() {
       pointerEvents: 'none',
       fontFamily: "'Roboto', sans-serif"
     }}>
+      <button
+        {...handleTouchButton(() => setShowLeaderboard(true))}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          padding: '10px',
+          minWidth: '45px',
+          minHeight: '45px',
+          backgroundColor: 'rgba(255, 215, 0, 0.9)',
+          border: '2px solid #DAA520',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'auto'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
+      >
+        <Trophy size={22} color="#8B4513" />
+      </button>
+      
       <div style={{
         position: 'absolute',
-        top: '20px',
-        left: '20px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        right: 'calc(50% + 170px)',
         display: 'flex',
+        flexDirection: 'column',
         gap: '10px',
-        alignItems: 'flex-start',
-        pointerEvents: 'auto'
+        pointerEvents: 'auto',
+        marginTop: '-40px'
       }}>
-        <button
-          {...handleTouchButton(() => setShowLeaderboard(true))}
-          style={{
-            padding: '10px',
-            minWidth: '45px',
-            minHeight: '45px',
-            backgroundColor: 'rgba(255, 215, 0, 0.9)',
-            border: '2px solid #DAA520',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
-        >
-          <Trophy size={22} color="#8B4513" />
-        </button>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px'
-        }}>
-          <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
-          <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
-        </div>
+        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
+        <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
       </div>
       
       <div style={{
