@@ -76,6 +76,14 @@ export function PrizeIndicators() {
             }}
           >
             <div style={{
+              width: 0,
+              height: 0,
+              borderTop: '8px solid transparent',
+              borderBottom: '8px solid transparent',
+              borderLeft: `12px solid ${tier.color}`,
+              opacity: isActive ? 1 : 0.5,
+            }} />
+            <div style={{
               width: '12px',
               height: '12px',
               borderRadius: '50%',
