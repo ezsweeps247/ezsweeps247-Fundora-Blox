@@ -133,11 +133,12 @@ function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: nu
   block.columns.forEach((isActive: boolean, colIndex: number) => {
     if (!isActive) return;
     
-    const actualCol = colIndex + position - Math.floor(GRID_COLS / 2);
+    const blockColumnPosition = position + colIndex;
+    const gridColumn = Math.round(blockColumnPosition);
     
-    if (actualCol < 0 || actualCol >= GRID_COLS) return;
+    if (gridColumn < 0 || gridColumn >= GRID_COLS) return;
     
-    const x = offsetX + actualCol * (CELL_SIZE + CELL_SPACING);
+    const x = offsetX + gridColumn * (CELL_SIZE + CELL_SPACING);
     const y = offsetY + (GRID_ROWS - 1 - block.row) * (CELL_SIZE + CELL_SPACING);
     
     const gradient = ctx.createLinearGradient(x, y, x, y + CELL_SIZE);
