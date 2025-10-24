@@ -329,7 +329,6 @@ export function GameUI() {
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
                 fontFamily: "'Roboto', sans-serif",
-                textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 position: 'relative',
                 transition: 'all 0.2s'
               }}
@@ -380,7 +379,6 @@ export function GameUI() {
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
                 fontFamily: "'Roboto', sans-serif",
-                textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 position: 'relative',
                 transition: 'all 0.2s'
               }}
