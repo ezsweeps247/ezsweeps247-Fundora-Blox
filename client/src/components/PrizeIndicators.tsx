@@ -104,8 +104,6 @@ export function PrizeIndicators() {
               fontSize: '28px',
               letterSpacing: '0.5px',
               fontWeight: 'bold',
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
-              borderRadius: '6px',
             }}>
               {displayText}
             </div>
