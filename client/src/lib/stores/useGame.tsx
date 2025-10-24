@@ -178,12 +178,30 @@ export const useGame = create<GameState>()(
         columns: lastBlock ? [...lastBlock.columns] : Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
       };
       
-      console.log(`Spawning new block at row ${newRow}`);
+      // Find the rightmost active column to calculate max position
+      let rightmostCol = -1;
+      for (let i = GRID_WIDTH - 1; i >= 0; i--) {
+        if (newBlock.columns[i]) {
+          rightmostCol = i;
+          break;
+        }
+      }
+      const maxPosition = rightmostCol >= 0 ? GRID_WIDTH - 1 - rightmostCol : GRID_WIDTH - 1;
+      
+      // Random starting position
+      const randomPosition = Math.random() * maxPosition;
+      
+      // Alternate direction based on previous, or randomize if first block
+      const newDirection = state.blocks.length === 0 
+        ? (Math.random() > 0.5 ? 1 : -1)
+        : -state.movementDirection;
+      
+      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}`);
       
       set({
         currentBlock: newBlock,
-        currentBlockPosition: 0,
-        movementDirection: 1,
+        currentBlockPosition: randomPosition,
+        movementDirection: newDirection,
         movementSpeed: BASE_SPEED + (newRow * SPEED_INCREMENT)
       });
     },
