@@ -211,21 +211,6 @@ export function GameUI() {
           value={stake === 'FREE' ? 'FREE' : stake.toFixed(2)} 
           unit={stake === 'FREE' ? '' : '$'} 
         />
-      </div>
-      
-      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
-      
-      <div className="game-footer" style={{
-        position: 'absolute',
-        bottom: '50px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        alignItems: 'flex-end',
-        gap: '40px',
-        pointerEvents: 'auto',
-        zIndex: 50
-      }}>
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -245,7 +230,21 @@ export function GameUI() {
             CHOOSE STAKE
           </div>
         </div>
-        
+      </div>
+      
+      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
+      
+      <div className="game-footer" style={{
+        position: 'absolute',
+        bottom: '50px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        alignItems: 'flex-end',
+        gap: '40px',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
         <div className="game-controls" style={{
           display: 'flex',
           flexDirection: 'column',
