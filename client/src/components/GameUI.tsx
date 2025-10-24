@@ -220,7 +220,7 @@ export function GameUI() {
       
       <div className="game-controls" style={{
         position: 'absolute',
-        bottom: '100px',
+        bottom: '40px',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
