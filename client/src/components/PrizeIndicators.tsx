@@ -82,7 +82,7 @@ export function PrizeIndicators() {
               borderTop: '8px solid transparent',
               borderBottom: '8px solid transparent',
               borderLeft: `12px solid ${tier.color}`,
-              opacity: isActive ? 1 : 0.5,
+              opacity: 1,
             }} />
             <div style={{
               color: tier.type === 'points' ? '#ffffff' : tier.color,
@@ -90,7 +90,7 @@ export function PrizeIndicators() {
               textShadow: '2px 2px 3px rgba(0, 0, 0, 0.8)',
               minWidth: '110px',
               textAlign: 'left',
-              opacity: isActive ? 1 : 0.5,
+              opacity: 1,
               fontSize: '20px',
               letterSpacing: '0.5px',
               fontWeight: 'bold',
