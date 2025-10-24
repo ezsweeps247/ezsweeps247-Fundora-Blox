@@ -188,12 +188,37 @@ export function GameUI() {
         top: '40px',
         left: '40px',
         display: 'flex',
-        flexDirection: 'column',
         gap: '15px',
+        alignItems: 'flex-start',
         pointerEvents: 'auto'
       }}>
-        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
-        <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
+        <button
+          {...handleTouchButton(() => setShowLeaderboard(true))}
+          style={{
+            padding: '15px',
+            minWidth: '60px',
+            minHeight: '60px',
+            backgroundColor: 'rgba(255, 215, 0, 0.9)',
+            border: '2px solid #DAA520',
+            borderRadius: '10px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
+        >
+          <Trophy size={28} color="#8B4513" />
+        </button>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px'
+        }}>
+          <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
+          <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
+        </div>
       </div>
       
       <div style={{
@@ -270,8 +295,6 @@ export function GameUI() {
           </div>
         </div>
       </div>
-      
-      <PrizeMultipliers />
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
@@ -469,34 +492,6 @@ export function GameUI() {
         )}
       </div>
       
-      <div style={{
-        position: 'absolute',
-        top: '40px',
-        right: '40px',
-        display: 'flex',
-        gap: '10px',
-        pointerEvents: 'auto'
-      }}>
-        <button
-          {...handleTouchButton(() => setShowLeaderboard(true))}
-          style={{
-            padding: '15px',
-            minWidth: '60px',
-            minHeight: '60px',
-            backgroundColor: 'rgba(255, 215, 0, 0.9)',
-            border: '2px solid #DAA520',
-            borderRadius: '10px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
-        >
-          <Trophy size={28} color="#8B4513" />
-        </button>
-      </div>
 
       {showLeaderboard && (
         <Leaderboard onClose={() => setShowLeaderboard(false)} />
