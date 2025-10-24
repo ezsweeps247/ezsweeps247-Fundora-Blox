@@ -1,4 +1,4 @@
-import { users, type User, type InsertUser } from "@shared/schema";
+import { users, type User, type InsertUser, highScores, type HighScore, type InsertHighScore } from "@shared/schema";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -7,15 +7,21 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
+  getTopHighScores(limit: number): Promise<HighScore[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
-  currentId: number;
+  private highScores: Map<number, HighScore>;
+  currentUserId: number;
+  currentHighScoreId: number;
 
   constructor() {
     this.users = new Map();
-    this.currentId = 1;
+    this.highScores = new Map();
+    this.currentUserId = 1;
+    this.currentHighScoreId = 1;
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -29,10 +35,27 @@ export class MemStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentId++;
+    const id = this.currentUserId++;
     const user: User = { ...insertUser, id };
     this.users.set(id, user);
     return user;
+  }
+
+  async saveHighScore(insertHighScore: InsertHighScore): Promise<HighScore> {
+    const id = this.currentHighScoreId++;
+    const highScore: HighScore = {
+      ...insertHighScore,
+      id,
+      createdAt: new Date(),
+    };
+    this.highScores.set(id, highScore);
+    return highScore;
+  }
+
+  async getTopHighScores(limit: number): Promise<HighScore[]> {
+    return Array.from(this.highScores.values())
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
   }
 }
 

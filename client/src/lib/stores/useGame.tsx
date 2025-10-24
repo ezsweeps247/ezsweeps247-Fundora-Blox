@@ -20,6 +20,7 @@ interface GameState {
   bonusPoints: number;
   stake: number;
   highestRow: number;
+  blocksStacked: number;
   
   start: () => void;
   restart: () => void;
@@ -46,6 +47,7 @@ export const useGame = create<GameState>()(
     bonusPoints: 0,
     stake: 1,
     highestRow: 0,
+    blocksStacked: 0,
     
     start: () => {
       console.log("Game started!");
@@ -62,6 +64,7 @@ export const useGame = create<GameState>()(
         score: 0,
         bonusPoints: 0,
         highestRow: 0,
+        blocksStacked: 0,
       });
       
       setTimeout(() => {
@@ -81,6 +84,7 @@ export const useGame = create<GameState>()(
         score: 0,
         bonusPoints: 0,
         highestRow: 0,
+        blocksStacked: 0,
       });
     },
     
@@ -185,6 +189,7 @@ export const useGame = create<GameState>()(
       const newScore = state.score + (activeBlockCount * 10);
       const newBonusPoints = state.bonusPoints + (activeBlockCount * 50);
       const newHighestRow = Math.max(state.highestRow, state.currentBlock.row);
+      const newBlocksStacked = state.blocksStacked + 1;
       
       console.log(`Block placed! Active columns: ${activeBlockCount}, Score: ${newScore}`);
       
@@ -198,7 +203,8 @@ export const useGame = create<GameState>()(
         currentBlock: null,
         score: newScore,
         bonusPoints: newBonusPoints,
-        highestRow: newHighestRow
+        highestRow: newHighestRow,
+        blocksStacked: newBlocksStacked
       });
       
       setTimeout(() => {
