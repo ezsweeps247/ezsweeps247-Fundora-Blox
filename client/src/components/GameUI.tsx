@@ -3,6 +3,7 @@ import { useGame } from '@/lib/stores/useGame';
 import { useAudio } from '@/lib/stores/useAudio';
 import { Volume2, VolumeX, Trophy } from 'lucide-react';
 import { Leaderboard } from './Leaderboard';
+import { StakeSelector } from './StakeSelector';
 import { apiRequest } from '@/lib/queryClient';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -101,11 +102,14 @@ export function GameUI() {
   const highestRow = useGame(state => state.highestRow);
   const comboMultiplier = useGame(state => state.comboMultiplier);
   const comboStreak = useGame(state => state.comboStreak);
+  const getPotentialPrize = useGame(state => state.getPotentialPrize);
   const start = useGame(state => state.start);
   const restart = useGame(state => state.restart);
   const stopBlock = useGame(state => state.stopBlock);
   const isMuted = useAudio(state => state.isMuted);
   const toggleMute = useAudio(state => state.toggleMute);
+  
+  const potentialPrize = getPotentialPrize();
   
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showNameEntry, setShowNameEntry] = useState(false);
@@ -179,49 +183,102 @@ export function GameUI() {
         pointerEvents: 'auto'
       }}>
         {phase === 'ready' && (
-          <button
-            onClick={start}
-            style={{
-              padding: '20px 60px',
-              fontSize: '24px',
-              fontWeight: 'bold',
-              backgroundColor: '#d64545',
-              color: 'white',
-              border: 'none',
-              borderRadius: '15px',
-              cursor: 'pointer',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
-              textTransform: 'uppercase',
-              fontFamily: "'Courier New', monospace"
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ff5555'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d64545'}
-          >
-            START
-          </button>
+          <>
+            <StakeSelector />
+            <button
+              onClick={start}
+              disabled={stake > credits}
+              style={{
+                padding: '20px 60px',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                backgroundColor: stake > credits ? '#999' : '#d64545',
+                color: 'white',
+                border: 'none',
+                borderRadius: '15px',
+                cursor: stake > credits ? 'not-allowed' : 'pointer',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                textTransform: 'uppercase',
+                fontFamily: "'Courier New', monospace",
+                opacity: stake > credits ? 0.5 : 1
+              }}
+              onMouseEnter={(e) => {
+                if (stake <= credits) {
+                  e.currentTarget.style.backgroundColor = '#ff5555';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (stake <= credits) {
+                  e.currentTarget.style.backgroundColor = '#d64545';
+                }
+              }}
+            >
+              {stake > credits ? 'INSUFFICIENT CREDITS' : 'START'}
+            </button>
+          </>
         )}
         
         {phase === 'playing' && (
-          <button
-            onClick={stopBlock}
-            style={{
-              padding: '20px 60px',
-              fontSize: '24px',
-              fontWeight: 'bold',
-              backgroundColor: '#d64545',
-              color: 'white',
-              border: 'none',
+          <>
+            <div style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+              border: '4px solid #333',
               borderRadius: '15px',
-              cursor: 'pointer',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
-              textTransform: 'uppercase',
-              fontFamily: "'Courier New', monospace"
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ff5555'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d64545'}
-          >
-            STOP BLOCKS
-          </button>
+              padding: '20px 30px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+              fontFamily: "'Courier New', monospace",
+              textAlign: 'center'
+            }}>
+              <div style={{
+                fontSize: '14px',
+                fontWeight: 'bold',
+                color: '#666',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '2px'
+              }}>
+                Potential Prize
+              </div>
+              <div style={{
+                fontSize: '36px',
+                fontWeight: 'bold',
+                color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800',
+                textShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              }}>
+                {potentialPrize.type === 'cash' 
+                  ? `$${potentialPrize.amount.toFixed(2)}`
+                  : `${potentialPrize.amount.toLocaleString()}P`
+                }
+              </div>
+              <div style={{
+                fontSize: '12px',
+                color: '#999',
+                marginTop: '5px'
+              }}>
+                Height: Row {highestRow}
+              </div>
+            </div>
+            <button
+              onClick={stopBlock}
+              style={{
+                padding: '20px 60px',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                backgroundColor: '#d64545',
+                color: 'white',
+                border: 'none',
+                borderRadius: '15px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                textTransform: 'uppercase',
+                fontFamily: "'Courier New', monospace"
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ff5555'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d64545'}
+            >
+              STOP BLOCKS
+            </button>
+          </>
         )}
         
         {phase === 'ended' && !showNameEntry && (
@@ -236,9 +293,36 @@ export function GameUI() {
             boxShadow: '0 4px 16px rgba(0,0,0,0.3)'
           }}>
             <h2 style={{ margin: 0, fontSize: '32px', color: '#333' }}>Game Over!</h2>
-            <p style={{ margin: 0, fontSize: '24px', color: '#666' }}>
-              Final Score: <span style={{ color: '#d64545', fontWeight: 'bold' }}>{score}</span>
-            </p>
+            <div style={{ 
+              textAlign: 'center',
+              padding: '15px',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '10px',
+              minWidth: '250px'
+            }}>
+              <div style={{ fontSize: '16px', color: '#666', marginBottom: '5px' }}>
+                Final Score
+              </div>
+              <div style={{ fontSize: '32px', color: '#d64545', fontWeight: 'bold', marginBottom: '15px' }}>
+                {score}
+              </div>
+              <div style={{ fontSize: '16px', color: '#666', marginBottom: '5px' }}>
+                Prize Won
+              </div>
+              <div style={{ 
+                fontSize: '36px', 
+                fontWeight: 'bold',
+                color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800'
+              }}>
+                {potentialPrize.type === 'cash' 
+                  ? `$${potentialPrize.amount.toFixed(2)}`
+                  : `${potentialPrize.amount.toLocaleString()}P`
+                }
+              </div>
+              <div style={{ fontSize: '14px', color: '#999', marginTop: '5px' }}>
+                Reached Row {highestRow}
+              </div>
+            </div>
             <div style={{ display: 'flex', gap: '15px' }}>
               <button
                 onClick={handleGameEnd}

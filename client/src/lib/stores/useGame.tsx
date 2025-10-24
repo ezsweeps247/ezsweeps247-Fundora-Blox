@@ -19,6 +19,7 @@ interface GameState {
   credits: number;
   bonusPoints: number;
   stake: number;
+  availableStakes: number[];
   highestRow: number;
   blocksStacked: number;
   comboMultiplier: number;
@@ -26,6 +27,9 @@ interface GameState {
   perfectAlignments: number;
   lastPlacedBlock: { row: number; columns: number[]; isPerfect: boolean } | null;
   
+  setStake: (stake: number) => void;
+  getPotentialPrize: () => { amount: number; type: 'cash' | 'points' };
+  calculatePrizeMultiplier: (row: number) => { multiplier: number; type: 'cash' | 'points' };
   start: () => void;
   restart: () => void;
   end: () => void;
@@ -50,6 +54,7 @@ export const useGame = create<GameState>()(
     credits: 100,
     bonusPoints: 0,
     stake: 1,
+    availableStakes: [0.5, 1, 2, 5, 10],
     highestRow: 0,
     blocksStacked: 0,
     comboMultiplier: 1,
@@ -57,10 +62,49 @@ export const useGame = create<GameState>()(
     perfectAlignments: 0,
     lastPlacedBlock: null,
     
+    setStake: (stake: number) => {
+      const state = get();
+      if (state.phase === "ready" && stake <= state.credits) {
+        console.log(`Stake set to: $${stake}`);
+        set({ stake });
+      }
+    },
+    
+    calculatePrizeMultiplier: (row: number) => {
+      if (row >= 15) return { multiplier: 100, type: 'cash' as const };
+      if (row >= 12) return { multiplier: 10, type: 'cash' as const };
+      if (row >= 9) return { multiplier: 5, type: 'cash' as const };
+      if (row >= 6) return { multiplier: 2, type: 'cash' as const };
+      if (row >= 3) return { multiplier: 1, type: 'cash' as const };
+      if (row === 2) return { multiplier: 1000, type: 'points' as const };
+      if (row === 1) return { multiplier: 500, type: 'points' as const };
+      return { multiplier: 250, type: 'points' as const };
+    },
+    
+    getPotentialPrize: () => {
+      const state = get();
+      const prizeInfo = state.calculatePrizeMultiplier(state.highestRow);
+      
+      if (prizeInfo.type === 'cash') {
+        return { amount: state.stake * prizeInfo.multiplier, type: 'cash' as const };
+      } else {
+        return { amount: prizeInfo.multiplier, type: 'points' as const };
+      }
+    },
+    
     start: () => {
-      console.log("Game started!");
+      const state = get();
+      
+      if (state.stake > state.credits) {
+        console.log("Insufficient credits!");
+        return;
+      }
+      
+      console.log(`Game started! Stake: $${state.stake}, Credits after deduction: $${state.credits - state.stake}`);
+      
       set({
         phase: "playing",
+        credits: state.credits - state.stake,
         blocks: [{
           row: 0,
           columns: Array(GRID_WIDTH).fill(true)
@@ -105,8 +149,21 @@ export const useGame = create<GameState>()(
     },
     
     end: () => {
-      console.log("Game ended!");
-      set({ phase: "ended" });
+      const state = get();
+      const prizeInfo = state.getPotentialPrize();
+      
+      let newCredits = state.credits;
+      if (prizeInfo.type === 'cash') {
+        newCredits = state.credits + prizeInfo.amount;
+        console.log(`Game ended! Prize won: $${prizeInfo.amount.toFixed(2)}, Total credits: $${newCredits.toFixed(2)}`);
+      } else {
+        console.log(`Game ended! Points won: ${prizeInfo.amount}P, Credits: $${state.credits.toFixed(2)}`);
+      }
+      
+      set({ 
+        phase: "ended",
+        credits: newCredits
+      });
     },
     
     spawnNewBlock: () => {
@@ -195,9 +252,9 @@ export const useGame = create<GameState>()(
       if (!hasOverlap) {
         console.log("Game Over - No overlap with previous block!");
         set({
-          currentBlock: null,
-          phase: "ended"
+          currentBlock: null
         });
+        get().end();
         return;
       }
       
