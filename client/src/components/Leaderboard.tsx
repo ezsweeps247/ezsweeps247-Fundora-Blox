@@ -30,6 +30,7 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 1000,
+      pointerEvents: 'auto',
     }}>
       <div style={{
         backgroundColor: 'white',
