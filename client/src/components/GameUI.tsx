@@ -650,9 +650,9 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       flexDirection: 'column'
     }}>
       <div style={{
-        fontSize: '9px',
-        fontWeight: 'bold',
-        color: '#666',
+        fontSize: '10px',
+        fontWeight: '900',
+        color: '#333',
         marginBottom: '3px'
       }}>
         {label}
