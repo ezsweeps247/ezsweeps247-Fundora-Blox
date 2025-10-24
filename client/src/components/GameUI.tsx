@@ -617,7 +617,7 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
     <div style={{
       backgroundColor: 'white',
       border: '2px solid #333',
-      borderRadius: '6px',
+      borderRadius: '12px',
       padding: '6px 10px',
       minWidth: '140px',
       boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
@@ -636,7 +636,7 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         color: '#ff0000',
         backgroundColor: '#000',
         padding: '4px 8px',
-        borderRadius: '3px',
+        borderRadius: '8px',
         fontFamily: "'Roboto', sans-serif",
         letterSpacing: '1px'
       }}>
