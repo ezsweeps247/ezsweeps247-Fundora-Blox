@@ -105,7 +105,8 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
         ctx.globalAlpha = 0.4;
       }
       
-      ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+      ctx.fill();
       ctx.globalAlpha = 1.0;
     }
   }
