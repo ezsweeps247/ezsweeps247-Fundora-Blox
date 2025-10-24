@@ -321,7 +321,7 @@ export function GameUI() {
                 fontWeight: 'bold',
                 background: (stake !== 'FREE' && stake > credits) 
                   ? 'linear-gradient(to top, #999 0%, #666 100%)' 
-                  : 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
+                  : 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
                 border: '3px solid #660000',
                 borderRadius: '25px',
@@ -335,14 +335,14 @@ export function GameUI() {
               }}
               onMouseEnter={(e) => {
                 if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.background = 'linear-gradient(to top, #ff6666 0%, #bb0000 100%)';
+                  e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                   e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.background = 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)';
+                  e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
                 }
@@ -372,7 +372,7 @@ export function GameUI() {
                 minHeight: '45px',
                 fontSize: '20px',
                 fontWeight: 'bold',
-                background: 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
+                background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
                 border: '3px solid #660000',
                 borderRadius: '25px',
@@ -385,12 +385,12 @@ export function GameUI() {
                 transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to top, #ff6666 0%, #bb0000 100%)';
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
                 e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)';
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
               }}
