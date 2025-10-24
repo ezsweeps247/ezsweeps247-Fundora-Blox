@@ -18,8 +18,9 @@ export function StakeSelector() {
   return (
     <div style={{
       display: 'flex',
-      gap: '4px',
-      fontFamily: "'Roboto', sans-serif"
+      gap: '10px',
+      fontFamily: "'Roboto', sans-serif",
+      justifyContent: 'center'
     }}>
       <button
         {...handleTouchButton(() => cycleStake('down'))}
