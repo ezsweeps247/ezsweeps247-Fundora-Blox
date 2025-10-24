@@ -183,30 +183,6 @@ export function GameUI() {
       pointerEvents: 'none',
       fontFamily: "'Roboto', sans-serif"
     }}>
-      <button
-        {...handleTouchButton(() => setShowLeaderboard(true))}
-        style={{
-          position: 'absolute',
-          top: '20px',
-          left: '20px',
-          padding: '10px',
-          minWidth: '45px',
-          minHeight: '45px',
-          backgroundColor: 'rgba(255, 215, 0, 0.9)',
-          border: '2px solid #DAA520',
-          borderRadius: '8px',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          pointerEvents: 'auto'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
-        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
-      >
-        <Trophy size={22} color="#8B4513" />
-      </button>
-      
       <div style={{
         position: 'absolute',
         top: 'calc(50% - 329px)',
@@ -223,7 +199,7 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 289px + 40px)',
-        left: 'calc(50% - 170px)',
+        right: 'calc(50% + 170px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
