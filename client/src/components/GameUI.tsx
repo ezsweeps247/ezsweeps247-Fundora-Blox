@@ -219,38 +219,62 @@ export function GameUI() {
         bottom: 'calc(50% - 289px + 40px)',
         left: 'calc(50% + 170px)',
         pointerEvents: 'auto',
-        zIndex: 50
+        zIndex: 50,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px'
       }}>
         <button
           {...handleTouchButton(toggleMute)}
           style={{
-            width: '70px',
-            height: '70px',
-            backgroundColor: 'rgba(200, 200, 200, 0.9)',
-            border: '4px solid #333',
-            borderRadius: '12px',
+            width: '60px',
+            height: '90px',
+            background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
+            border: 'none',
+            borderRadius: '20px',
             cursor: 'pointer',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(220, 220, 220, 0.95)';
-            e.currentTarget.style.transform = 'scale(1.05)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(200, 200, 200, 0.9)';
-            e.currentTarget.style.transform = 'scale(1)';
+            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
+            transition: 'all 0.2s',
+            position: 'relative',
+            padding: '8px'
           }}
         >
-          {isMuted ? (
-            <VolumeX size={30} color="#333" strokeWidth={2.5} />
-          ) : (
-            <Volume2 size={30} color="#333" strokeWidth={2.5} />
-          )}
+          <div style={{
+            width: '44px',
+            height: '56px',
+            background: isMuted 
+              ? 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)'
+              : 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
+            borderRadius: '16px',
+            boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            transform: isMuted ? 'translateY(8px)' : 'translateY(-8px)',
+            transition: 'transform 0.2s'
+          }}>
+            {isMuted ? (
+              <VolumeX size={24} color="#666" strokeWidth={2} />
+            ) : (
+              <Volume2 size={24} color="#666" strokeWidth={2} />
+            )}
+          </div>
         </button>
+        <div style={{
+          fontSize: '9px',
+          fontWeight: 'bold',
+          color: '#666',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          textAlign: 'center',
+          fontFamily: "'Roboto', sans-serif"
+        }}>
+          SOUND ON/OFF
+        </div>
       </div>
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
