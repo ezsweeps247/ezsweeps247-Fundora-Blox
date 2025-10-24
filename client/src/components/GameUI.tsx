@@ -217,58 +217,40 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 289px + 40px)',
-        right: '40px',
+        left: 'calc(50% + 170px)',
         pointerEvents: 'auto',
         zIndex: 50
       }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          <button
-            {...handleTouchButton(toggleMute)}
-            style={{
-              width: '70px',
-              height: '70px',
-              backgroundColor: 'rgba(200, 200, 200, 0.9)',
-              border: '4px solid #333',
-              borderRadius: '12px',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-              transition: 'all 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(220, 220, 220, 0.95)';
-              e.currentTarget.style.transform = 'scale(1.05)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(200, 200, 200, 0.9)';
-              e.currentTarget.style.transform = 'scale(1)';
-            }}
-          >
-            {isMuted ? (
-              <VolumeX size={30} color="#333" strokeWidth={2.5} />
-            ) : (
-              <Volume2 size={30} color="#333" strokeWidth={2.5} />
-            )}
-          </button>
-          <div style={{
-            fontSize: '10px',
-            fontWeight: 'bold',
-            color: '#333',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            textAlign: 'center',
-            fontFamily: "'Roboto', sans-serif"
-          }}>
-            SOUND ON/OFF
-          </div>
-        </div>
+        <button
+          {...handleTouchButton(toggleMute)}
+          style={{
+            width: '70px',
+            height: '70px',
+            backgroundColor: 'rgba(200, 200, 200, 0.9)',
+            border: '4px solid #333',
+            borderRadius: '12px',
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            transition: 'all 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(220, 220, 220, 0.95)';
+            e.currentTarget.style.transform = 'scale(1.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(200, 200, 200, 0.9)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          {isMuted ? (
+            <VolumeX size={30} color="#333" strokeWidth={2.5} />
+          ) : (
+            <Volume2 size={30} color="#333" strokeWidth={2.5} />
+          )}
+        </button>
       </div>
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
