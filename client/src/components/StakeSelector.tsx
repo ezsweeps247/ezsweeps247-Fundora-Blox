@@ -5,6 +5,16 @@ export function StakeSelector() {
   const stake = useGame(state => state.stake);
   const availableStakes = useGame(state => state.availableStakes);
   const setStake = useGame(state => state.setStake);
+
+  const handleTouchButton = (callback: () => void) => {
+    return {
+      onClick: callback,
+      onTouchStart: (e: React.TouchEvent) => {
+        e.preventDefault();
+        callback();
+      }
+    };
+  };
   
   return (
     <div style={{
@@ -14,7 +24,8 @@ export function StakeSelector() {
       padding: '25px',
       boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
       fontFamily: "'Courier New', monospace",
-      minWidth: '350px'
+      minWidth: '350px',
+      maxWidth: '90vw'
     }}>
       <h3 style={{
         margin: '0 0 15px 0',
@@ -64,10 +75,11 @@ export function StakeSelector() {
           return (
             <button
               key={stakeOption}
-              onClick={() => !isDisabled && setStake(stakeOption)}
+              {...(!isDisabled ? handleTouchButton(() => setStake(stakeOption)) : { onClick: undefined, onTouchStart: undefined })}
               disabled={isDisabled}
               style={{
                 padding: '15px 10px',
+                minHeight: '60px',
                 fontSize: '18px',
                 fontWeight: 'bold',
                 backgroundColor: isSelected ? '#d64545' : (isDisabled ? '#ccc' : '#fff'),

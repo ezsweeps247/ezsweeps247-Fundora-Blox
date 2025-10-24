@@ -8,6 +8,16 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
     refetchInterval: 5000,
   });
 
+  const handleTouchButton = (callback: () => void) => {
+    return {
+      onClick: callback,
+      onTouchStart: (e: React.TouchEvent) => {
+        e.preventDefault();
+        callback();
+      }
+    };
+  };
+
   return (
     <div style={{
       position: 'fixed',
@@ -49,9 +59,11 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
             Leaderboard
           </h2>
           <button
-            onClick={onClose}
+            {...handleTouchButton(onClose)}
             style={{
               padding: '10px 20px',
+              minHeight: '60px',
+              minWidth: '80px',
               fontSize: '18px',
               fontWeight: 'bold',
               backgroundColor: '#d64545',
@@ -112,8 +124,8 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
                 key={score.id}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '50px 1fr 120px 120px',
-                  gap: '15px',
+                  gridTemplateColumns: window.innerWidth <= 480 ? '40px 1fr' : '50px 1fr 120px 120px',
+                  gap: window.innerWidth <= 480 ? '10px' : '15px',
                   alignItems: 'center',
                   padding: '15px',
                   backgroundColor: index < 3 ? '#fff9e6' : '#f9f9f9',
@@ -129,7 +141,11 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
                 }}>
                   #{index + 1}
                 </div>
-                <div style={{
+                <div style={window.innerWidth <= 480 ? {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '5px'
+                } : {
                   fontSize: '18px',
                   fontWeight: 'bold',
                   color: '#333',
@@ -137,52 +153,71 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap'
                 }}>
-                  {score.playerName}
-                </div>
-                <div style={{
-                  textAlign: 'center'
-                }}>
                   <div style={{
-                    fontSize: '11px',
-                    color: '#666',
-                    marginBottom: '3px'
-                  }}>
-                    SCORE
-                  </div>
-                  <div style={{
-                    fontSize: '20px',
+                    fontSize: window.innerWidth <= 480 ? '16px' : '18px',
                     fontWeight: 'bold',
-                    color: '#ff0000',
-                    backgroundColor: '#000',
-                    padding: '3px 8px',
-                    borderRadius: '4px',
-                    letterSpacing: '1px'
+                    color: '#333',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
                   }}>
-                    {score.score}
+                    {score.playerName}
                   </div>
+                  {window.innerWidth <= 480 && (
+                    <div style={{ display: 'flex', gap: '10px', fontSize: '14px' }}>
+                      <span style={{ color: '#666' }}>Score: <strong style={{ color: '#d64545' }}>{score.score}</strong></span>
+                      <span style={{ color: '#666' }}>Blocks: <strong style={{ color: '#d64545' }}>{score.blocksStacked}</strong></span>
+                    </div>
+                  )}
                 </div>
-                <div style={{
-                  textAlign: 'center'
-                }}>
-                  <div style={{
-                    fontSize: '11px',
-                    color: '#666',
-                    marginBottom: '3px'
-                  }}>
-                    BLOCKS
-                  </div>
-                  <div style={{
-                    fontSize: '20px',
-                    fontWeight: 'bold',
-                    color: '#ff0000',
-                    backgroundColor: '#000',
-                    padding: '3px 8px',
-                    borderRadius: '4px',
-                    letterSpacing: '1px'
-                  }}>
-                    {score.blocksStacked}
-                  </div>
-                </div>
+                {window.innerWidth > 480 && (
+                  <>
+                    <div style={{
+                      textAlign: 'center'
+                    }}>
+                      <div style={{
+                        fontSize: '11px',
+                        color: '#666',
+                        marginBottom: '3px'
+                      }}>
+                        SCORE
+                      </div>
+                      <div style={{
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        color: '#ff0000',
+                        backgroundColor: '#000',
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        letterSpacing: '1px'
+                      }}>
+                        {score.score}
+                      </div>
+                    </div>
+                    <div style={{
+                      textAlign: 'center'
+                    }}>
+                      <div style={{
+                        fontSize: '11px',
+                        color: '#666',
+                        marginBottom: '3px'
+                      }}>
+                        BLOCKS
+                      </div>
+                      <div style={{
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        color: '#ff0000',
+                        backgroundColor: '#000',
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        letterSpacing: '1px'
+                      }}>
+                        {score.blocksStacked}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>

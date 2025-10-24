@@ -117,6 +117,18 @@ export function GameUI() {
   const [isSaving, setIsSaving] = useState(false);
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.code === 'Space' && phase === 'playing') {
+        e.preventDefault();
+        stopBlock();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [phase, stopBlock]);
+
   const handleGameEnd = () => {
     setShowNameEntry(true);
   };
@@ -151,8 +163,18 @@ export function GameUI() {
     setPlayerName('');
   };
   
+  const handleTouchButton = (callback: () => void) => {
+    return {
+      onClick: callback,
+      onTouchStart: (e: React.TouchEvent) => {
+        e.preventDefault();
+        callback();
+      }
+    };
+  };
+
   return (
-    <div style={{
+    <div className="game-ui" style={{
       position: 'fixed',
       top: 0,
       left: 0,
@@ -171,7 +193,7 @@ export function GameUI() {
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
-      <div style={{
+      <div className="game-controls" style={{
         position: 'absolute',
         bottom: '100px',
         left: '50%',
@@ -186,10 +208,11 @@ export function GameUI() {
           <>
             <StakeSelector />
             <button
-              onClick={start}
+              {...handleTouchButton(start)}
               disabled={stake > credits}
               style={{
                 padding: '20px 60px',
+                minHeight: '60px',
                 fontSize: '24px',
                 fontWeight: 'bold',
                 backgroundColor: stake > credits ? '#999' : '#d64545',
@@ -259,10 +282,11 @@ export function GameUI() {
               </div>
             </div>
             <button
-              onClick={stopBlock}
+              {...handleTouchButton(stopBlock)}
               style={{
                 padding: '20px 60px',
-                fontSize: '24px',
+                minHeight: '70px',
+                fontSize: '28px',
                 fontWeight: 'bold',
                 backgroundColor: '#d64545',
                 color: 'white',
@@ -278,6 +302,16 @@ export function GameUI() {
             >
               STOP BLOCKS
             </button>
+            <div style={{
+              fontSize: '14px',
+              color: 'rgba(255, 255, 255, 0.8)',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              fontFamily: "'Courier New', monospace"
+            }}>
+              Press SPACEBAR or tap button
+            </div>
           </>
         )}
         
@@ -325,9 +359,10 @@ export function GameUI() {
             </div>
             <div style={{ display: 'flex', gap: '15px' }}>
               <button
-                onClick={handleGameEnd}
+                {...handleTouchButton(handleGameEnd)}
                 style={{
                   padding: '15px 40px',
+                  minHeight: '60px',
                   fontSize: '20px',
                   fontWeight: 'bold',
                   backgroundColor: '#4CAF50',
@@ -343,9 +378,10 @@ export function GameUI() {
                 Save Score
               </button>
               <button
-                onClick={restart}
+                {...handleTouchButton(restart)}
                 style={{
                   padding: '15px 40px',
+                  minHeight: '60px',
                   fontSize: '20px',
                   fontWeight: 'bold',
                   backgroundColor: '#d64545',
@@ -374,9 +410,11 @@ export function GameUI() {
         pointerEvents: 'auto'
       }}>
         <button
-          onClick={() => setShowLeaderboard(true)}
+          {...handleTouchButton(() => setShowLeaderboard(true))}
           style={{
             padding: '15px',
+            minWidth: '60px',
+            minHeight: '60px',
             backgroundColor: 'rgba(255, 215, 0, 0.9)',
             border: '2px solid #DAA520',
             borderRadius: '10px',
@@ -388,12 +426,14 @@ export function GameUI() {
           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
         >
-          <Trophy size={24} color="#8B4513" />
+          <Trophy size={28} color="#8B4513" />
         </button>
         <button
-          onClick={toggleMute}
+          {...handleTouchButton(toggleMute)}
           style={{
             padding: '15px',
+            minWidth: '60px',
+            minHeight: '60px',
             backgroundColor: 'rgba(255, 255, 255, 0.9)',
             border: '2px solid #ccc',
             borderRadius: '10px',
@@ -403,7 +443,7 @@ export function GameUI() {
             justifyContent: 'center',
           }}
         >
-          {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+          {isMuted ? <VolumeX size={28} /> : <Volume2 size={28} />}
         </button>
       </div>
 
@@ -496,10 +536,11 @@ export function GameUI() {
               justifyContent: 'center'
             }}>
               <button
-                onClick={handleSaveScore}
+                {...handleTouchButton(handleSaveScore)}
                 disabled={!playerName.trim() || isSaving}
                 style={{
                   padding: '15px 30px',
+                  minHeight: '60px',
                   fontSize: '18px',
                   fontWeight: 'bold',
                   backgroundColor: playerName.trim() && !isSaving ? '#4CAF50' : '#ccc',
@@ -514,10 +555,11 @@ export function GameUI() {
                 {isSaving ? 'Saving...' : 'Save'}
               </button>
               <button
-                onClick={handleSkipSave}
+                {...handleTouchButton(handleSkipSave)}
                 disabled={isSaving}
                 style={{
                   padding: '15px 30px',
+                  minHeight: '60px',
                   fontSize: '18px',
                   fontWeight: 'bold',
                   backgroundColor: '#999',
@@ -541,7 +583,7 @@ export function GameUI() {
 
 function ScoreDisplays({ credits, bonusPoints, stake }: { credits: number; bonusPoints: number; stake: number }) {
   return (
-    <div style={{
+    <div className="score-displays" style={{
       position: 'absolute',
       top: '40px',
       left: '40px',
@@ -603,7 +645,7 @@ function PrizeMultipliers() {
   ];
   
   return (
-    <div style={{
+    <div className="prize-multipliers" style={{
       position: 'absolute',
       top: '40px',
       right: '40px',
