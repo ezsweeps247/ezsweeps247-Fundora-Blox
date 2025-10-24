@@ -215,43 +215,43 @@ export function GameUI() {
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
-      <div className="game-footer" style={{
+      <div style={{
+        position: 'absolute',
+        bottom: '50px',
+        right: 'calc(50% + 170px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
+        <StakeSelector />
+        <div style={{
+          fontSize: '9px',
+          fontWeight: 'bold',
+          color: '#666',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          textAlign: 'center',
+          fontFamily: "'Roboto', sans-serif"
+        }}>
+          CHOOSE STAKE
+        </div>
+      </div>
+      
+      <div className="game-controls" style={{
         position: 'absolute',
         bottom: '50px',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
-        alignItems: 'flex-end',
-        gap: '40px',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
         pointerEvents: 'auto',
         zIndex: 50
       }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          <StakeSelector />
-          <div style={{
-            fontSize: '9px',
-            fontWeight: 'bold',
-            color: '#666',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            textAlign: 'center',
-            fontFamily: "'Roboto', sans-serif"
-          }}>
-            CHOOSE STAKE
-          </div>
-        </div>
-        
-        <div className="game-controls" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
         {phase === 'ready' && (
           <>
             <button
@@ -449,64 +449,68 @@ export function GameUI() {
             </div>
           </div>
         )}
-        </div>
-        
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          <button
-            {...handleTouchButton(toggleMute)}
-            style={{
-              width: '45px',
-              height: '70px',
-              background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
-              border: 'none',
-              borderRadius: '16px',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
-              transition: 'all 0.2s',
-              position: 'relative',
-              padding: '6px'
-            }}
-          >
-            <div style={{
-              width: '33px',
-              height: '42px',
-              background: isMuted 
-                ? 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)'
-                : 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
-              borderRadius: '12px',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              transform: isMuted ? 'translateY(6px)' : 'translateY(-6px)',
-              transition: 'transform 0.2s'
-            }}>
-              {isMuted ? (
-                <VolumeX size={18} color="#666" strokeWidth={2} />
-              ) : (
-                <Volume2 size={18} color="#666" strokeWidth={2} />
-              )}
-            </div>
-          </button>
+      </div>
+      
+      <div style={{
+        position: 'absolute',
+        bottom: '50px',
+        left: 'calc(50% + 170px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
+        <button
+          {...handleTouchButton(toggleMute)}
+          style={{
+            width: '45px',
+            height: '70px',
+            background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
+            border: 'none',
+            borderRadius: '16px',
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
+            transition: 'all 0.2s',
+            position: 'relative',
+            padding: '6px'
+          }}
+        >
           <div style={{
-            fontSize: '9px',
-            fontWeight: 'bold',
-            color: '#666',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            textAlign: 'center',
-            fontFamily: "'Roboto', sans-serif"
+            width: '33px',
+            height: '42px',
+            background: isMuted 
+              ? 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)'
+              : 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
+            borderRadius: '12px',
+            boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            transform: isMuted ? 'translateY(6px)' : 'translateY(-6px)',
+            transition: 'transform 0.2s'
           }}>
-            SOUND ON/OFF
+            {isMuted ? (
+              <VolumeX size={18} color="#666" strokeWidth={2} />
+            ) : (
+              <Volume2 size={18} color="#666" strokeWidth={2} />
+            )}
           </div>
+        </button>
+        <div style={{
+          fontSize: '9px',
+          fontWeight: 'bold',
+          color: '#666',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          textAlign: 'center',
+          fontFamily: "'Roboto', sans-serif"
+        }}>
+          SOUND ON/OFF
         </div>
       </div>
 
