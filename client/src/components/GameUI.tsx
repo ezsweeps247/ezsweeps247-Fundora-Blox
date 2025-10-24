@@ -620,7 +620,8 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       borderRadius: '12px',
       padding: '6px 10px',
       minWidth: '140px',
-      boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+      boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+      position: 'relative'
     }}>
       <div style={{
         fontSize: '9px',
@@ -636,12 +637,26 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         color: '#ff0000',
         backgroundColor: '#000',
         padding: '4px 8px',
+        paddingRight: '30px',
         borderRadius: '8px',
         fontFamily: "'Roboto', sans-serif",
         letterSpacing: '1px'
       }}>
-        {value} <span style={{ fontSize: '14px' }}>{unit}</span>
+        {value}
       </div>
+      {unit && (
+        <div style={{
+          position: 'absolute',
+          right: '14px',
+          bottom: '10px',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#333',
+          fontFamily: "'Roboto', sans-serif"
+        }}>
+          {unit}
+        </div>
+      )}
     </div>
   );
 }
