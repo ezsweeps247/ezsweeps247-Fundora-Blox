@@ -97,7 +97,7 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
       const x = offsetX + col * (CELL_SIZE + CELL_SPACING);
       const y = offsetY + (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
       
-      if (row === 8 || row === 12) {
+      if (row === 9 || row === 13) {
         ctx.fillStyle = '#4a5560';
         ctx.globalAlpha = 0.7;
       } else {
