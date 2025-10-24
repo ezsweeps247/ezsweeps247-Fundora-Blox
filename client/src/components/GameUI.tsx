@@ -48,7 +48,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
           0 0 40px ${glowColor},
           2px 2px 4px rgba(0, 0, 0, 0.8)
         `,
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'Roboto', sans-serif",
         letterSpacing: '4px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
@@ -68,7 +68,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
         fontWeight: 'bold',
         color: '#ffffff',
         textShadow: '0 0 5px rgba(0, 0, 0, 0.8)',
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'Roboto', sans-serif",
         textAlign: 'center',
         marginTop: '10px',
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -181,7 +181,7 @@ export function GameUI() {
       width: '100%',
       height: '100%',
       pointerEvents: 'none',
-      fontFamily: "'Courier New', monospace"
+      fontFamily: "'Roboto', sans-serif"
     }}>
       <div style={{
         position: 'absolute',
@@ -289,7 +289,7 @@ export function GameUI() {
             textTransform: 'uppercase',
             letterSpacing: '0.5px',
             textAlign: 'center',
-            fontFamily: "'Courier New', monospace"
+            fontFamily: "'Roboto', sans-serif"
           }}>
             SOUND ON/OFF
           </div>
@@ -521,7 +521,7 @@ export function GameUI() {
             maxWidth: '500px',
             width: '90%',
             boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-            fontFamily: "'Courier New', monospace"
+            fontFamily: "'Roboto', sans-serif"
           }}>
             <h2 style={{
               margin: '0 0 20px 0',
@@ -573,7 +573,7 @@ export function GameUI() {
                 border: '2px solid #ccc',
                 borderRadius: '8px',
                 marginBottom: '20px',
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "'Roboto', sans-serif",
                 boxSizing: 'border-box'
               }}
             />
@@ -597,7 +597,7 @@ export function GameUI() {
                   borderRadius: '8px',
                   cursor: playerName.trim() && !isSaving ? 'pointer' : 'not-allowed',
                   textTransform: 'uppercase',
-                  fontFamily: "'Courier New', monospace"
+                  fontFamily: "'Roboto', sans-serif"
                 }}
               >
                 {isSaving ? 'Saving...' : 'Save'}
@@ -616,7 +616,7 @@ export function GameUI() {
                   borderRadius: '8px',
                   cursor: isSaving ? 'not-allowed' : 'pointer',
                   textTransform: 'uppercase',
-                  fontFamily: "'Courier New', monospace"
+                  fontFamily: "'Roboto', sans-serif"
                 }}
               >
                 Skip
@@ -654,7 +654,7 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         backgroundColor: '#000',
         padding: '4px 8px',
         borderRadius: '3px',
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'Roboto', sans-serif",
         letterSpacing: '1px'
       }}>
         {value} <span style={{ fontSize: '14px' }}>{unit}</span>

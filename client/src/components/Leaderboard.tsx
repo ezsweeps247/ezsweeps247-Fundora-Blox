@@ -42,7 +42,7 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
         maxHeight: '80vh',
         overflow: 'auto',
         boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-        fontFamily: "'Courier New', monospace"
+        fontFamily: "'Roboto', sans-serif"
       }}>
         <div style={{
           display: 'flex',
@@ -72,7 +72,7 @@ export function Leaderboard({ onClose }: { onClose: () => void }) {
               border: 'none',
               borderRadius: '8px',
               cursor: 'pointer',
-              fontFamily: "'Courier New', monospace"
+              fontFamily: "'Roboto', sans-serif"
             }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ff5555'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d64545'}

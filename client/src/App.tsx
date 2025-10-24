@@ -1,4 +1,4 @@
-import "@fontsource/inter";
+import "@fontsource/roboto";
 import { GameCanvas } from "./components/GameCanvas";
 import { GameUI } from "./components/GameUI";
 import { SoundManager } from "./components/SoundManager";

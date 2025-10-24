@@ -21,7 +21,7 @@ export function StakeSelector() {
       flexDirection: 'column',
       alignItems: 'center',
       gap: '8px',
-      fontFamily: "'Courier New', monospace"
+      fontFamily: "'Roboto', sans-serif"
     }}>
       <div style={{
         display: 'flex',
