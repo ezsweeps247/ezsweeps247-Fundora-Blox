@@ -663,14 +663,14 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         gap: '6px'
       }}>
         <div style={{
-          fontSize: '18px',
+          fontSize: '20px',
           fontWeight: 'normal',
           color: '#ff0000',
           backgroundColor: '#000',
           padding: '4px 8px',
           borderRadius: '8px',
-          fontFamily: "'Digital-7', 'Courier New', monospace",
-          letterSpacing: '2px',
+          fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
+          letterSpacing: '1px',
           flex: '1'
         }}>
           {value}
