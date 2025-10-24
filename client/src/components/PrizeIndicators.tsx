@@ -5,13 +5,13 @@ const CELL_SIZE = 38;
 const CELL_SPACING = 2;
 
 const PRIZE_TIERS = [
-  { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', bgColor: 'rgba(204, 0, 0, 0.2)' },
-  { minRow: 12, color: '#ff6600', multiplier: 10, type: 'cash', bgColor: 'rgba(255, 102, 0, 0.2)' },
-  { minRow: 11, color: '#ffcc00', multiplier: 5, type: 'cash', bgColor: 'rgba(255, 204, 0, 0.2)' },
-  { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', bgColor: 'rgba(0, 204, 102, 0.2)' },
-  { minRow: 9, color: '#0099cc', multiplier: 1, type: 'cash', bgColor: 'rgba(0, 153, 204, 0.2)' },
-  { minRow: 8, color: '#666666', multiplier: 1000, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
-  { minRow: 7, color: '#666666', multiplier: 500, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
+  { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', textColor: '#fff' },
+  { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
+  { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
+  { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', textColor: '#000' },
+  { minRow: 9, color: '#0099cc', multiplier: 1, type: 'cash', textColor: '#fff' },
+  { minRow: 8, color: '#333333', multiplier: 1000, type: 'points', textColor: '#fff' },
+  { minRow: 7, color: '#666666', multiplier: 500, type: 'points', textColor: '#fff' },
 ];
 
 function getPrizeTier(row: number) {
@@ -35,23 +35,21 @@ export function PrizeIndicators() {
   return (
     <div style={{
       position: 'absolute',
-      right: '-160px',
+      right: '-220px',
       top: '20px',
-      width: '140px',
-      fontFamily: "'Arial', sans-serif",
+      width: '200px',
+      fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
-      fontSize: '16px',
+      fontSize: '18px',
     }}>
       {displayedRows.map((row) => {
         const tier = getPrizeTier(row);
         const yPosition = (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
         
         let displayText = '';
-        let showArrow = false;
         
         if (isFreeMode) {
           displayText = `${tier.multiplier} P`;
-          showArrow = true;
         } else {
           if (tier.type === 'points') {
             displayText = `${tier.multiplier} P`;
@@ -77,26 +75,27 @@ export function PrizeIndicators() {
               transition: 'all 0.3s ease',
             }}
           >
-            {showArrow && (
-              <div style={{
-                width: 0,
-                height: 0,
-                borderTop: '10px solid transparent',
-                borderBottom: '10px solid transparent',
-                borderLeft: `12px solid ${tier.color}`,
-                opacity: isActive ? 1 : 0.5,
-              }} />
-            )}
             <div style={{
-              backgroundColor: !isFreeMode && tier.type === 'cash' ? tier.bgColor : 'transparent',
-              color: tier.color,
-              padding: '4px 8px',
-              borderRadius: '4px',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-              minWidth: '90px',
-              textAlign: 'left',
+              width: '12px',
+              height: '12px',
+              borderRadius: '50%',
+              backgroundColor: tier.color,
+              border: '2px solid #333',
               opacity: isActive ? 1 : 0.5,
-              border: !isFreeMode && tier.type === 'cash' ? `2px solid ${tier.color}` : 'none',
+            }} />
+            <div style={{
+              backgroundColor: tier.color,
+              color: tier.textColor,
+              padding: '6px 12px',
+              borderRadius: '6px',
+              textShadow: '2px 2px 3px rgba(0, 0, 0, 0.8)',
+              minWidth: '110px',
+              textAlign: 'center',
+              opacity: isActive ? 1 : 0.5,
+              border: '2px solid rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+              fontSize: '16px',
+              letterSpacing: '0.5px',
             }}>
               {displayText}
             </div>
