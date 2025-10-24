@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useGame } from '@/lib/stores/useGame';
+import { PrizeIndicators } from './PrizeIndicators';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 16;
@@ -69,17 +70,20 @@ export function GameCanvas() {
       transform: 'translate(-50%, -50%)',
       marginTop: '-40px'
     }}>
-      <canvas
-        ref={canvasRef}
-        width={GRID_WIDTH + 40}
-        height={GRID_HEIGHT + 40}
-        style={{
-          border: '4px solid #333',
-          borderRadius: '8px',
-          backgroundColor: '#ffffff',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
-        }}
-      />
+      <div style={{ position: 'relative' }}>
+        <canvas
+          ref={canvasRef}
+          width={GRID_WIDTH + 40}
+          height={GRID_HEIGHT + 40}
+          style={{
+            border: '4px solid #333',
+            borderRadius: '8px',
+            backgroundColor: '#ffffff',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
+          }}
+        />
+        <PrizeIndicators />
+      </div>
     </div>
   );
 }

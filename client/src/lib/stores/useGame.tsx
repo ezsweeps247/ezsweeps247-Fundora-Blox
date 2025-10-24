@@ -55,7 +55,7 @@ export const useGame = create<GameState>()(
     credits: 100,
     bonusPoints: 0,
     stake: 1,
-    availableStakes: ['FREE', 0.5, 1, 2, 5, 10],
+    availableStakes: ['FREE', 0.5, 1, 2, 5, 10, 20],
     highestRow: 0,
     blocksStacked: 0,
     comboMultiplier: 1,
