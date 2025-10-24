@@ -664,12 +664,12 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       }}>
         <div style={{
           fontSize: '18px',
-          fontWeight: 'bold',
+          fontWeight: 'normal',
           color: '#ff0000',
           backgroundColor: '#000',
           padding: '4px 8px',
           borderRadius: '8px',
-          fontFamily: "'Courier New', 'Consolas', monospace",
+          fontFamily: "'Digital-7', 'Courier New', monospace",
           letterSpacing: '2px',
           flex: '1'
         }}>
