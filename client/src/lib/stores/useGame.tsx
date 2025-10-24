@@ -21,6 +21,9 @@ interface GameState {
   stake: number;
   highestRow: number;
   blocksStacked: number;
+  comboMultiplier: number;
+  comboStreak: number;
+  perfectAlignments: number;
   
   start: () => void;
   restart: () => void;
@@ -48,6 +51,9 @@ export const useGame = create<GameState>()(
     stake: 1,
     highestRow: 0,
     blocksStacked: 0,
+    comboMultiplier: 1,
+    comboStreak: 0,
+    perfectAlignments: 0,
     
     start: () => {
       console.log("Game started!");
@@ -65,6 +71,9 @@ export const useGame = create<GameState>()(
         bonusPoints: 0,
         highestRow: 0,
         blocksStacked: 0,
+        comboMultiplier: 1,
+        comboStreak: 0,
+        perfectAlignments: 0,
       });
       
       setTimeout(() => {
@@ -85,6 +94,9 @@ export const useGame = create<GameState>()(
         bonusPoints: 0,
         highestRow: 0,
         blocksStacked: 0,
+        comboMultiplier: 1,
+        comboStreak: 0,
+        perfectAlignments: 0,
       });
     },
     
@@ -186,12 +198,38 @@ export const useGame = create<GameState>()(
       }
       
       const activeBlockCount = newColumns.filter(col => col).length;
-      const newScore = state.score + (activeBlockCount * 10);
+      const previousActiveCount = previousBlock.columns.filter(col => col).length;
+      
+      // Check for perfect alignment: all active columns from current block overlap
+      const isPerfect = activeBlockCount === previousActiveCount && activeBlockCount > 0;
+      
+      // Update combo streak and multiplier
+      let newComboStreak = state.comboStreak;
+      let newComboMultiplier = state.comboMultiplier;
+      let newPerfectAlignments = state.perfectAlignments;
+      
+      if (isPerfect) {
+        newComboStreak = state.comboStreak + 1;
+        newComboMultiplier = Math.min(1 + (newComboStreak * 0.5), 5);
+        newPerfectAlignments = state.perfectAlignments + 1;
+        console.log(`🎯 PERFECT ALIGNMENT! Combo streak: ${newComboStreak}, Multiplier: ${newComboMultiplier.toFixed(1)}x`);
+      } else {
+        if (state.comboStreak > 0) {
+          console.log(`❌ Combo broken! Previous streak: ${state.comboStreak}`);
+        }
+        newComboStreak = 0;
+        newComboMultiplier = 1;
+      }
+      
+      // Apply combo multiplier to score
+      const basePoints = activeBlockCount * 10;
+      const multipliedPoints = Math.round(basePoints * newComboMultiplier);
+      const newScore = state.score + multipliedPoints;
       const newBonusPoints = state.bonusPoints + (activeBlockCount * 50);
       const newHighestRow = Math.max(state.highestRow, state.currentBlock.row);
       const newBlocksStacked = state.blocksStacked + 1;
       
-      console.log(`Block placed! Active columns: ${activeBlockCount}, Score: ${newScore}`);
+      console.log(`Block placed! Active columns: ${activeBlockCount}, Base points: ${basePoints}, Multiplier: ${newComboMultiplier.toFixed(1)}x, Score: +${multipliedPoints} = ${newScore}`);
       
       const finalBlock: Block = {
         row: state.currentBlock.row,
@@ -204,7 +242,10 @@ export const useGame = create<GameState>()(
         score: newScore,
         bonusPoints: newBonusPoints,
         highestRow: newHighestRow,
-        blocksStacked: newBlocksStacked
+        blocksStacked: newBlocksStacked,
+        comboMultiplier: newComboMultiplier,
+        comboStreak: newComboStreak,
+        perfectAlignments: newPerfectAlignments
       });
       
       setTimeout(() => {

@@ -1,10 +1,95 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGame } from '@/lib/stores/useGame';
 import { useAudio } from '@/lib/stores/useAudio';
 import { Volume2, VolumeX, Trophy } from 'lucide-react';
 import { Leaderboard } from './Leaderboard';
 import { apiRequest } from '@/lib/queryClient';
 import { useQueryClient } from '@tanstack/react-query';
+
+function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultiplier: number; comboStreak: number; phase: string }) {
+  const [animate, setAnimate] = useState(false);
+  const [prevStreak, setPrevStreak] = useState(0);
+  
+  useEffect(() => {
+    if (comboStreak > prevStreak && comboStreak > 0) {
+      setAnimate(true);
+      const timer = setTimeout(() => setAnimate(false), 500);
+      return () => clearTimeout(timer);
+    }
+    setPrevStreak(comboStreak);
+  }, [comboStreak, prevStreak]);
+  
+  if (phase !== 'playing' || comboMultiplier <= 1) {
+    return null;
+  }
+  
+  const isHighCombo = comboMultiplier >= 3;
+  const color = isHighCombo ? '#ff3300' : '#ffaa00';
+  const glowColor = isHighCombo ? 'rgba(255, 51, 0, 0.8)' : 'rgba(255, 170, 0, 0.6)';
+  
+  return (
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      pointerEvents: 'none',
+      zIndex: 100
+    }}>
+      <div style={{
+        fontSize: '48px',
+        fontWeight: 'bold',
+        color: color,
+        textShadow: `
+          0 0 10px ${glowColor},
+          0 0 20px ${glowColor},
+          0 0 30px ${glowColor},
+          0 0 40px ${glowColor},
+          2px 2px 4px rgba(0, 0, 0, 0.8)
+        `,
+        fontFamily: "'Courier New', monospace",
+        letterSpacing: '4px',
+        textAlign: 'center',
+        animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        padding: '15px 30px',
+        borderRadius: '10px',
+        border: `3px solid ${color}`,
+        boxShadow: `
+          0 0 20px ${glowColor},
+          inset 0 0 20px rgba(0, 0, 0, 0.5)
+        `
+      }}>
+        COMBO x{comboMultiplier.toFixed(1)}!
+      </div>
+      <div style={{
+        fontSize: '20px',
+        fontWeight: 'bold',
+        color: '#ffffff',
+        textShadow: '0 0 5px rgba(0, 0, 0, 0.8)',
+        fontFamily: "'Courier New', monospace",
+        textAlign: 'center',
+        marginTop: '10px',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        padding: '5px 15px',
+        borderRadius: '5px'
+      }}>
+        {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
+      </div>
+      <style>{`
+        @keyframes comboPulse {
+          0% { transform: scale(0.8); opacity: 0; }
+          50% { transform: scale(1.2); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes comboFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 export function GameUI() {
   const phase = useGame(state => state.phase);
@@ -14,6 +99,8 @@ export function GameUI() {
   const stake = useGame(state => state.stake);
   const blocksStacked = useGame(state => state.blocksStacked);
   const highestRow = useGame(state => state.highestRow);
+  const comboMultiplier = useGame(state => state.comboMultiplier);
+  const comboStreak = useGame(state => state.comboStreak);
   const start = useGame(state => state.start);
   const restart = useGame(state => state.restart);
   const stopBlock = useGame(state => state.stopBlock);
@@ -77,6 +164,8 @@ export function GameUI() {
       />
       
       <PrizeMultipliers />
+      
+      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
       <div style={{
         position: 'absolute',
