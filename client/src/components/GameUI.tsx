@@ -242,7 +242,7 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: '40px',
+        bottom: 'calc(50% - 289px + 40px)',
         right: '40px',
         pointerEvents: 'auto',
         zIndex: 50
