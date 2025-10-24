@@ -1,12 +1,7 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
 import "@fontsource/inter";
-import { Background3D } from "./components/Background3D";
-import { GameGrid } from "./components/GameGrid";
-import { GameLoop } from "./components/GameLoop";
+import { GameCanvas } from "./components/GameCanvas";
 import { GameUI } from "./components/GameUI";
 import { SoundManager } from "./components/SoundManager";
-import { DemoMode } from "./components/DemoMode";
 
 function App() {
   return (
@@ -15,29 +10,9 @@ function App() {
       height: '100vh', 
       position: 'relative', 
       overflow: 'hidden',
-      backgroundColor: '#b8d4e8'
+      background: 'linear-gradient(to bottom, #b8d4e8 0%, #d4e8f8 100%)'
     }}>
-      <Canvas
-        shadows
-        camera={{
-          position: [0, 8, 18],
-          fov: 38,
-          near: 0.1,
-          far: 1000
-        }}
-        gl={{
-          antialias: true,
-          powerPreference: "high-performance"
-        }}
-      >
-        <Suspense fallback={null}>
-          <Background3D />
-          <GameGrid />
-          <GameLoop />
-          <DemoMode />
-        </Suspense>
-      </Canvas>
-      
+      <GameCanvas />
       <GameUI />
       <SoundManager />
     </div>
