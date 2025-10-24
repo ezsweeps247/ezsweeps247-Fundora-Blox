@@ -387,9 +387,17 @@ export const useGame = create<GameState>()(
         }
       });
       
-      setTimeout(() => {
-        get().spawnNewBlock();
-      }, 300);
+      // Check if we've reached row 13 (the 14th row) - game should end
+      if (newHighestRow >= 13) {
+        console.log("🎉 Game complete! Reached the top (row 13)!");
+        setTimeout(() => {
+          get().end();
+        }, 500);
+      } else {
+        setTimeout(() => {
+          get().spawnNewBlock();
+        }, 300);
+      }
     }
   }))
 );
