@@ -352,7 +352,7 @@ export function GameUI() {
         )}
       </div>
       
-      {phase === 'ended' && !showNameEntry && (
+      {phase === 'ended' && (
           <div style={{
             position: 'absolute',
             top: '80px',
@@ -412,44 +412,35 @@ export function GameUI() {
                 </div>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '8px', marginTop: '3px' }}>
-              <button
-                {...handleTouchButton(handleGameEnd)}
-                style={{
-                  padding: '6px 16px',
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                  backgroundColor: '#4CAF50',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  textTransform: 'uppercase'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#66BB6A'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#4CAF50'}
-              >
-                Save Score
-              </button>
-              <button
-                {...handleTouchButton(restart)}
-                style={{
-                  padding: '6px 16px',
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                  backgroundColor: '#d64545',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  textTransform: 'uppercase'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ff5555'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d64545'}
-              >
-                Play Again
-              </button>
-            </div>
+            <button
+              {...handleTouchButton(restart)}
+              style={{
+                padding: '8px 24px',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                marginTop: '3px',
+                background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '25px',
+                cursor: 'pointer',
+                textTransform: 'uppercase',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
+              }}
+            >
+              Play Again
+            </button>
           </div>
       )}
       
