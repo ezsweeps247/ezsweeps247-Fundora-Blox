@@ -296,7 +296,7 @@ export function GameUI() {
               {...handleTouchButton(start)}
               disabled={stake !== 'FREE' && stake > credits}
               style={{
-                padding: '8px 40px',
+                padding: '8px 60px',
                 minHeight: '45px',
                 fontSize: '20px',
                 fontWeight: 'bold',
@@ -348,7 +348,7 @@ export function GameUI() {
             <button
               {...handleTouchButton(stopBlock)}
               style={{
-                padding: '8px 40px',
+                padding: '8px 60px',
                 minHeight: '45px',
                 fontSize: '20px',
                 fontWeight: 'bold',
