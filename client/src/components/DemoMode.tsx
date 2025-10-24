@@ -55,7 +55,7 @@ export function DemoMode() {
   const currentTime = timeRef.current;
   
   return (
-    <group>
+    <group rotation={[-Math.PI / 12, 0, 0]}>
       {DEMO_SEQUENCE.map((block, index) => {
         const hasStarted = currentTime >= (block.stopTime - 1.5);
         const hasStopped = currentTime >= block.stopTime;

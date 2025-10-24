@@ -37,7 +37,10 @@ export function GameGrid() {
   }, [lastPlacedBlock]);
   
   return (
-    <group position={[-(GRID_WIDTH * (CELL_SIZE + GRID_SPACING)) / 2 + CELL_SIZE / 2, 0, 0]}>
+    <group 
+      position={[-(GRID_WIDTH * (CELL_SIZE + GRID_SPACING)) / 2 + CELL_SIZE / 2, 0, 0]}
+      rotation={[-Math.PI / 12, 0, 0]}
+    >
       <GridBackground />
       <PlacedBlocks blocks={blocks} />
       {currentBlock && (
