@@ -92,18 +92,15 @@ export function PrizeIndicators() {
               opacity: isActive ? 1 : 0.5,
             }} />
             <div style={{
-              backgroundColor: tier.color,
-              color: tier.textColor,
+              color: tier.color,
               padding: '6px 12px',
-              borderRadius: '6px',
               textShadow: '2px 2px 3px rgba(0, 0, 0, 0.8)',
               minWidth: '110px',
-              textAlign: 'center',
+              textAlign: 'left',
               opacity: isActive ? 1 : 0.5,
-              border: '2px solid rgba(0, 0, 0, 0.3)',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-              fontSize: '16px',
+              fontSize: '20px',
               letterSpacing: '0.5px',
+              fontWeight: 'bold',
             }}>
               {displayText}
             </div>
