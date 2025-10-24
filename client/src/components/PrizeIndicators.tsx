@@ -36,7 +36,7 @@ export function PrizeIndicators() {
   return (
     <div style={{
       position: 'absolute',
-      right: '-220px',
+      right: '-90px',
       top: '20px',
       width: '200px',
       fontFamily: "'Arial Black', sans-serif",
