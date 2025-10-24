@@ -209,14 +209,12 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
+        top: 'calc(50% - 329px)',
         right: 'calc(50% + 170px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
-        pointerEvents: 'auto',
-        marginTop: '-40px'
+        pointerEvents: 'auto'
       }}>
         <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
         <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
