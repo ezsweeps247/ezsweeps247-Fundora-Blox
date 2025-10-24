@@ -300,7 +300,7 @@ export function GameUI() {
       
       <div className="game-controls" style={{
         position: 'absolute',
-        bottom: '40px',
+        bottom: '100px',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
@@ -324,11 +324,11 @@ export function GameUI() {
                   : 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
                 color: 'white',
                 border: '3px solid #660000',
-                borderRadius: '12px',
+                borderRadius: '25px',
                 cursor: (stake !== 'FREE' && stake > credits) ? 'not-allowed' : 'pointer',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "'Roboto', sans-serif",
                 textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 position: 'relative',
                 transition: 'all 0.2s'
@@ -375,11 +375,11 @@ export function GameUI() {
                 background: 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
                 color: 'white',
                 border: '3px solid #660000',
-                borderRadius: '12px',
+                borderRadius: '25px',
                 cursor: 'pointer',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "'Roboto', sans-serif",
                 textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 position: 'relative',
                 transition: 'all 0.2s'
