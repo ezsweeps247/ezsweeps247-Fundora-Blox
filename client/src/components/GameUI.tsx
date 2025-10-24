@@ -413,58 +413,73 @@ export function GameUI() {
         
         {phase === 'ended' && !showNameEntry && (
           <div style={{
+            position: 'absolute',
+            top: 'calc(50% - 380px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '20px',
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            padding: '30px',
-            borderRadius: '15px',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3)'
+            gap: '12px',
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            padding: '20px 30px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+            border: '2px solid #333'
           }}>
-            <h2 style={{ margin: 0, fontSize: '32px', color: '#333' }}>Game Over!</h2>
             <div style={{ 
-              textAlign: 'center',
-              padding: '15px',
-              backgroundColor: '#f0f0f0',
-              borderRadius: '10px',
-              minWidth: '250px'
+              fontSize: '20px', 
+              fontWeight: 'bold',
+              color: '#333',
+              marginBottom: '5px'
             }}>
-              <div style={{ fontSize: '16px', color: '#666', marginBottom: '5px' }}>
-                Final Score
+              Game Over
+            </div>
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              alignItems: 'center'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '11px', color: '#666', marginBottom: '3px' }}>
+                  SCORE
+                </div>
+                <div style={{ fontSize: '24px', color: '#d64545', fontWeight: 'bold' }}>
+                  {score}
+                </div>
               </div>
-              <div style={{ fontSize: '32px', color: '#d64545', fontWeight: 'bold', marginBottom: '15px' }}>
-                {score}
-              </div>
-              <div style={{ fontSize: '16px', color: '#666', marginBottom: '5px' }}>
-                Prize Won
-              </div>
-              <div style={{ 
-                fontSize: '36px', 
-                fontWeight: 'bold',
-                color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800'
-              }}>
-                {potentialPrize.type === 'cash' 
-                  ? `$${potentialPrize.amount.toFixed(2)}`
-                  : `${potentialPrize.amount.toLocaleString()}P`
-                }
-              </div>
-              <div style={{ fontSize: '14px', color: '#999', marginTop: '5px' }}>
-                Reached Row {highestRow}
+              <div style={{
+                width: '1px',
+                height: '40px',
+                backgroundColor: '#ddd'
+              }} />
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '11px', color: '#666', marginBottom: '3px' }}>
+                  PRIZE
+                </div>
+                <div style={{ 
+                  fontSize: '24px', 
+                  fontWeight: 'bold',
+                  color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800'
+                }}>
+                  {potentialPrize.type === 'cash' 
+                    ? `$${potentialPrize.amount.toFixed(2)}`
+                    : `${potentialPrize.amount.toLocaleString()}P`
+                  }
+                </div>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '15px' }}>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
               <button
                 {...handleTouchButton(handleGameEnd)}
                 style={{
-                  padding: '15px 40px',
-                  minHeight: '60px',
-                  fontSize: '20px',
+                  padding: '8px 20px',
+                  fontSize: '14px',
                   fontWeight: 'bold',
                   backgroundColor: '#4CAF50',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '10px',
+                  borderRadius: '8px',
                   cursor: 'pointer',
                   textTransform: 'uppercase'
                 }}
@@ -476,14 +491,13 @@ export function GameUI() {
               <button
                 {...handleTouchButton(restart)}
                 style={{
-                  padding: '15px 40px',
-                  minHeight: '60px',
-                  fontSize: '20px',
+                  padding: '8px 20px',
+                  fontSize: '14px',
                   fontWeight: 'bold',
                   backgroundColor: '#d64545',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '10px',
+                  borderRadius: '8px',
                   cursor: 'pointer',
                   textTransform: 'uppercase'
                 }}
@@ -504,60 +518,50 @@ export function GameUI() {
 
       {showNameEntry && (
         <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          position: 'absolute',
+          top: 'calc(50% - 380px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
           zIndex: 1000,
           pointerEvents: 'auto'
         }}>
           <div style={{
             backgroundColor: 'white',
-            border: '4px solid #333',
-            borderRadius: '15px',
-            padding: '40px',
-            maxWidth: '500px',
-            width: '90%',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+            border: '2px solid #333',
+            borderRadius: '12px',
+            padding: '20px 30px',
+            minWidth: '300px',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
             fontFamily: "'Roboto', sans-serif"
           }}>
             <h2 style={{
-              margin: '0 0 20px 0',
-              fontSize: '28px',
-              color: '#d64545',
+              margin: '0 0 12px 0',
+              fontSize: '18px',
+              color: '#333',
               textAlign: 'center',
-              textTransform: 'uppercase'
+              fontWeight: 'bold'
             }}>
-              Save Your Score!
+              Save Score
             </h2>
             
             <div style={{
-              backgroundColor: '#f9f9f9',
-              border: '2px solid #ddd',
-              borderRadius: '8px',
-              padding: '20px',
-              marginBottom: '25px'
+              display: 'flex',
+              gap: '15px',
+              justifyContent: 'center',
+              marginBottom: '15px'
             }}>
-              <div style={{ marginBottom: '10px' }}>
-                <span style={{ color: '#666' }}>Score: </span>
-                <span style={{ 
-                  fontSize: '20px', 
-                  fontWeight: 'bold', 
-                  color: '#d64545' 
-                }}>{score}</span>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '10px', color: '#666', marginBottom: '2px' }}>SCORE</div>
+                <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#d64545' }}>{score}</div>
               </div>
-              <div>
-                <span style={{ color: '#666' }}>Blocks Stacked: </span>
-                <span style={{ 
-                  fontSize: '20px', 
-                  fontWeight: 'bold', 
-                  color: '#d64545' 
-                }}>{blocksStacked}</span>
+              <div style={{
+                width: '1px',
+                height: '30px',
+                backgroundColor: '#ddd'
+              }} />
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '10px', color: '#666', marginBottom: '2px' }}>BLOCKS</div>
+                <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#d64545' }}>{blocksStacked}</div>
               </div>
             </div>
 
@@ -571,11 +575,11 @@ export function GameUI() {
               autoFocus
               style={{
                 width: '100%',
-                padding: '15px',
-                fontSize: '18px',
+                padding: '10px',
+                fontSize: '14px',
                 border: '2px solid #ccc',
-                borderRadius: '8px',
-                marginBottom: '20px',
+                borderRadius: '6px',
+                marginBottom: '12px',
                 fontFamily: "'Roboto', sans-serif",
                 boxSizing: 'border-box'
               }}
@@ -583,21 +587,20 @@ export function GameUI() {
 
             <div style={{
               display: 'flex',
-              gap: '10px',
+              gap: '8px',
               justifyContent: 'center'
             }}>
               <button
                 {...handleTouchButton(handleSaveScore)}
                 disabled={!playerName.trim() || isSaving}
                 style={{
-                  padding: '15px 30px',
-                  minHeight: '60px',
-                  fontSize: '18px',
+                  padding: '8px 20px',
+                  fontSize: '14px',
                   fontWeight: 'bold',
                   backgroundColor: playerName.trim() && !isSaving ? '#4CAF50' : '#ccc',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   cursor: playerName.trim() && !isSaving ? 'pointer' : 'not-allowed',
                   textTransform: 'uppercase',
                   fontFamily: "'Roboto', sans-serif"
@@ -609,14 +612,13 @@ export function GameUI() {
                 {...handleTouchButton(handleSkipSave)}
                 disabled={isSaving}
                 style={{
-                  padding: '15px 30px',
-                  minHeight: '60px',
-                  fontSize: '18px',
+                  padding: '8px 20px',
+                  fontSize: '14px',
                   fontWeight: 'bold',
                   backgroundColor: '#999',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   cursor: isSaving ? 'not-allowed' : 'pointer',
                   textTransform: 'uppercase',
                   fontFamily: "'Roboto', sans-serif"
