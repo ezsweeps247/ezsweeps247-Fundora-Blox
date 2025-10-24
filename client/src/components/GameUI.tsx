@@ -323,7 +323,7 @@ export function GameUI() {
                   ? 'linear-gradient(to top, #999 0%, #666 100%)' 
                   : 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
-                border: '3px solid #660000',
+                border: 'none',
                 borderRadius: '25px',
                 cursor: (stake !== 'FREE' && stake > credits) ? 'not-allowed' : 'pointer',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
@@ -374,7 +374,7 @@ export function GameUI() {
                 fontWeight: 'bold',
                 background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
-                border: '3px solid #660000',
+                border: 'none',
                 borderRadius: '25px',
                 cursor: 'pointer',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
