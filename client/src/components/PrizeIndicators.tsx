@@ -92,7 +92,7 @@ export function PrizeIndicators() {
               opacity: isActive ? 1 : 0.5,
             }} />
             <div style={{
-              color: tier.color,
+              color: tier.type === 'points' ? '#ffffff' : tier.color,
               padding: '6px 12px',
               textShadow: '2px 2px 3px rgba(0, 0, 0, 0.8)',
               minWidth: '110px',
