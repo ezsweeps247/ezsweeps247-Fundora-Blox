@@ -193,6 +193,16 @@ export function GameUI() {
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
+      <div style={{
+        position: 'absolute',
+        bottom: '40px',
+        left: '40px',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
+        <StakeSelector />
+      </div>
+      
       <div className="game-controls" style={{
         position: 'absolute',
         bottom: '100px',
@@ -206,37 +216,36 @@ export function GameUI() {
       }}>
         {phase === 'ready' && (
           <>
-            <StakeSelector />
             <button
               {...handleTouchButton(start)}
-              disabled={stake > credits}
+              disabled={stake !== 'FREE' && stake > credits}
               style={{
                 padding: '20px 60px',
                 minHeight: '60px',
                 fontSize: '24px',
                 fontWeight: 'bold',
-                backgroundColor: stake > credits ? '#999' : '#d64545',
+                backgroundColor: (stake !== 'FREE' && stake > credits) ? '#999' : '#d64545',
                 color: 'white',
                 border: 'none',
                 borderRadius: '15px',
-                cursor: stake > credits ? 'not-allowed' : 'pointer',
+                cursor: (stake !== 'FREE' && stake > credits) ? 'not-allowed' : 'pointer',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
                 fontFamily: "'Courier New', monospace",
-                opacity: stake > credits ? 0.5 : 1
+                opacity: (stake !== 'FREE' && stake > credits) ? 0.5 : 1
               }}
               onMouseEnter={(e) => {
-                if (stake <= credits) {
+                if (stake === 'FREE' || stake <= credits) {
                   e.currentTarget.style.backgroundColor = '#ff5555';
                 }
               }}
               onMouseLeave={(e) => {
-                if (stake <= credits) {
+                if (stake === 'FREE' || stake <= credits) {
                   e.currentTarget.style.backgroundColor = '#d64545';
                 }
               }}
             >
-              {stake > credits ? 'INSUFFICIENT CREDITS' : 'START'}
+              {(stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
             </button>
           </>
         )}
@@ -581,7 +590,10 @@ export function GameUI() {
   );
 }
 
-function ScoreDisplays({ credits, bonusPoints, stake }: { credits: number; bonusPoints: number; stake: number }) {
+function ScoreDisplays({ credits, bonusPoints, stake }: { credits: number; bonusPoints: number; stake: number | 'FREE' }) {
+  const stakeDisplay = stake === 'FREE' ? 'FREE' : stake.toFixed(2);
+  const stakeUnit = stake === 'FREE' ? '' : '$';
+  
   return (
     <div className="score-displays" style={{
       position: 'absolute',
@@ -589,11 +601,11 @@ function ScoreDisplays({ credits, bonusPoints, stake }: { credits: number; bonus
       left: '40px',
       display: 'flex',
       flexDirection: 'column',
-      gap: '15px'
+      gap: '15px',
+      pointerEvents: 'auto'
     }}>
       <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
       <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
-      <DisplayBox label="STAKE" value={stake.toFixed(2)} unit="$" />
     </div>
   );
 }

@@ -18,8 +18,8 @@ interface GameState {
   score: number;
   credits: number;
   bonusPoints: number;
-  stake: number;
-  availableStakes: number[];
+  stake: number | 'FREE';
+  availableStakes: (number | 'FREE')[];
   highestRow: number;
   blocksStacked: number;
   comboMultiplier: number;
@@ -27,7 +27,8 @@ interface GameState {
   perfectAlignments: number;
   lastPlacedBlock: { row: number; columns: number[]; isPerfect: boolean } | null;
   
-  setStake: (stake: number) => void;
+  setStake: (stake: number | 'FREE') => void;
+  cycleStake: (direction: 'up' | 'down') => void;
   getPotentialPrize: () => { amount: number; type: 'cash' | 'points' };
   calculatePrizeMultiplier: (row: number) => { multiplier: number; type: 'cash' | 'points' };
   start: () => void;
@@ -54,7 +55,7 @@ export const useGame = create<GameState>()(
     credits: 100,
     bonusPoints: 0,
     stake: 1,
-    availableStakes: [0.5, 1, 2, 5, 10],
+    availableStakes: ['FREE', 0.5, 1, 2, 5, 10],
     highestRow: 0,
     blocksStacked: 0,
     comboMultiplier: 1,
@@ -62,11 +63,32 @@ export const useGame = create<GameState>()(
     perfectAlignments: 0,
     lastPlacedBlock: null,
     
-    setStake: (stake: number) => {
+    setStake: (stake: number | 'FREE') => {
       const state = get();
-      if (state.phase === "ready" && stake <= state.credits) {
-        console.log(`Stake set to: $${stake}`);
-        set({ stake });
+      if (state.phase === "ready") {
+        if (stake === 'FREE' || stake <= state.credits) {
+          console.log(`Stake set to: ${stake === 'FREE' ? 'FREE MODE' : `$${stake}`}`);
+          set({ stake });
+        }
+      }
+    },
+    
+    cycleStake: (direction: 'up' | 'down') => {
+      const state = get();
+      if (state.phase !== "ready") return;
+      
+      const currentIndex = state.availableStakes.indexOf(state.stake);
+      let newIndex;
+      
+      if (direction === 'up') {
+        newIndex = currentIndex < state.availableStakes.length - 1 ? currentIndex + 1 : 0;
+      } else {
+        newIndex = currentIndex > 0 ? currentIndex - 1 : state.availableStakes.length - 1;
+      }
+      
+      const newStake = state.availableStakes[newIndex];
+      if (newStake === 'FREE' || newStake <= state.credits) {
+        set({ stake: newStake });
       }
     },
     
@@ -85,8 +107,15 @@ export const useGame = create<GameState>()(
       const state = get();
       const prizeInfo = state.calculatePrizeMultiplier(state.highestRow);
       
+      // Free mode always gives points
+      if (state.stake === 'FREE') {
+        return { amount: prizeInfo.multiplier, type: 'points' as const };
+      }
+      
+      const stakeAmount = typeof state.stake === 'number' ? state.stake : 0;
+      
       if (prizeInfo.type === 'cash') {
-        return { amount: state.stake * prizeInfo.multiplier, type: 'cash' as const };
+        return { amount: stakeAmount * prizeInfo.multiplier, type: 'cash' as const };
       } else {
         return { amount: prizeInfo.multiplier, type: 'points' as const };
       }
@@ -95,16 +124,20 @@ export const useGame = create<GameState>()(
     start: () => {
       const state = get();
       
-      if (state.stake > state.credits) {
+      if (state.stake !== 'FREE' && state.stake > state.credits) {
         console.log("Insufficient credits!");
         return;
       }
       
-      console.log(`Game started! Stake: $${state.stake}, Credits after deduction: $${state.credits - state.stake}`);
+      const isFreeMode = state.stake === 'FREE';
+      const stakeAmount = typeof state.stake === 'number' ? state.stake : 0;
+      const newCredits = isFreeMode ? state.credits : state.credits - stakeAmount;
+      
+      console.log(`Game started! Stake: ${isFreeMode ? 'FREE MODE' : `$${state.stake}`}, Credits: $${newCredits}`);
       
       set({
         phase: "playing",
-        credits: state.credits - state.stake,
+        credits: newCredits,
         blocks: [{
           row: 0,
           columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
