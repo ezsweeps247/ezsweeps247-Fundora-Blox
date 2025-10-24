@@ -315,9 +315,9 @@ export function GameUI() {
               {...handleTouchButton(start)}
               disabled={stake !== 'FREE' && stake > credits}
               style={{
-                padding: '12px 50px',
-                minHeight: '50px',
-                fontSize: '22px',
+                padding: '8px 40px',
+                minHeight: '45px',
+                fontSize: '20px',
                 fontWeight: 'bold',
                 background: (stake !== 'FREE' && stake > credits) 
                   ? 'linear-gradient(to top, #999 0%, #666 100%)' 
@@ -368,9 +368,9 @@ export function GameUI() {
             <button
               {...handleTouchButton(stopBlock)}
               style={{
-                padding: '12px 50px',
-                minHeight: '50px',
-                fontSize: '22px',
+                padding: '8px 40px',
+                minHeight: '45px',
+                fontSize: '20px',
                 fontWeight: 'bold',
                 background: 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
                 color: 'white',
