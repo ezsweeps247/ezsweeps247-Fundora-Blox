@@ -6,6 +6,7 @@ import { GameGrid } from "./components/GameGrid";
 import { GameLoop } from "./components/GameLoop";
 import { GameUI } from "./components/GameUI";
 import { SoundManager } from "./components/SoundManager";
+import { DemoMode } from "./components/DemoMode";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Background3D />
           <GameGrid />
           <GameLoop />
+          <DemoMode />
         </Suspense>
       </Canvas>
       
