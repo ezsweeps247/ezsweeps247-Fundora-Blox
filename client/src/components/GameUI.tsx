@@ -664,14 +664,15 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       }}>
         <div style={{
           fontSize: '20px',
-          fontWeight: 'normal',
+          fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
           padding: '4px 8px',
           borderRadius: '8px',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
           letterSpacing: '1px',
-          flex: '1'
+          flex: '1',
+          textShadow: '0 0 1px #ff0000'
         }}>
           {value}
         </div>
