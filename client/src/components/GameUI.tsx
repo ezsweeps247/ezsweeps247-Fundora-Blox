@@ -621,7 +621,9 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       padding: '6px 10px',
       minWidth: '140px',
       boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-      position: 'relative'
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column'
     }}>
       <div style={{
         fontSize: '9px',
@@ -632,31 +634,35 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         {label}
       </div>
       <div style={{
-        fontSize: '18px',
-        fontWeight: 'bold',
-        color: '#ff0000',
-        backgroundColor: '#000',
-        padding: '4px 8px',
-        paddingRight: '30px',
-        borderRadius: '8px',
-        fontFamily: "'Roboto', sans-serif",
-        letterSpacing: '1px'
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px'
       }}>
-        {value}
-      </div>
-      {unit && (
         <div style={{
-          position: 'absolute',
-          right: '14px',
-          bottom: '10px',
-          fontSize: '16px',
+          fontSize: '18px',
           fontWeight: 'bold',
-          color: '#333',
-          fontFamily: "'Roboto', sans-serif"
+          color: '#ff0000',
+          backgroundColor: '#000',
+          padding: '4px 8px',
+          borderRadius: '8px',
+          fontFamily: "'Roboto', sans-serif",
+          letterSpacing: '1px',
+          flex: '1'
         }}>
-          {unit}
+          {value}
         </div>
-      )}
+        {unit && (
+          <div style={{
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#333',
+            fontFamily: "'Roboto', sans-serif",
+            paddingRight: '4px'
+          }}>
+            {unit}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
