@@ -73,8 +73,8 @@ export function GameCanvas() {
       <div style={{ position: 'relative' }}>
         <canvas
           ref={canvasRef}
-          width={GRID_WIDTH + 40}
-          height={GRID_HEIGHT + 40}
+          width={GRID_WIDTH + 20}
+          height={GRID_HEIGHT + 20}
           style={{
             border: '4px solid #333',
             borderRadius: '8px',
@@ -89,8 +89,8 @@ export function GameCanvas() {
 }
 
 function drawGrid(ctx: CanvasRenderingContext2D) {
-  const offsetX = 20;
-  const offsetY = 20;
+  const offsetX = 10;
+  const offsetY = 10;
   
   for (let row = 0; row < GRID_ROWS; row++) {
     for (let col = 0; col < GRID_COLS; col++) {
@@ -112,8 +112,8 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
 }
 
 function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
-  const offsetX = 20;
-  const offsetY = 20;
+  const offsetX = 10;
+  const offsetY = 10;
   
   blocks.forEach((block) => {
     block.columns.forEach((isActive: boolean, colIndex: number) => {
@@ -137,8 +137,8 @@ function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
 }
 
 function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: number) {
-  const offsetX = 20;
-  const offsetY = 20;
+  const offsetX = 10;
+  const offsetY = 10;
   
   block.columns.forEach((isActive: boolean, colIndex: number) => {
     if (!isActive) return;
@@ -184,8 +184,8 @@ const DEMO_SEQUENCE = [
 ];
 
 function drawDemoMode(ctx: CanvasRenderingContext2D, delta: number) {
-  const offsetX = 20;
-  const offsetY = 20;
+  const offsetX = 10;
+  const offsetY = 10;
   
   demoTime += delta;
   if (demoTime > DEMO_DURATION) {
