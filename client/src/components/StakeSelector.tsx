@@ -18,67 +18,79 @@ export function StakeSelector() {
   return (
     <div style={{
       display: 'flex',
-      gap: '6px',
+      gap: '4px',
       fontFamily: "'Roboto', sans-serif"
     }}>
       <button
         {...handleTouchButton(() => cycleStake('down'))}
         disabled={phase !== 'ready'}
         style={{
-          width: '50px',
-          height: '50px',
-          backgroundColor: phase === 'ready' ? '#FFA500' : '#ccc',
-          border: '2px solid #333',
-          borderRadius: '8px',
+          width: '45px',
+          height: '45px',
+          background: phase === 'ready' 
+            ? 'linear-gradient(135deg, #FFB84D 0%, #FF8C00 100%)' 
+            : 'linear-gradient(135deg, #ccc 0%, #999 100%)',
+          border: 'none',
+          borderRadius: '10px',
           cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+          boxShadow: phase === 'ready' 
+            ? '0 3px 8px rgba(255, 140, 0, 0.4), inset 0 -1px 2px rgba(0,0,0,0.2)' 
+            : '0 2px 4px rgba(0,0,0,0.2)',
           transition: 'all 0.2s'
         }}
         onMouseEnter={(e) => {
           if (phase === 'ready') {
-            e.currentTarget.style.backgroundColor = '#FFB84D';
+            e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 10px rgba(255, 140, 0, 0.5), inset 0 -1px 2px rgba(0,0,0,0.2)';
           }
         }}
         onMouseLeave={(e) => {
           if (phase === 'ready') {
-            e.currentTarget.style.backgroundColor = '#FFA500';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 3px 8px rgba(255, 140, 0, 0.4), inset 0 -1px 2px rgba(0,0,0,0.2)';
           }
         }}
       >
-        <ChevronDown size={24} color={phase === 'ready' ? '#fff' : '#999'} strokeWidth={2.5} />
+        <ChevronDown size={22} color={phase === 'ready' ? '#fff' : '#666'} strokeWidth={3} />
       </button>
       
       <button
         {...handleTouchButton(() => cycleStake('up'))}
         disabled={phase !== 'ready'}
         style={{
-          width: '50px',
-          height: '50px',
-          backgroundColor: phase === 'ready' ? '#FF8C00' : '#ccc',
-          border: '2px solid #333',
-          borderRadius: '8px',
+          width: '45px',
+          height: '45px',
+          background: phase === 'ready' 
+            ? 'linear-gradient(135deg, #FFB84D 0%, #FF8C00 100%)' 
+            : 'linear-gradient(135deg, #ccc 0%, #999 100%)',
+          border: 'none',
+          borderRadius: '10px',
           cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+          boxShadow: phase === 'ready' 
+            ? '0 3px 8px rgba(255, 140, 0, 0.4), inset 0 -1px 2px rgba(0,0,0,0.2)' 
+            : '0 2px 4px rgba(0,0,0,0.2)',
           transition: 'all 0.2s'
         }}
         onMouseEnter={(e) => {
           if (phase === 'ready') {
-            e.currentTarget.style.backgroundColor = '#FFA533';
+            e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 10px rgba(255, 140, 0, 0.5), inset 0 -1px 2px rgba(0,0,0,0.2)';
           }
         }}
         onMouseLeave={(e) => {
           if (phase === 'ready') {
-            e.currentTarget.style.backgroundColor = '#FF8C00';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 3px 8px rgba(255, 140, 0, 0.4), inset 0 -1px 2px rgba(0,0,0,0.2)';
           }
         }}
       >
-        <ChevronUp size={24} color={phase === 'ready' ? '#fff' : '#999'} strokeWidth={2.5} />
+        <ChevronUp size={22} color={phase === 'ready' ? '#fff' : '#666'} strokeWidth={3} />
       </button>
     </div>
   );
