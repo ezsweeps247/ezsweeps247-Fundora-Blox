@@ -3,7 +3,7 @@ import { useGame } from '@/lib/stores/useGame';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 16;
-const CELL_SIZE = 50;
+const CELL_SIZE = 38;
 const CELL_SPACING = 2;
 const GRID_WIDTH = GRID_COLS * CELL_SIZE + (GRID_COLS - 1) * CELL_SPACING;
 const GRID_HEIGHT = GRID_ROWS * CELL_SIZE + (GRID_ROWS - 1) * CELL_SPACING;
@@ -67,7 +67,7 @@ export function GameCanvas() {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      marginTop: '-80px'
+      marginTop: '-40px'
     }}>
       <canvas
         ref={canvasRef}
