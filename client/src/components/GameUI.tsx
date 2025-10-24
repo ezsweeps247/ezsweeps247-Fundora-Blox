@@ -354,51 +354,51 @@ export function GameUI() {
         {phase === 'ended' && !showNameEntry && (
           <div style={{
             position: 'absolute',
-            top: 'calc(50% - 380px)',
+            top: '80px',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '12px',
+            gap: '8px',
             backgroundColor: 'rgba(255, 255, 255, 0.98)',
-            padding: '20px 30px',
-            borderRadius: '12px',
+            padding: '12px 20px',
+            borderRadius: '10px',
             boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
             border: '2px solid #333'
           }}>
             <div style={{ 
-              fontSize: '20px', 
+              fontSize: '16px', 
               fontWeight: 'bold',
               color: '#333',
-              marginBottom: '5px'
+              marginBottom: '3px'
             }}>
               Game Over
             </div>
             <div style={{
               display: 'flex',
-              gap: '20px',
+              gap: '15px',
               alignItems: 'center'
             }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#666', marginBottom: '3px' }}>
+                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>
                   SCORE
                 </div>
-                <div style={{ fontSize: '24px', color: '#d64545', fontWeight: 'bold' }}>
+                <div style={{ fontSize: '18px', color: '#d64545', fontWeight: 'bold' }}>
                   {score}
                 </div>
               </div>
               <div style={{
                 width: '1px',
-                height: '40px',
+                height: '30px',
                 backgroundColor: '#ddd'
               }} />
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#666', marginBottom: '3px' }}>
+                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>
                   PRIZE
                 </div>
                 <div style={{ 
-                  fontSize: '24px', 
+                  fontSize: '18px', 
                   fontWeight: 'bold',
                   color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800'
                 }}>
@@ -409,17 +409,17 @@ export function GameUI() {
                 </div>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '3px' }}>
               <button
                 {...handleTouchButton(handleGameEnd)}
                 style={{
-                  padding: '8px 20px',
-                  fontSize: '14px',
+                  padding: '6px 16px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
                   backgroundColor: '#4CAF50',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   cursor: 'pointer',
                   textTransform: 'uppercase'
                 }}
@@ -431,13 +431,13 @@ export function GameUI() {
               <button
                 {...handleTouchButton(restart)}
                 style={{
-                  padding: '8px 20px',
-                  fontSize: '14px',
+                  padding: '6px 16px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
                   backgroundColor: '#d64545',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   cursor: 'pointer',
                   textTransform: 'uppercase'
                 }}
@@ -521,7 +521,7 @@ export function GameUI() {
       {showNameEntry && (
         <div style={{
           position: 'absolute',
-          top: 'calc(50% - 380px)',
+          top: '80px',
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 1000,
@@ -530,15 +530,15 @@ export function GameUI() {
           <div style={{
             backgroundColor: 'white',
             border: '2px solid #333',
-            borderRadius: '12px',
-            padding: '20px 30px',
-            minWidth: '300px',
+            borderRadius: '10px',
+            padding: '12px 20px',
+            minWidth: '240px',
             boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
             fontFamily: "'Roboto', sans-serif"
           }}>
             <h2 style={{
-              margin: '0 0 12px 0',
-              fontSize: '18px',
+              margin: '0 0 8px 0',
+              fontSize: '14px',
               color: '#333',
               textAlign: 'center',
               fontWeight: 'bold'
@@ -548,22 +548,22 @@ export function GameUI() {
             
             <div style={{
               display: 'flex',
-              gap: '15px',
+              gap: '12px',
               justifyContent: 'center',
-              marginBottom: '15px'
+              marginBottom: '10px'
             }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '10px', color: '#666', marginBottom: '2px' }}>SCORE</div>
-                <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#d64545' }}>{score}</div>
+                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>SCORE</div>
+                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#d64545' }}>{score}</div>
               </div>
               <div style={{
                 width: '1px',
-                height: '30px',
+                height: '25px',
                 backgroundColor: '#ddd'
               }} />
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '10px', color: '#666', marginBottom: '2px' }}>BLOCKS</div>
-                <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#d64545' }}>{blocksStacked}</div>
+                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>BLOCKS</div>
+                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#d64545' }}>{blocksStacked}</div>
               </div>
             </div>
 
@@ -577,11 +577,11 @@ export function GameUI() {
               autoFocus
               style={{
                 width: '100%',
-                padding: '10px',
-                fontSize: '14px',
+                padding: '8px',
+                fontSize: '12px',
                 border: '2px solid #ccc',
                 borderRadius: '6px',
-                marginBottom: '12px',
+                marginBottom: '10px',
                 fontFamily: "'Roboto', sans-serif",
                 boxSizing: 'border-box'
               }}
@@ -589,15 +589,15 @@ export function GameUI() {
 
             <div style={{
               display: 'flex',
-              gap: '8px',
+              gap: '6px',
               justifyContent: 'center'
             }}>
               <button
                 {...handleTouchButton(handleSaveScore)}
                 disabled={!playerName.trim() || isSaving}
                 style={{
-                  padding: '8px 20px',
-                  fontSize: '14px',
+                  padding: '6px 16px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
                   backgroundColor: playerName.trim() && !isSaving ? '#4CAF50' : '#ccc',
                   color: 'white',
@@ -614,8 +614,8 @@ export function GameUI() {
                 {...handleTouchButton(handleSkipSave)}
                 disabled={isSaving}
                 style={{
-                  padding: '8px 20px',
-                  fontSize: '14px',
+                  padding: '6px 16px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
                   backgroundColor: '#999',
                   color: 'white',
