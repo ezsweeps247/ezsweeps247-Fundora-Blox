@@ -228,7 +228,7 @@ export function GameUI() {
         left: 'calc(50% - 350px)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '15px',
+        gap: '10px',
         pointerEvents: 'auto',
         zIndex: 50
       }}>

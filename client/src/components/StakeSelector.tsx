@@ -18,89 +18,68 @@ export function StakeSelector() {
   return (
     <div style={{
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '8px',
+      gap: '6px',
       fontFamily: "'Roboto', sans-serif"
     }}>
-      <div style={{
-        display: 'flex',
-        gap: '12px'
-      }}>
-        <button
-          {...handleTouchButton(() => cycleStake('down'))}
-          disabled={phase !== 'ready'}
-          style={{
-            width: '70px',
-            height: '70px',
-            backgroundColor: phase === 'ready' ? '#FFA500' : '#ccc',
-            border: '4px solid #333',
-            borderRadius: '50%',
-            cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            if (phase === 'ready') {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.backgroundColor = '#FFB84D';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (phase === 'ready') {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.backgroundColor = '#FFA500';
-            }
-          }}
-        >
-          <ChevronDown size={35} color={phase === 'ready' ? '#fff' : '#999'} strokeWidth={3} />
-        </button>
-        
-        <button
-          {...handleTouchButton(() => cycleStake('up'))}
-          disabled={phase !== 'ready'}
-          style={{
-            width: '70px',
-            height: '70px',
-            backgroundColor: phase === 'ready' ? '#FF8C00' : '#ccc',
-            border: '4px solid #333',
-            borderRadius: '50%',
-            cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            if (phase === 'ready') {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.backgroundColor = '#FFA533';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (phase === 'ready') {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.backgroundColor = '#FF8C00';
-            }
-          }}
-        >
-          <ChevronUp size={35} color={phase === 'ready' ? '#fff' : '#999'} strokeWidth={3} />
-        </button>
-      </div>
-      <div style={{
-        fontSize: '10px',
-        fontWeight: 'bold',
-        color: '#333',
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        textAlign: 'center'
-      }}>
-        CHOOSE STAKE
-      </div>
+      <button
+        {...handleTouchButton(() => cycleStake('down'))}
+        disabled={phase !== 'ready'}
+        style={{
+          width: '50px',
+          height: '50px',
+          backgroundColor: phase === 'ready' ? '#FFA500' : '#ccc',
+          border: '2px solid #333',
+          borderRadius: '8px',
+          cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+          transition: 'all 0.2s'
+        }}
+        onMouseEnter={(e) => {
+          if (phase === 'ready') {
+            e.currentTarget.style.backgroundColor = '#FFB84D';
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (phase === 'ready') {
+            e.currentTarget.style.backgroundColor = '#FFA500';
+          }
+        }}
+      >
+        <ChevronDown size={24} color={phase === 'ready' ? '#fff' : '#999'} strokeWidth={2.5} />
+      </button>
+      
+      <button
+        {...handleTouchButton(() => cycleStake('up'))}
+        disabled={phase !== 'ready'}
+        style={{
+          width: '50px',
+          height: '50px',
+          backgroundColor: phase === 'ready' ? '#FF8C00' : '#ccc',
+          border: '2px solid #333',
+          borderRadius: '8px',
+          cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+          transition: 'all 0.2s'
+        }}
+        onMouseEnter={(e) => {
+          if (phase === 'ready') {
+            e.currentTarget.style.backgroundColor = '#FFA533';
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (phase === 'ready') {
+            e.currentTarget.style.backgroundColor = '#FF8C00';
+          }
+        }}
+      >
+        <ChevronUp size={24} color={phase === 'ready' ? '#fff' : '#999'} strokeWidth={2.5} />
+      </button>
     </div>
   );
 }
