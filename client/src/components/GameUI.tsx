@@ -183,25 +183,40 @@ export function GameUI() {
       pointerEvents: 'none',
       fontFamily: "'Courier New', monospace"
     }}>
-      <ScoreDisplays 
-        credits={credits}
-        bonusPoints={bonusPoints}
-        stake={stake}
-      />
-      
-      <PrizeMultipliers />
-      
-      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
+      <div style={{
+        position: 'absolute',
+        top: '40px',
+        left: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '15px',
+        pointerEvents: 'auto'
+      }}>
+        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
+        <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
+      </div>
       
       <div style={{
         position: 'absolute',
         bottom: '40px',
         left: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '15px',
         pointerEvents: 'auto',
         zIndex: 50
       }}>
+        <DisplayBox 
+          label="STAKE" 
+          value={stake === 'FREE' ? 'FREE' : stake.toFixed(2)} 
+          unit={stake === 'FREE' ? '' : '$'} 
+        />
         <StakeSelector />
       </div>
+      
+      <PrizeMultipliers />
+      
+      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
       <div className="game-controls" style={{
         position: 'absolute',
@@ -586,26 +601,6 @@ export function GameUI() {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-function ScoreDisplays({ credits, bonusPoints, stake }: { credits: number; bonusPoints: number; stake: number | 'FREE' }) {
-  const stakeDisplay = stake === 'FREE' ? 'FREE' : stake.toFixed(2);
-  const stakeUnit = stake === 'FREE' ? '' : '$';
-  
-  return (
-    <div className="score-displays" style={{
-      position: 'absolute',
-      top: '40px',
-      left: '40px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '15px',
-      pointerEvents: 'auto'
-    }}>
-      <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
-      <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
     </div>
   );
 }
