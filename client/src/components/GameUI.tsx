@@ -223,7 +223,7 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 289px + 40px)',
-        left: 'calc(50% - 350px)',
+        left: 'calc(50% - 170px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
