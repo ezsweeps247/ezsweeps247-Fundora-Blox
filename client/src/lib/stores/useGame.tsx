@@ -40,8 +40,9 @@ interface GameState {
 }
 
 const GRID_WIDTH = 7;
-const BASE_SPEED = 2.0;
-const SPEED_INCREMENT = 0.15;
+const BASE_SPEED = 2.5;
+const MIN_SPEED_INCREMENT = 0.25;
+const MAX_SPEED_INCREMENT = 0.45;
 
 // Helper function to get point prize multiplier based on stake
 const getPointMultiplier = (stake: number | 'FREE'): number => {
@@ -241,13 +242,18 @@ export const useGame = create<GameState>()(
         ? (Math.random() > 0.5 ? 1 : -1)
         : -state.movementDirection;
       
-      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}`);
+      // Calculate speed with random increment for each row
+      // Speed progressively increases, with row 14 being the fastest
+      const randomIncrement = MIN_SPEED_INCREMENT + (Math.random() * (MAX_SPEED_INCREMENT - MIN_SPEED_INCREMENT));
+      const newSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
+      
+      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${newSpeed.toFixed(2)}`);
       
       set({
         currentBlock: newBlock,
         currentBlockPosition: randomPosition,
         movementDirection: newDirection,
-        movementSpeed: BASE_SPEED + (newRow * SPEED_INCREMENT)
+        movementSpeed: newSpeed
       });
     },
     
