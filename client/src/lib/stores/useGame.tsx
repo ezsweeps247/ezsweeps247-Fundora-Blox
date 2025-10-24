@@ -107,7 +107,7 @@ export const useGame = create<GameState>()(
         credits: state.credits - state.stake,
         blocks: [{
           row: 0,
-          columns: Array(GRID_WIDTH).fill(true)
+          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
         }],
         currentBlock: null,
         currentBlockPosition: 0,
@@ -175,7 +175,7 @@ export const useGame = create<GameState>()(
       
       const newBlock: Block = {
         row: newRow,
-        columns: lastBlock ? [...lastBlock.columns] : Array(GRID_WIDTH).fill(true)
+        columns: lastBlock ? [...lastBlock.columns] : Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
       };
       
       console.log(`Spawning new block at row ${newRow}`);
@@ -223,7 +223,7 @@ export const useGame = create<GameState>()(
       if (state.blocks.length === 0) {
         const newBlock: Block = {
           row: 0,
-          columns: Array(GRID_WIDTH).fill(true)
+          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
         };
         set({
           blocks: [newBlock],
