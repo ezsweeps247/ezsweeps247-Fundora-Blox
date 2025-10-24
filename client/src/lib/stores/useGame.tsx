@@ -43,6 +43,18 @@ const GRID_WIDTH = 7;
 const BASE_SPEED = 2.0;
 const SPEED_INCREMENT = 0.15;
 
+// Helper function to get point prize multiplier based on stake
+const getPointMultiplier = (stake: number | 'FREE'): number => {
+  if (stake === 'FREE') return 1;
+  if (stake === 0.5) return 0.2;
+  if (stake === 1) return 1;
+  if (stake === 2) return 2;
+  if (stake === 5) return 4;
+  if (stake === 10) return 20;
+  if (stake === 20) return 80;
+  return 1;
+};
+
 export const useGame = create<GameState>()(
   subscribeWithSelector((set, get) => ({
     phase: "ready",
@@ -108,17 +120,14 @@ export const useGame = create<GameState>()(
       const state = get();
       const prizeInfo = state.calculatePrizeMultiplier(state.highestRow);
       
-      // Free mode always gives points
-      if (state.stake === 'FREE') {
-        return { amount: prizeInfo.multiplier, type: 'points' as const };
-      }
-      
       const stakeAmount = typeof state.stake === 'number' ? state.stake : 0;
       
       if (prizeInfo.type === 'cash') {
         return { amount: stakeAmount * prizeInfo.multiplier, type: 'cash' as const };
       } else {
-        return { amount: prizeInfo.multiplier, type: 'points' as const };
+        // Apply stake multiplier to point prizes
+        const pointMultiplier = getPointMultiplier(state.stake);
+        return { amount: prizeInfo.multiplier * pointMultiplier, type: 'points' as const };
       }
     },
     

@@ -15,6 +15,18 @@ const PRIZE_TIERS = [
   { minRow: 6, color: '#888888', multiplier: 250, type: 'points', textColor: '#fff' },
 ];
 
+// Helper function to get point prize multiplier based on stake
+const getPointMultiplier = (stake: number | 'FREE'): number => {
+  if (stake === 'FREE') return 1;
+  if (stake === 0.5) return 0.2;
+  if (stake === 1) return 1;
+  if (stake === 2) return 2;
+  if (stake === 5) return 4;
+  if (stake === 10) return 20;
+  if (stake === 20) return 80;
+  return 1;
+};
+
 function getPrizeTier(row: number) {
   for (const tier of PRIZE_TIERS) {
     if (row >= tier.minRow) {
@@ -32,6 +44,7 @@ export function PrizeIndicators() {
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
   const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
+  const pointMultiplier = getPointMultiplier(stake);
   
   return (
     <div style={{
@@ -49,15 +62,12 @@ export function PrizeIndicators() {
         
         let displayText = '';
         
-        if (isFreeMode) {
-          displayText = `${tier.multiplier} P`;
+        if (tier.type === 'points') {
+          const scaledPoints = tier.multiplier * pointMultiplier;
+          displayText = `${scaledPoints.toLocaleString()} P`;
         } else {
-          if (tier.type === 'points') {
-            displayText = `${tier.multiplier} P`;
-          } else {
-            const prizeAmount = stakeAmount * tier.multiplier;
-            displayText = `${prizeAmount.toFixed(2)} $`;
-          }
+          const prizeAmount = stakeAmount * tier.multiplier;
+          displayText = `${prizeAmount.toFixed(2)} $`;
         }
         
         const isActive = highestRow >= row;
