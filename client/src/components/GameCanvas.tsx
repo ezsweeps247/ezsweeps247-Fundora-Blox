@@ -111,6 +111,20 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
   }
 }
 
+function drawRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
 function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
   const offsetX = 10;
   const offsetY = 10;
@@ -127,11 +141,8 @@ function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
       gradient.addColorStop(1, '#aa2222');
       
       ctx.fillStyle = gradient;
-      ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
-      
-      ctx.strokeStyle = '#880000';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
+      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+      ctx.fill();
     });
   });
 }
@@ -155,16 +166,13 @@ function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: nu
     gradient.addColorStop(0, '#ff5555');
     gradient.addColorStop(1, '#ff0000');
     
-    ctx.fillStyle = gradient;
-    ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
-    
-    ctx.strokeStyle = '#cc0000';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
-    
     ctx.shadowColor = 'rgba(255, 0, 0, 0.5)';
     ctx.shadowBlur = 10;
-    ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+    
+    ctx.fillStyle = gradient;
+    drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+    ctx.fill();
+    
     ctx.shadowBlur = 0;
   });
 }
@@ -207,11 +215,8 @@ function drawDemoMode(ctx: CanvasRenderingContext2D, delta: number) {
       gradient.addColorStop(1, '#aa2222');
       
       ctx.fillStyle = gradient;
-      ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
-      
-      ctx.strokeStyle = '#880000';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
+      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+      ctx.fill();
     } else {
       const elapsedTime = demoTime - (block.stopTime - 1.5);
       const speed = 3;
@@ -240,11 +245,8 @@ function drawDemoMode(ctx: CanvasRenderingContext2D, delta: number) {
       gradient.addColorStop(1, '#ff0000');
       
       ctx.fillStyle = gradient;
-      ctx.fillRect(animX, y, CELL_SIZE, CELL_SIZE);
-      
-      ctx.strokeStyle = '#cc0000';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(animX, y, CELL_SIZE, CELL_SIZE);
+      drawRoundedRect(ctx, animX, y, CELL_SIZE, CELL_SIZE, 6);
+      ctx.fill();
     }
   });
 }
