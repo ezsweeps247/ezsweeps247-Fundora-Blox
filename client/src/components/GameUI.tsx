@@ -185,22 +185,22 @@ export function GameUI() {
     }}>
       <div style={{
         position: 'absolute',
-        top: '40px',
-        left: '40px',
+        top: '20px',
+        left: '20px',
         display: 'flex',
-        gap: '15px',
+        gap: '10px',
         alignItems: 'flex-start',
         pointerEvents: 'auto'
       }}>
         <button
           {...handleTouchButton(() => setShowLeaderboard(true))}
           style={{
-            padding: '15px',
-            minWidth: '60px',
-            minHeight: '60px',
+            padding: '10px',
+            minWidth: '45px',
+            minHeight: '45px',
             backgroundColor: 'rgba(255, 215, 0, 0.9)',
             border: '2px solid #DAA520',
-            borderRadius: '10px',
+            borderRadius: '8px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
@@ -209,12 +209,12 @@ export function GameUI() {
           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 1)'}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
         >
-          <Trophy size={28} color="#8B4513" />
+          <Trophy size={22} color="#8B4513" />
         </button>
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '15px'
+          gap: '10px'
         }}>
           <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
           <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
@@ -633,31 +633,31 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
   return (
     <div style={{
       backgroundColor: 'white',
-      border: '3px solid #333',
-      borderRadius: '8px',
-      padding: '10px 15px',
-      minWidth: '180px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+      border: '2px solid #333',
+      borderRadius: '6px',
+      padding: '6px 10px',
+      minWidth: '140px',
+      boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
     }}>
       <div style={{
-        fontSize: '11px',
+        fontSize: '9px',
         fontWeight: 'bold',
         color: '#666',
-        marginBottom: '5px'
+        marginBottom: '3px'
       }}>
         {label}
       </div>
       <div style={{
-        fontSize: '24px',
+        fontSize: '18px',
         fontWeight: 'bold',
         color: '#ff0000',
         backgroundColor: '#000',
-        padding: '5px 10px',
-        borderRadius: '4px',
+        padding: '4px 8px',
+        borderRadius: '3px',
         fontFamily: "'Courier New', monospace",
-        letterSpacing: '2px'
+        letterSpacing: '1px'
       }}>
-        {value} <span style={{ fontSize: '18px' }}>{unit}</span>
+        {value} <span style={{ fontSize: '14px' }}>{unit}</span>
       </div>
     </div>
   );
