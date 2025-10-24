@@ -192,11 +192,23 @@ export const useGame = create<GameState>()(
       const state = get();
       if (!state.currentBlock || state.phase !== "playing") return;
       
+      // Find the rightmost active column in the block
+      let rightmostCol = -1;
+      for (let i = GRID_WIDTH - 1; i >= 0; i--) {
+        if (state.currentBlock.columns[i]) {
+          rightmostCol = i;
+          break;
+        }
+      }
+      
+      // Calculate max position so the rightmost column doesn't exceed grid
+      const maxPosition = rightmostCol >= 0 ? GRID_WIDTH - 1 - rightmostCol : GRID_WIDTH - 1;
+      
       let newPosition = state.currentBlockPosition + (state.movementDirection * state.movementSpeed * delta);
       let newDirection = state.movementDirection;
       
-      if (newPosition >= GRID_WIDTH - 1) {
-        newPosition = GRID_WIDTH - 1;
+      if (newPosition >= maxPosition) {
+        newPosition = maxPosition;
         newDirection = -1;
       } else if (newPosition <= 0) {
         newPosition = 0;
