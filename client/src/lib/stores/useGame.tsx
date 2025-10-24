@@ -24,6 +24,7 @@ interface GameState {
   comboMultiplier: number;
   comboStreak: number;
   perfectAlignments: number;
+  lastPlacedBlock: { row: number; columns: number[]; isPerfect: boolean } | null;
   
   start: () => void;
   restart: () => void;
@@ -54,6 +55,7 @@ export const useGame = create<GameState>()(
     comboMultiplier: 1,
     comboStreak: 0,
     perfectAlignments: 0,
+    lastPlacedBlock: null,
     
     start: () => {
       console.log("Game started!");
@@ -74,6 +76,7 @@ export const useGame = create<GameState>()(
         comboMultiplier: 1,
         comboStreak: 0,
         perfectAlignments: 0,
+        lastPlacedBlock: null,
       });
       
       setTimeout(() => {
@@ -97,6 +100,7 @@ export const useGame = create<GameState>()(
         comboMultiplier: 1,
         comboStreak: 0,
         perfectAlignments: 0,
+        lastPlacedBlock: null,
       });
     },
     
@@ -236,6 +240,11 @@ export const useGame = create<GameState>()(
         columns: newColumns
       };
       
+      const placedColumns: number[] = [];
+      newColumns.forEach((isActive, idx) => {
+        if (isActive) placedColumns.push(idx);
+      });
+      
       set({
         blocks: [...state.blocks, finalBlock],
         currentBlock: null,
@@ -245,7 +254,12 @@ export const useGame = create<GameState>()(
         blocksStacked: newBlocksStacked,
         comboMultiplier: newComboMultiplier,
         comboStreak: newComboStreak,
-        perfectAlignments: newPerfectAlignments
+        perfectAlignments: newPerfectAlignments,
+        lastPlacedBlock: {
+          row: state.currentBlock.row,
+          columns: placedColumns,
+          isPerfect
+        }
       });
       
       setTimeout(() => {
