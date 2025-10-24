@@ -3,7 +3,7 @@ import { useGame } from '@/lib/stores/useGame';
 import { PrizeIndicators } from './PrizeIndicators';
 
 const GRID_COLS = 7;
-const GRID_ROWS = 16;
+const GRID_ROWS = 14;
 const CELL_SIZE = 38;
 const CELL_SPACING = 2;
 const GRID_WIDTH = GRID_COLS * CELL_SIZE + (GRID_COLS - 1) * CELL_SPACING;
@@ -97,7 +97,7 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
       const x = offsetX + col * (CELL_SIZE + CELL_SPACING);
       const y = offsetY + (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
       
-      if (row === 10 || row === 14) {
+      if (row === 8 || row === 12) {
         ctx.fillStyle = '#4a5560';
         ctx.globalAlpha = 0.7;
       } else {

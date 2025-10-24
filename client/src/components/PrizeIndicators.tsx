@@ -1,18 +1,17 @@
 import { useGame } from '@/lib/stores/useGame';
 
-const GRID_ROWS = 16;
+const GRID_ROWS = 14;
 const CELL_SIZE = 38;
 const CELL_SPACING = 2;
 
 const PRIZE_TIERS = [
-  { minRow: 15, color: '#cc0000', multiplier: 100, type: 'cash', bgColor: 'rgba(204, 0, 0, 0.2)' },
-  { minRow: 14, color: '#ff6600', multiplier: 10, type: 'cash', bgColor: 'rgba(255, 102, 0, 0.2)' },
-  { minRow: 13, color: '#ffcc00', multiplier: 5, type: 'cash', bgColor: 'rgba(255, 204, 0, 0.2)' },
-  { minRow: 12, color: '#00cc66', multiplier: 2, type: 'cash', bgColor: 'rgba(0, 204, 102, 0.2)' },
-  { minRow: 11, color: '#0099cc', multiplier: 1, type: 'cash', bgColor: 'rgba(0, 153, 204, 0.2)' },
-  { minRow: 10, color: '#666666', multiplier: 1000, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
-  { minRow: 9, color: '#666666', multiplier: 500, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
-  { minRow: 7, color: '#666666', multiplier: 250, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
+  { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', bgColor: 'rgba(204, 0, 0, 0.2)' },
+  { minRow: 12, color: '#ff6600', multiplier: 10, type: 'cash', bgColor: 'rgba(255, 102, 0, 0.2)' },
+  { minRow: 11, color: '#ffcc00', multiplier: 5, type: 'cash', bgColor: 'rgba(255, 204, 0, 0.2)' },
+  { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', bgColor: 'rgba(0, 204, 102, 0.2)' },
+  { minRow: 9, color: '#0099cc', multiplier: 1, type: 'cash', bgColor: 'rgba(0, 153, 204, 0.2)' },
+  { minRow: 8, color: '#666666', multiplier: 1000, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
+  { minRow: 7, color: '#666666', multiplier: 500, type: 'points', bgColor: 'rgba(102, 102, 102, 0.1)' },
 ];
 
 function getPrizeTier(row: number) {
@@ -31,7 +30,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [15, 14, 13, 12, 11, 10, 9, 7];
+  const displayedRows = [13, 12, 11, 10, 9, 8, 7];
   
   return (
     <div style={{

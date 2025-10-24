@@ -93,14 +93,13 @@ export const useGame = create<GameState>()(
     },
     
     calculatePrizeMultiplier: (row: number) => {
-      if (row >= 15) return { multiplier: 100, type: 'cash' as const };
-      if (row >= 14) return { multiplier: 10, type: 'cash' as const };
-      if (row >= 13) return { multiplier: 5, type: 'cash' as const };
-      if (row >= 12) return { multiplier: 2, type: 'cash' as const };
-      if (row >= 11) return { multiplier: 1, type: 'cash' as const };
-      if (row >= 10) return { multiplier: 1000, type: 'points' as const };
-      if (row >= 9) return { multiplier: 500, type: 'points' as const };
-      if (row >= 7) return { multiplier: 250, type: 'points' as const };
+      if (row >= 13) return { multiplier: 100, type: 'cash' as const };
+      if (row >= 12) return { multiplier: 10, type: 'cash' as const };
+      if (row >= 11) return { multiplier: 5, type: 'cash' as const };
+      if (row >= 10) return { multiplier: 2, type: 'cash' as const };
+      if (row >= 9) return { multiplier: 1, type: 'cash' as const };
+      if (row >= 8) return { multiplier: 1000, type: 'points' as const };
+      if (row >= 7) return { multiplier: 500, type: 'points' as const };
       return { multiplier: 0, type: 'points' as const };
     },
     
