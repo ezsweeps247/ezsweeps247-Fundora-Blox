@@ -315,34 +315,36 @@ export function GameUI() {
               {...handleTouchButton(start)}
               disabled={stake !== 'FREE' && stake > credits}
               style={{
-                padding: '18px 80px',
-                minHeight: '70px',
-                fontSize: '28px',
+                padding: '12px 50px',
+                minHeight: '50px',
+                fontSize: '22px',
                 fontWeight: 'bold',
                 background: (stake !== 'FREE' && stake > credits) 
-                  ? 'linear-gradient(to bottom, #999 0%, #666 100%)' 
-                  : 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)',
+                  ? 'linear-gradient(to top, #999 0%, #666 100%)' 
+                  : 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
                 color: 'white',
-                border: '4px solid #800000',
-                borderRadius: '20px',
+                border: '3px solid #660000',
+                borderRadius: '12px',
                 cursor: (stake !== 'FREE' && stake > credits) ? 'not-allowed' : 'pointer',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.3)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
                 fontFamily: "'Courier New', monospace",
-                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 position: 'relative',
                 transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
                 if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.background = 'linear-gradient(to bottom, #ff5555 0%, #dd0000 100%)';
+                  e.currentTarget.style.background = 'linear-gradient(to top, #ff6666 0%, #bb0000 100%)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.background = 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)';
+                  e.currentTarget.style.background = 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)';
                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
                 }
               }}
             >
@@ -366,29 +368,31 @@ export function GameUI() {
             <button
               {...handleTouchButton(stopBlock)}
               style={{
-                padding: '18px 80px',
-                minHeight: '70px',
-                fontSize: '28px',
+                padding: '12px 50px',
+                minHeight: '50px',
+                fontSize: '22px',
                 fontWeight: 'bold',
-                background: 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)',
+                background: 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)',
                 color: 'white',
-                border: '4px solid #800000',
-                borderRadius: '20px',
+                border: '3px solid #660000',
+                borderRadius: '12px',
                 cursor: 'pointer',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.3)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
                 fontFamily: "'Courier New', monospace",
-                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 position: 'relative',
                 transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to bottom, #ff5555 0%, #dd0000 100%)';
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff6666 0%, #bb0000 100%)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)';
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff5555 0%, #aa0000 100%)';
                 e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
               }}
             >
               STOP
