@@ -350,8 +350,9 @@ export function GameUI() {
             </div>
           </>
         )}
-        
-        {phase === 'ended' && !showNameEntry && (
+      </div>
+      
+      {phase === 'ended' && !showNameEntry && (
           <div style={{
             position: 'absolute',
             top: '80px',
@@ -450,8 +451,7 @@ export function GameUI() {
               </button>
             </div>
           </div>
-        )}
-      </div>
+      )}
       
       <div style={{
         position: 'absolute',
