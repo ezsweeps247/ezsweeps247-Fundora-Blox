@@ -91,7 +91,7 @@ export function PrizeIndicators() {
               minWidth: '110px',
               textAlign: 'left',
               opacity: 1,
-              fontSize: '20px',
+              fontSize: '28px',
               letterSpacing: '0.5px',
               fontWeight: 'bold',
             }}>
