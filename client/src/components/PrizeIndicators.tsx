@@ -12,6 +12,7 @@ const PRIZE_TIERS = [
   { minRow: 9, color: '#0099cc', multiplier: 1, type: 'cash', textColor: '#fff' },
   { minRow: 8, color: '#333333', multiplier: 1000, type: 'points', textColor: '#fff' },
   { minRow: 7, color: '#666666', multiplier: 500, type: 'points', textColor: '#fff' },
+  { minRow: 6, color: '#888888', multiplier: 250, type: 'points', textColor: '#fff' },
 ];
 
 function getPrizeTier(row: number) {
@@ -30,7 +31,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [13, 12, 11, 10, 9, 8, 7];
+  const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
   
   return (
     <div style={{

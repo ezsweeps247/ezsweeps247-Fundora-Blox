@@ -100,6 +100,7 @@ export const useGame = create<GameState>()(
       if (row >= 9) return { multiplier: 1, type: 'cash' as const };
       if (row >= 8) return { multiplier: 1000, type: 'points' as const };
       if (row >= 7) return { multiplier: 500, type: 'points' as const };
+      if (row >= 6) return { multiplier: 250, type: 'points' as const };
       return { multiplier: 0, type: 'points' as const };
     },
     
