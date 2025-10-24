@@ -214,6 +214,63 @@ export function GameUI() {
         <StakeSelector />
       </div>
       
+      <div style={{
+        position: 'absolute',
+        bottom: '40px',
+        right: '40px',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <button
+            {...handleTouchButton(toggleMute)}
+            style={{
+              width: '70px',
+              height: '70px',
+              backgroundColor: 'rgba(200, 200, 200, 0.9)',
+              border: '4px solid #333',
+              borderRadius: '12px',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(220, 220, 220, 0.95)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(200, 200, 200, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            {isMuted ? (
+              <VolumeX size={30} color="#333" strokeWidth={2.5} />
+            ) : (
+              <Volume2 size={30} color="#333" strokeWidth={2.5} />
+            )}
+          </button>
+          <div style={{
+            fontSize: '10px',
+            fontWeight: 'bold',
+            color: '#333',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            textAlign: 'center',
+            fontFamily: "'Courier New', monospace"
+          }}>
+            SOUND ON/OFF
+          </div>
+        </div>
+      </div>
+      
       <PrizeMultipliers />
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
@@ -226,7 +283,7 @@ export function GameUI() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '20px',
+        gap: '8px',
         pointerEvents: 'auto'
       }}>
         {phase === 'ready' && (
@@ -235,106 +292,93 @@ export function GameUI() {
               {...handleTouchButton(start)}
               disabled={stake !== 'FREE' && stake > credits}
               style={{
-                padding: '20px 60px',
-                minHeight: '60px',
-                fontSize: '24px',
+                padding: '18px 80px',
+                minHeight: '70px',
+                fontSize: '28px',
                 fontWeight: 'bold',
-                backgroundColor: (stake !== 'FREE' && stake > credits) ? '#999' : '#d64545',
+                background: (stake !== 'FREE' && stake > credits) 
+                  ? 'linear-gradient(to bottom, #999 0%, #666 100%)' 
+                  : 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)',
                 color: 'white',
-                border: 'none',
-                borderRadius: '15px',
+                border: '4px solid #800000',
+                borderRadius: '20px',
                 cursor: (stake !== 'FREE' && stake > credits) ? 'not-allowed' : 'pointer',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                boxShadow: '0 6px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.3)',
                 textTransform: 'uppercase',
                 fontFamily: "'Courier New', monospace",
-                opacity: (stake !== 'FREE' && stake > credits) ? 0.5 : 1
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                position: 'relative',
+                transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
                 if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.backgroundColor = '#ff5555';
+                  e.currentTarget.style.background = 'linear-gradient(to bottom, #ff5555 0%, #dd0000 100%)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.backgroundColor = '#d64545';
+                  e.currentTarget.style.background = 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }
               }}
             >
               {(stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
             </button>
+            <div style={{
+              fontSize: '11px',
+              fontWeight: 'bold',
+              color: '#333',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              textAlign: 'center'
+            }}>
+              STOP BLOCKS
+            </div>
           </>
         )}
         
         {phase === 'playing' && (
           <>
-            <div style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.95)',
-              border: '4px solid #333',
-              borderRadius: '15px',
-              padding: '20px 30px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-              fontFamily: "'Courier New', monospace",
-              textAlign: 'center'
-            }}>
-              <div style={{
-                fontSize: '14px',
-                fontWeight: 'bold',
-                color: '#666',
-                marginBottom: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '2px'
-              }}>
-                Potential Prize
-              </div>
-              <div style={{
-                fontSize: '36px',
-                fontWeight: 'bold',
-                color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800',
-                textShadow: '0 2px 4px rgba(0,0,0,0.2)'
-              }}>
-                {potentialPrize.type === 'cash' 
-                  ? `$${potentialPrize.amount.toFixed(2)}`
-                  : `${potentialPrize.amount.toLocaleString()}P`
-                }
-              </div>
-              <div style={{
-                fontSize: '12px',
-                color: '#999',
-                marginTop: '5px'
-              }}>
-                Height: Row {highestRow}
-              </div>
-            </div>
             <button
               {...handleTouchButton(stopBlock)}
               style={{
-                padding: '20px 60px',
+                padding: '18px 80px',
                 minHeight: '70px',
                 fontSize: '28px',
                 fontWeight: 'bold',
-                backgroundColor: '#d64545',
+                background: 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)',
                 color: 'white',
-                border: 'none',
-                borderRadius: '15px',
+                border: '4px solid #800000',
+                borderRadius: '20px',
                 cursor: 'pointer',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                boxShadow: '0 6px 20px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.3)',
                 textTransform: 'uppercase',
-                fontFamily: "'Courier New', monospace"
+                fontFamily: "'Courier New', monospace",
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                position: 'relative',
+                transition: 'all 0.2s'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ff5555'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d64545'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(to bottom, #ff5555 0%, #dd0000 100%)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(to bottom, #ff4444 0%, #cc0000 100%)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
-              STOP BLOCKS
+              STOP
             </button>
             <div style={{
-              fontSize: '14px',
-              color: 'rgba(255, 255, 255, 0.8)',
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
-              padding: '8px 16px',
-              borderRadius: '8px',
-              fontFamily: "'Courier New', monospace"
+              fontSize: '11px',
+              fontWeight: 'bold',
+              color: '#333',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              textAlign: 'center'
             }}>
-              Press SPACEBAR or tap button
+              STOP BLOCKS
             </div>
           </>
         )}
@@ -427,8 +471,8 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: '20px',
-        right: '20px',
+        top: '40px',
+        right: '40px',
         display: 'flex',
         gap: '10px',
         pointerEvents: 'auto'
@@ -451,23 +495,6 @@ export function GameUI() {
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.9)'}
         >
           <Trophy size={28} color="#8B4513" />
-        </button>
-        <button
-          {...handleTouchButton(toggleMute)}
-          style={{
-            padding: '15px',
-            minWidth: '60px',
-            minHeight: '60px',
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            border: '2px solid #ccc',
-            borderRadius: '10px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {isMuted ? <VolumeX size={28} /> : <Volume2 size={28} />}
         </button>
       </div>
 
