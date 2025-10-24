@@ -365,7 +365,9 @@ export function GameUI() {
             padding: '12px 20px',
             borderRadius: '10px',
             boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-            border: '2px solid #333'
+            border: '2px solid #333',
+            pointerEvents: 'auto',
+            zIndex: 100
           }}>
             <div style={{ 
               fontSize: '16px', 
