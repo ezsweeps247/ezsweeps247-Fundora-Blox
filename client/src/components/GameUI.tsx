@@ -224,13 +224,15 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: '40px',
-        left: '40px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        left: 'calc(50% - 350px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '15px',
         pointerEvents: 'auto',
-        zIndex: 50
+        zIndex: 50,
+        marginTop: '-280px'
       }}>
         <DisplayBox 
           label="STAKE" 
