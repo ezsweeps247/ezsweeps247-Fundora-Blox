@@ -669,8 +669,8 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
           backgroundColor: '#000',
           padding: '4px 8px',
           borderRadius: '8px',
-          fontFamily: "'Roboto', sans-serif",
-          letterSpacing: '1px',
+          fontFamily: "'Courier New', 'Consolas', monospace",
+          letterSpacing: '2px',
           flex: '1'
         }}>
           {value}
