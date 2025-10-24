@@ -94,13 +94,14 @@ export const useGame = create<GameState>()(
     
     calculatePrizeMultiplier: (row: number) => {
       if (row >= 15) return { multiplier: 100, type: 'cash' as const };
-      if (row >= 12) return { multiplier: 10, type: 'cash' as const };
-      if (row >= 9) return { multiplier: 5, type: 'cash' as const };
-      if (row >= 6) return { multiplier: 2, type: 'cash' as const };
-      if (row >= 3) return { multiplier: 1, type: 'cash' as const };
-      if (row === 2) return { multiplier: 1000, type: 'points' as const };
-      if (row === 1) return { multiplier: 500, type: 'points' as const };
-      return { multiplier: 250, type: 'points' as const };
+      if (row >= 14) return { multiplier: 10, type: 'cash' as const };
+      if (row >= 13) return { multiplier: 5, type: 'cash' as const };
+      if (row >= 12) return { multiplier: 2, type: 'cash' as const };
+      if (row >= 11) return { multiplier: 1, type: 'cash' as const };
+      if (row >= 10) return { multiplier: 1000, type: 'points' as const };
+      if (row >= 9) return { multiplier: 500, type: 'points' as const };
+      if (row >= 7) return { multiplier: 250, type: 'points' as const };
+      return { multiplier: 0, type: 'points' as const };
     },
     
     getPotentialPrize: () => {
@@ -186,7 +187,9 @@ export const useGame = create<GameState>()(
       const prizeInfo = state.getPotentialPrize();
       
       let newCredits = state.credits;
-      if (prizeInfo.type === 'cash') {
+      if (prizeInfo.amount === 0) {
+        console.log(`Game ended! No prize won (only reached row ${state.highestRow}). Credits: $${state.credits.toFixed(2)}`);
+      } else if (prizeInfo.type === 'cash') {
         newCredits = state.credits + prizeInfo.amount;
         console.log(`Game ended! Prize won: $${prizeInfo.amount.toFixed(2)}, Total credits: $${newCredits.toFixed(2)}`);
       } else {
