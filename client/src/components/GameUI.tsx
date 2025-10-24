@@ -655,9 +655,10 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
           <div style={{
             fontSize: '16px',
             fontWeight: 'bold',
-            color: '#333',
+            color: '#fff',
             fontFamily: "'Roboto', sans-serif",
-            paddingRight: '4px'
+            paddingRight: '4px',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {unit}
           </div>
