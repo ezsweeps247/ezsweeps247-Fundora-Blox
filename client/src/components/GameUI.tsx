@@ -228,11 +228,11 @@ export function GameUI() {
         <button
           {...handleTouchButton(toggleMute)}
           style={{
-            width: '60px',
-            height: '90px',
+            width: '45px',
+            height: '70px',
             background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
             border: 'none',
-            borderRadius: '20px',
+            borderRadius: '16px',
             cursor: 'pointer',
             display: 'flex',
             justifyContent: 'center',
@@ -240,27 +240,27 @@ export function GameUI() {
             boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
             transition: 'all 0.2s',
             position: 'relative',
-            padding: '8px'
+            padding: '6px'
           }}
         >
           <div style={{
-            width: '44px',
-            height: '56px',
+            width: '33px',
+            height: '42px',
             background: isMuted 
               ? 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)'
               : 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
-            borderRadius: '16px',
+            borderRadius: '12px',
             boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            transform: isMuted ? 'translateY(8px)' : 'translateY(-8px)',
+            transform: isMuted ? 'translateY(6px)' : 'translateY(-6px)',
             transition: 'transform 0.2s'
           }}>
             {isMuted ? (
-              <VolumeX size={24} color="#666" strokeWidth={2} />
+              <VolumeX size={18} color="#666" strokeWidth={2} />
             ) : (
-              <Volume2 size={24} color="#666" strokeWidth={2} />
+              <Volume2 size={18} color="#666" strokeWidth={2} />
             )}
           </div>
         </button>
