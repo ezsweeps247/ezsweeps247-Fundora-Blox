@@ -663,7 +663,7 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         gap: '6px'
       }}>
         <div style={{
-          fontSize: '20px',
+          fontSize: '24px',
           fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
