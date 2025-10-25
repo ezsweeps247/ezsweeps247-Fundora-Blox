@@ -200,7 +200,7 @@ export function GameFeed() {
                 fontFamily: "'Roboto', sans-serif",
                 marginTop: '1px'
               }}>
-                ${item.stake} • Row {item.highestRow}
+                <span style={{ fontWeight: 'bold' }}>${item.stake}</span> • Row <span style={{ fontWeight: 'bold' }}>{item.highestRow}</span>
               </div>
             </div>
           ))
