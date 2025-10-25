@@ -10,7 +10,7 @@ function App() {
       height: '100vh', 
       position: 'relative', 
       overflow: 'hidden',
-      background: '#ffffff'
+      background: '#f8f8f8'
     }}>
       <GameCanvas />
       <GameUI />
