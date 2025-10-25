@@ -69,7 +69,7 @@ export function SoundManager() {
         source.loop = true;
         
         const gainNode = audioContextRef.current.createGain();
-        gainNode.gain.value = 0.15;
+        gainNode.gain.value = 0.08;
         gainNodeRef.current = gainNode;
         
         source.connect(gainNode);
