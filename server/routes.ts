@@ -7,6 +7,7 @@ import gameRouter from "./api/game";
 import historyRouter from "./api/history";
 import analyticsRouter from "./api/analytics";
 import creditsRouter from "./api/credits";
+import pointsRouter from "./api/points";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -23,6 +24,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Credits management API routes
   app.use("/api/game/credits", creditsRouter);
+
+  // Points redemption API routes
+  app.use("/api/game/points", pointsRouter);
 
   // Game history API routes
   app.use("/api/history", historyRouter);
