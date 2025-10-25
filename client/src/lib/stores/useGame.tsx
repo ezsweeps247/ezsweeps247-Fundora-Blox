@@ -237,23 +237,27 @@ export const useGame = create<GameState>()(
         columns: lastBlock ? [...lastBlock.columns] : Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
       };
       
-      // Find the rightmost active column to calculate max position
+      // Find the leftmost and rightmost active columns to calculate position range
+      let leftmostCol = -1;
       let rightmostCol = -1;
-      for (let i = GRID_WIDTH - 1; i >= 0; i--) {
+      for (let i = 0; i < GRID_WIDTH; i++) {
         if (newBlock.columns[i]) {
+          if (leftmostCol === -1) leftmostCol = i;
           rightmostCol = i;
-          break;
         }
       }
+      
+      // Calculate min/max positions for random starting point
+      const minPosition = leftmostCol >= 0 ? -leftmostCol : 0;
       const maxPosition = rightmostCol >= 0 ? GRID_WIDTH - 1 - rightmostCol : GRID_WIDTH - 1;
       
-      // Random starting position
-      const randomPosition = Math.random() * maxPosition;
+      // Fully random starting position within valid range
+      const randomPosition = minPosition + (Math.random() * (maxPosition - minPosition));
       
-      // Alternate direction based on previous, or randomize if first block
+      // Randomly choose direction, with slight bias to alternate from previous
       const newDirection = state.blocks.length === 0 
         ? (Math.random() > 0.5 ? 1 : -1)
-        : -state.movementDirection;
+        : (Math.random() > 0.3 ? -state.movementDirection : state.movementDirection);
       
       // Calculate speed with random increment for each row
       // Speed progressively increases, with row 14 being the fastest
@@ -262,15 +266,23 @@ export const useGame = create<GameState>()(
       
       // Apply stake multiplier - higher stakes = faster blocks
       const stakeMultiplier = getStakeSpeedMultiplier(state.stake);
-      const newSpeed = rowSpeed * stakeMultiplier;
+      let finalSpeed = rowSpeed * stakeMultiplier;
       
-      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${newSpeed.toFixed(2)} (stake multiplier: ${stakeMultiplier}x)`);
+      // Add random speed spike when reaching first money line (row 9+)
+      // This makes the cash prize levels significantly more challenging
+      if (newRow >= 9) {
+        const moneyLineSpike = 1.15 + (Math.random() * 0.35); // 1.15x to 1.5x spike
+        finalSpeed *= moneyLineSpike;
+        console.log(`💰 Money line speed spike! Row ${newRow} gets ${moneyLineSpike.toFixed(2)}x multiplier`);
+      }
+      
+      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${finalSpeed.toFixed(2)} (stake multiplier: ${stakeMultiplier}x)`);
       
       set({
         currentBlock: newBlock,
         currentBlockPosition: randomPosition,
         movementDirection: newDirection,
-        movementSpeed: newSpeed
+        movementSpeed: finalSpeed
       });
     },
     
