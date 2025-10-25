@@ -56,6 +56,19 @@ const getPointMultiplier = (stake: number | 'FREE'): number => {
   return 1;
 };
 
+// Helper function to get speed multiplier based on stake
+// Higher stakes = faster blocks = more challenging
+const getStakeSpeedMultiplier = (stake: number | 'FREE'): number => {
+  if (stake === 'FREE') return 0.8;  // Easier
+  if (stake === 0.5) return 0.9;     // Slightly easier
+  if (stake === 1) return 1.0;       // Normal
+  if (stake === 2) return 1.15;      // Slightly faster
+  if (stake === 5) return 1.35;      // Challenging
+  if (stake === 10) return 1.6;      // Really challenging
+  if (stake === 20) return 2.0;      // Extremely challenging
+  return 1.0;
+};
+
 export const useGame = create<GameState>()(
   subscribeWithSelector((set, get) => ({
     phase: "ready",
@@ -245,9 +258,13 @@ export const useGame = create<GameState>()(
       // Calculate speed with random increment for each row
       // Speed progressively increases, with row 14 being the fastest
       const randomIncrement = MIN_SPEED_INCREMENT + (Math.random() * (MAX_SPEED_INCREMENT - MIN_SPEED_INCREMENT));
-      const newSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
+      const rowSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
       
-      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${newSpeed.toFixed(2)}`);
+      // Apply stake multiplier - higher stakes = faster blocks
+      const stakeMultiplier = getStakeSpeedMultiplier(state.stake);
+      const newSpeed = rowSpeed * stakeMultiplier;
+      
+      console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${newSpeed.toFixed(2)} (stake multiplier: ${stakeMultiplier}x)`);
       
       set({
         currentBlock: newBlock,
