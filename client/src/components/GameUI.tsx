@@ -73,26 +73,26 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: '16px',
-        fontWeight: 'bold',
+        fontSize: '18px',
+        fontWeight: '900',
         color: '#ffffff',
         textShadow: `
-          -1px -1px 0 #000,
-          1px -1px 0 #000,
-          -1px 1px 0 #000,
-          1px 1px 0 #000,
+          2px 2px 0 #000,
           -2px -2px 0 #000,
           2px -2px 0 #000,
           -2px 2px 0 #000,
-          2px 2px 0 #000
+          0 0 4px rgba(0, 0, 0, 0.8)
         `,
-        fontFamily: "'Roboto', sans-serif",
+        fontFamily: "'Arial Black', 'Arial', sans-serif",
         textAlign: 'center',
         marginTop: '4px',
         backgroundColor: 'transparent',
         padding: '3px 8px',
-        borderRadius: '4px'
-      }}>
+        borderRadius: '4px',
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+        letterSpacing: '0.5px'
+      } as React.CSSProperties}>
         {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
       </div>
       <style>{`
