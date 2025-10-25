@@ -473,15 +473,16 @@ export const useGame = create<GameState>()(
         newComboMultiplier = 1;
       }
       
-      // Apply combo multiplier to score
+      // Apply combo multiplier to score - only count points if row >= 6 (first points row)
       const basePoints = activeBlockCount * 10;
       const multipliedPoints = Math.round(basePoints * newComboMultiplier);
-      const newScore = state.score + multipliedPoints;
-      const newBonusPoints = state.bonusPoints + (activeBlockCount * 50);
+      const shouldCountPoints = state.currentBlock.row >= 6;
+      const newScore = shouldCountPoints ? state.score + multipliedPoints : state.score;
+      const newBonusPoints = shouldCountPoints ? state.bonusPoints + (activeBlockCount * 50) : state.bonusPoints;
       const newHighestRow = Math.max(state.highestRow, state.currentBlock.row);
       const newBlocksStacked = state.blocksStacked + 1;
       
-      console.log(`Block placed! Active columns: ${activeBlockCount}, Base points: ${basePoints}, Multiplier: ${newComboMultiplier.toFixed(1)}x, Score: +${multipliedPoints} = ${newScore}`);
+      console.log(`Block placed! Active columns: ${activeBlockCount}, Row: ${state.currentBlock.row}, Points ${shouldCountPoints ? 'COUNTED' : 'NOT counted'}, Base points: ${basePoints}, Multiplier: ${newComboMultiplier.toFixed(1)}x, Score: ${shouldCountPoints ? `+${multipliedPoints} = ${newScore}` : `${newScore} (below points threshold)`}`);
       
       const finalBlock: Block = {
         row: state.currentBlock.row,
