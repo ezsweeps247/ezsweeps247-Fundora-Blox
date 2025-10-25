@@ -61,10 +61,10 @@ const getPointMultiplier = (stake: number | 'FREE'): number => {
 const getStakeSpeedMultiplier = (stake: number | 'FREE'): number => {
   if (stake === 'FREE') return 0.8;  // Easier
   if (stake === 0.5) return 0.9;     // Slightly easier
-  if (stake === 1) return 1.0;       // Normal
-  if (stake === 2) return 1.15;      // Slightly faster
-  if (stake === 5) return 1.35;      // Challenging
-  if (stake === 10) return 1.6;      // Really challenging
+  if (stake === 1) return 1.2;       // Faster
+  if (stake === 2) return 1.25;      // Slightly faster
+  if (stake === 5) return 1.5;       // Quite challenging
+  if (stake === 10) return 1.7;      // Really challenging
   if (stake === 20) return 2.0;      // Extremely challenging
   return 1.0;
 };
