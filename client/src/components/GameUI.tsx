@@ -257,6 +257,23 @@ export function GameUI() {
         left: '50%',
         transform: 'translateX(-50%)',
         width: '900px',
+        height: '119px',
+        background: 'linear-gradient(to bottom, rgba(15, 15, 20, 0.75) 0%, rgba(10, 10, 15, 0.80) 50%, rgba(15, 15, 20, 0.75) 100%)',
+        backdropFilter: 'blur(12px)',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.05), 0 4px 20px rgba(0,0,0,0.3)',
+        pointerEvents: 'none',
+        zIndex: 35,
+        transition: 'all 0.3s ease-in-out'
+      }} />
+      
+      <div style={{
+        position: 'absolute',
+        bottom: 'calc(50% - 390px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '900px',
         height: '1px',
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
         pointerEvents: 'none',
@@ -290,11 +307,12 @@ export function GameUI() {
         <div style={{
           fontSize: '9px',
           fontWeight: 'bold',
-          color: '#666',
+          color: 'rgba(255, 255, 255, 0.7)',
           textTransform: 'uppercase',
           letterSpacing: '0.5px',
           textAlign: 'center',
-          fontFamily: "'Roboto', sans-serif"
+          fontFamily: "'Roboto', sans-serif",
+          textShadow: '0 1px 2px rgba(0,0,0,0.5)'
         }}>
           CHOOSE STAKE
         </div>
@@ -355,10 +373,11 @@ export function GameUI() {
             <div style={{
               fontSize: '11px',
               fontWeight: 'bold',
-              color: '#333',
+              color: 'rgba(255, 255, 255, 0.7)',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
-              textAlign: 'center'
+              textAlign: 'center',
+              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
             }}>
               STOP BLOCKS
             </div>
@@ -401,10 +420,11 @@ export function GameUI() {
             <div style={{
               fontSize: '11px',
               fontWeight: 'bold',
-              color: '#333',
+              color: 'rgba(255, 255, 255, 0.7)',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
-              textAlign: 'center'
+              textAlign: 'center',
+              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
             }}>
               STOP BLOCKS
             </div>
@@ -584,11 +604,12 @@ export function GameUI() {
         <div style={{
           fontSize: '9px',
           fontWeight: 'bold',
-          color: '#666',
+          color: 'rgba(255, 255, 255, 0.7)',
           textTransform: 'uppercase',
           letterSpacing: '0.5px',
           textAlign: 'center',
-          fontFamily: "'Roboto', sans-serif"
+          fontFamily: "'Roboto', sans-serif",
+          textShadow: '0 1px 2px rgba(0,0,0,0.5)'
         }}>
           SOUND ON/OFF
         </div>
