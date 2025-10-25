@@ -248,13 +248,17 @@ export const useGame = create<GameState>()(
       const prizeInfo = state.getPotentialPrize();
       
       let newCredits = state.credits;
+      
+      // Always log bonus points earned
+      console.log(`Game ended! Bonus points earned: ${state.bonusPoints}P`);
+      
       if (prizeInfo.amount === 0) {
-        console.log(`Game ended! No prize won (only reached row ${state.highestRow}). Credits: $${state.credits.toFixed(2)}`);
+        console.log(`No prize won (only reached row ${state.highestRow}). Credits: $${state.credits.toFixed(2)}`);
       } else if (prizeInfo.type === 'cash') {
         newCredits = state.credits + prizeInfo.amount;
-        console.log(`Game ended! Prize won: $${prizeInfo.amount.toFixed(2)}, Total credits: $${newCredits.toFixed(2)}`);
+        console.log(`Prize won: $${prizeInfo.amount.toFixed(2)}, Total credits: $${newCredits.toFixed(2)}`);
       } else {
-        console.log(`Game ended! Points won: ${prizeInfo.amount}P, Credits: $${state.credits.toFixed(2)}`);
+        console.log(`Prize won: ${prizeInfo.amount}P, Credits: $${state.credits.toFixed(2)}`);
       }
       
       set({ 
@@ -277,6 +281,7 @@ export const useGame = create<GameState>()(
           prizeType: prizeInfo.amount > 0 ? prizeInfo.type : null,
           blocksStacked: state.blocksStacked,
           highestRow: state.highestRow,
+          bonusPoints: state.bonusPoints, // Include bonus points
         }),
       }).catch(err => console.error('Failed to save game history:', err));
     },

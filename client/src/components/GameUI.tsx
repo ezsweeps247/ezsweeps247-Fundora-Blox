@@ -434,62 +434,96 @@ export function GameUI() {
             </div>
             <div style={{
               display: 'flex',
-              gap: '32px',
-              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '12px',
               marginBottom: '4px'
             }}>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ 
-                  fontSize: '12px', 
-                  color: 'rgba(255, 255, 255, 0.6)', 
-                  marginBottom: '4px',
-                  fontWeight: 'bold',
-                  letterSpacing: '0.5px'
-                }}>
-                  SCORE
-                </div>
-                <div style={{ 
-                  fontSize: '32px', 
-                  color: '#ff6666', 
-                  fontWeight: 'bold',
-                  fontFamily: "'Digital-7 Mono', monospace",
-                  textShadow: '0 0 10px rgba(255, 102, 102, 0.5)'
-                }}>
-                  {score}
-                </div>
-              </div>
               <div style={{
-                width: '2px',
-                height: '50px',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)'
-              }} />
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ 
-                  fontSize: '12px', 
-                  color: 'rgba(255, 255, 255, 0.6)', 
-                  marginBottom: '4px',
-                  fontWeight: 'bold',
-                  letterSpacing: '0.5px'
-                }}>
-                  PRIZE
+                display: 'flex',
+                gap: '32px',
+                alignItems: 'center'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ 
+                    fontSize: '12px', 
+                    color: 'rgba(255, 255, 255, 0.6)', 
+                    marginBottom: '4px',
+                    fontWeight: 'bold',
+                    letterSpacing: '0.5px'
+                  }}>
+                    SCORE
+                  </div>
+                  <div style={{ 
+                    fontSize: '32px', 
+                    color: '#ff6666', 
+                    fontWeight: 'bold',
+                    fontFamily: "'Digital-7 Mono', monospace",
+                    textShadow: '0 0 10px rgba(255, 102, 102, 0.5)'
+                  }}>
+                    {score}
+                  </div>
                 </div>
-                <div style={{ 
-                  fontSize: '32px', 
-                  fontWeight: 'bold',
-                  fontFamily: "'Digital-7 Mono', monospace",
-                  color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
-                  textShadow: potentialPrize.amount === 0 
-                    ? '0 0 10px rgba(255, 170, 68, 0.5)' 
-                    : (potentialPrize.type === 'cash' ? '0 0 10px rgba(68, 255, 68, 0.5)' : '0 0 10px rgba(255, 170, 68, 0.5)')
-                }}>
-                  {potentialPrize.amount === 0 
-                    ? '0P'
-                    : potentialPrize.type === 'cash' 
-                      ? `$${potentialPrize.amount.toFixed(2)}`
-                      : `${potentialPrize.amount.toLocaleString()}P`
-                  }
+                <div style={{
+                  width: '2px',
+                  height: '50px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)'
+                }} />
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ 
+                    fontSize: '12px', 
+                    color: 'rgba(255, 255, 255, 0.6)', 
+                    marginBottom: '4px',
+                    fontWeight: 'bold',
+                    letterSpacing: '0.5px'
+                  }}>
+                    PRIZE
+                  </div>
+                  <div style={{ 
+                    fontSize: '32px', 
+                    fontWeight: 'bold',
+                    fontFamily: "'Digital-7 Mono', monospace",
+                    color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
+                    textShadow: potentialPrize.amount === 0 
+                      ? '0 0 10px rgba(255, 170, 68, 0.5)' 
+                      : (potentialPrize.type === 'cash' ? '0 0 10px rgba(68, 255, 68, 0.5)' : '0 0 10px rgba(255, 170, 68, 0.5)')
+                  }}>
+                    {potentialPrize.amount === 0 
+                      ? '0P'
+                      : potentialPrize.type === 'cash' 
+                        ? `$${potentialPrize.amount.toFixed(2)}`
+                        : `${potentialPrize.amount.toLocaleString()}P`
+                    }
+                  </div>
                 </div>
               </div>
+              {bonusPoints > 0 && (
+                <div style={{
+                  textAlign: 'center',
+                  padding: '8px 16px',
+                  background: 'rgba(255, 170, 68, 0.15)',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(255, 170, 68, 0.3)'
+                }}>
+                  <div style={{
+                    fontSize: '11px',
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    marginBottom: '2px',
+                    fontWeight: 'bold',
+                    letterSpacing: '0.5px'
+                  }}>
+                    BONUS POINTS EARNED
+                  </div>
+                  <div style={{
+                    fontSize: '24px',
+                    color: '#ffaa44',
+                    fontWeight: 'bold',
+                    fontFamily: "'Digital-7 Mono', monospace",
+                    textShadow: '0 0 8px rgba(255, 170, 68, 0.5)'
+                  }}>
+                    +{formatNumber(bonusPoints)}P
+                  </div>
+                </div>
+              )}
             </div>
             <button
               {...handleTouchButton(restart)}
