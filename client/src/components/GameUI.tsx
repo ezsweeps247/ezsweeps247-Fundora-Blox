@@ -463,7 +463,7 @@ export function GameUI() {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '6px',
-            background: 'linear-gradient(to bottom, rgba(20, 20, 25, 0.85) 0%, rgba(10, 10, 15, 0.90) 50%, rgba(5, 5, 10, 0.95) 100%)',
+            background: 'linear-gradient(to bottom, rgba(80, 85, 95, 0.90) 0%, rgba(70, 75, 85, 0.92) 50%, rgba(60, 65, 75, 0.95) 100%)',
             padding: '12px 20px 14px 20px',
             borderRadius: '12px',
             boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.1)',
