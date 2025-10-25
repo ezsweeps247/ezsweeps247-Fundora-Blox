@@ -158,7 +158,7 @@ export function GameFeed() {
               }}
             >
               <div style={{
-                fontSize: '11px',
+                fontSize: '13px',
                 fontWeight: 'bold',
                 color: '#ffffff',
                 fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
@@ -178,7 +178,7 @@ export function GameFeed() {
                 gap: '4px'
               }}>
                 <div style={{
-                  fontSize: '10px',
+                  fontSize: '12px',
                   color: '#ffffff',
                   fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
                   textShadow: '0 0 2px #ffffff'
@@ -186,7 +186,7 @@ export function GameFeed() {
                   {item.score}
                 </div>
                 <div style={{
-                  fontSize: '8px',
+                  fontSize: '10px',
                   color: item.prizeType === 'cash' ? '#00ff00' : '#ffaa00',
                   fontFamily: "'Roboto', sans-serif",
                   fontWeight: 'bold'
@@ -195,7 +195,7 @@ export function GameFeed() {
                 </div>
               </div>
               <div style={{
-                fontSize: '7px',
+                fontSize: '8px',
                 color: '#888',
                 fontFamily: "'Roboto', sans-serif",
                 marginTop: '1px'
