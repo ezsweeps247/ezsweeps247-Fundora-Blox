@@ -422,19 +422,21 @@ export function GameUI() {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            background: 'linear-gradient(to bottom, rgba(20, 20, 25, 0.85) 0%, rgba(10, 10, 15, 0.90) 50%, rgba(5, 5, 10, 0.95) 100%)',
             padding: '12px 20px 14px 20px',
             borderRadius: '12px',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-            border: '2px solid #333',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(10px)',
             pointerEvents: 'auto',
             zIndex: 100
           }}>
             <div style={{ 
               fontSize: '14px', 
               fontWeight: 'bold',
-              color: '#333',
-              marginBottom: '2px'
+              color: '#ffffff',
+              marginBottom: '2px',
+              textShadow: '0 2px 4px rgba(0,0,0,0.5)'
             }}>
               Game Over
             </div>
@@ -447,7 +449,7 @@ export function GameUI() {
               <div style={{ textAlign: 'center' }}>
                 <div style={{ 
                   fontSize: '8px', 
-                  color: '#666', 
+                  color: 'rgba(255, 255, 255, 0.6)', 
                   marginBottom: '2px',
                   fontWeight: 'bold',
                   letterSpacing: '0.5px'
@@ -456,9 +458,10 @@ export function GameUI() {
                 </div>
                 <div style={{ 
                   fontSize: '20px', 
-                  color: '#d64545', 
+                  color: '#ff6666', 
                   fontWeight: 'bold',
-                  fontFamily: "'Digital-7 Mono', monospace"
+                  fontFamily: "'Digital-7 Mono', monospace",
+                  textShadow: '0 0 10px rgba(255, 102, 102, 0.5)'
                 }}>
                   {score}
                 </div>
@@ -466,12 +469,12 @@ export function GameUI() {
               <div style={{
                 width: '1px',
                 height: '32px',
-                backgroundColor: '#ddd'
+                backgroundColor: 'rgba(255, 255, 255, 0.2)'
               }} />
               <div style={{ textAlign: 'center' }}>
                 <div style={{ 
                   fontSize: '8px', 
-                  color: '#666', 
+                  color: 'rgba(255, 255, 255, 0.6)', 
                   marginBottom: '2px',
                   fontWeight: 'bold',
                   letterSpacing: '0.5px'
@@ -482,7 +485,10 @@ export function GameUI() {
                   fontSize: '20px', 
                   fontWeight: 'bold',
                   fontFamily: "'Digital-7 Mono', monospace",
-                  color: potentialPrize.amount === 0 ? '#ff8800' : (potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800')
+                  color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
+                  textShadow: potentialPrize.amount === 0 
+                    ? '0 0 10px rgba(255, 170, 68, 0.5)' 
+                    : (potentialPrize.type === 'cash' ? '0 0 10px rgba(68, 255, 68, 0.5)' : '0 0 10px rgba(255, 170, 68, 0.5)')
                 }}>
                   {potentialPrize.amount === 0 
                     ? '0P'
