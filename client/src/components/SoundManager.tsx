@@ -3,12 +3,20 @@ import { useAudio } from '@/lib/stores/useAudio';
 import { useGame } from '@/lib/stores/useGame';
 
 export function SoundManager() {
+  const setBackgroundMusic = useAudio(state => state.setBackgroundMusic);
   const setHitSound = useAudio(state => state.setHitSound);
   const setSuccessSound = useAudio(state => state.setSuccessSound);
   const playHit = useAudio(state => state.playHit);
   const playSuccess = useAudio(state => state.playSuccess);
+  const isMuted = useAudio(state => state.isMuted);
+  const backgroundMusic = useAudio(state => state.backgroundMusic);
   
   useEffect(() => {
+    const bgMusic = new Audio('/attached_assets/DSGNBoom-"Hard-hitting_trap_l-Elevenlabs_1761420109413.wav');
+    bgMusic.loop = true;
+    bgMusic.volume = 0.3;
+    setBackgroundMusic(bgMusic);
+    
     const hitAudio = new Audio('/sounds/hit.mp3');
     hitAudio.volume = 0.3;
     setHitSound(hitAudio);
@@ -16,7 +24,17 @@ export function SoundManager() {
     const successAudio = new Audio('/sounds/success.mp3');
     successAudio.volume = 0.5;
     setSuccessSound(successAudio);
-  }, [setHitSound, setSuccessSound]);
+  }, [setBackgroundMusic, setHitSound, setSuccessSound]);
+  
+  useEffect(() => {
+    if (backgroundMusic) {
+      if (!isMuted) {
+        backgroundMusic.play().catch(err => console.log('Background music play prevented:', err));
+      } else {
+        backgroundMusic.pause();
+      }
+    }
+  }, [isMuted, backgroundMusic]);
   
   useEffect(() => {
     const unsubscribe = useGame.subscribe(
