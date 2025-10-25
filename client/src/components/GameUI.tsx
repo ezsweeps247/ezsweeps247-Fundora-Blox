@@ -184,7 +184,7 @@ export function GameUI() {
     }}>
       <div style={{
         position: 'absolute',
-        top: 'calc(50% - 370px)',
+        top: 'calc(50% - 400px)',
         left: '50%',
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
@@ -202,15 +202,7 @@ export function GameUI() {
             3px 3px 6px rgba(0, 0, 0, 0.9)
           `,
           letterSpacing: '8px',
-          textAlign: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          padding: '12px 30px',
-          borderRadius: '12px',
-          border: '3px solid #ff0000',
-          boxShadow: `
-            0 0 20px rgba(255, 0, 0, 0.5),
-            inset 0 0 20px rgba(0, 0, 0, 0.5)
-          `
+          textAlign: 'center'
         }}>
           FUNDORA BLOX
         </div>
