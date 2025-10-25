@@ -243,7 +243,7 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: 'calc(50% - 370px)',
+        bottom: 'calc(50% - 390px)',
         left: '50%',
         transform: 'translateX(-50%)',
         width: '700px',
@@ -267,7 +267,7 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: 'calc(50% - 360px)',
+        bottom: 'calc(50% - 380px)',
         right: 'calc(50% + 200px)',
         display: 'flex',
         flexDirection: 'column',
@@ -292,7 +292,7 @@ export function GameUI() {
       
       <div className="game-controls" style={{
         position: 'absolute',
-        bottom: 'calc(50% - 360px)',
+        bottom: 'calc(50% - 380px)',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
@@ -517,7 +517,7 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: 'calc(50% - 360px)',
+        bottom: 'calc(50% - 380px)',
         left: 'calc(50% + 200px)',
         display: 'flex',
         flexDirection: 'column',
