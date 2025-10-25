@@ -10,7 +10,7 @@ function App() {
       height: '100vh', 
       position: 'relative', 
       overflow: 'hidden',
-      background: 'linear-gradient(to bottom, #b8d4e8 0%, #d4e8f8 100%)'
+      background: '#ffffff'
     }}>
       <GameCanvas />
       <GameUI />
