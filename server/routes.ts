@@ -5,6 +5,8 @@ import { storage } from "./storage";
 import { insertHighScoreSchema } from "@shared/schema";
 import gameRouter from "./api/game";
 import historyRouter from "./api/history";
+import analyticsRouter from "./api/analytics";
+import creditsRouter from "./api/credits";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -15,6 +17,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Game API routes for external platform integration
   app.use("/api/game", gameRouter);
+
+  // Analytics API routes
+  app.use("/api/game/analytics", analyticsRouter);
+
+  // Credits management API routes
+  app.use("/api/game/credits", creditsRouter);
 
   // Game history API routes
   app.use("/api/history", historyRouter);

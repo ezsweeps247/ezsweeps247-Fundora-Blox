@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { db } from '../db';
 import { gameSessions, apiKeys } from '@shared/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and, desc, sql } from 'drizzle-orm';
 import { randomBytes } from 'crypto';
 import { authenticateApiKey } from '../middleware/apiAuth';
 
@@ -34,6 +34,56 @@ async function sendWebhook(webhookUrl: string, webhookSecret: string, eventType:
     console.error('Webhook delivery error:', error);
   }
 }
+
+// GET /api/game/sessions - List all sessions with filtering
+router.get('/sessions', authenticateApiKey, async (req, res) => {
+  try {
+    const apiKeyId = req.apiKey!.id;
+    const status = req.query.status as string;
+    const externalPlayerId = req.query.playerId as string;
+    const limit = Math.min(parseInt(req.query.limit as string) || 50, 200);
+    const offset = parseInt(req.query.offset as string) || 0;
+
+    let whereConditions = [eq(gameSessions.apiKeyId, apiKeyId)];
+    
+    if (status) {
+      whereConditions.push(eq(gameSessions.status, status));
+    }
+    
+    if (externalPlayerId) {
+      whereConditions.push(eq(gameSessions.externalPlayerId, externalPlayerId));
+    }
+
+    const sessions = await db
+      .select()
+      .from(gameSessions)
+      .where(and(...whereConditions))
+      .orderBy(desc(gameSessions.createdAt))
+      .limit(limit)
+      .offset(offset);
+
+    const [countResult] = await db
+      .select({ count: sql<number>`COUNT(*)` })
+      .from(gameSessions)
+      .where(and(...whereConditions));
+
+    res.json({
+      sessions,
+      pagination: {
+        total: countResult.count,
+        limit,
+        offset,
+        hasMore: offset + sessions.length < countResult.count,
+      }
+    });
+  } catch (error) {
+    console.error('List sessions error:', error);
+    res.status(500).json({
+      error: 'Server error',
+      message: 'Failed to list sessions'
+    });
+  }
+});
 
 // POST /api/game/sessions - Create a new game session
 router.post('/sessions', authenticateApiKey, async (req, res) => {
@@ -232,6 +282,71 @@ router.post('/sessions/:sessionToken/end', authenticateApiKey, async (req, res) 
     res.status(500).json({
       error: 'Server error',
       message: 'Failed to end session'
+    });
+  }
+});
+
+// POST /api/game/sessions/:sessionToken/events - Track gameplay events
+router.post('/sessions/:sessionToken/events', authenticateApiKey, async (req, res) => {
+  try {
+    const { sessionToken } = req.params;
+    const { eventType, data } = req.body;
+
+    if (!eventType) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'eventType is required'
+      });
+    }
+
+    const [session] = await db
+      .select()
+      .from(gameSessions)
+      .where(eq(gameSessions.sessionToken, sessionToken))
+      .limit(1);
+
+    if (!session) {
+      return res.status(404).json({
+        error: 'Session not found',
+        message: 'No session found with this token'
+      });
+    }
+
+    if (session.apiKeyId !== req.apiKey!.id) {
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'This session belongs to a different API key'
+      });
+    }
+
+    // Send webhook for gameplay events
+    if (req.apiKey!.webhookUrl && req.apiKey!.webhookSecret) {
+      await sendWebhook(
+        req.apiKey!.webhookUrl,
+        req.apiKey!.webhookSecret,
+        `gameplay.${eventType}`,
+        {
+          sessionId: session.id,
+          sessionToken: session.sessionToken,
+          externalPlayerId: session.externalPlayerId,
+          playerName: session.playerName,
+          eventType,
+          data,
+          timestamp: new Date().toISOString(),
+        }
+      );
+    }
+
+    res.json({
+      success: true,
+      message: 'Event tracked successfully',
+      eventType,
+    });
+  } catch (error) {
+    console.error('Track event error:', error);
+    res.status(500).json({
+      error: 'Server error',
+      message: 'Failed to track gameplay event'
     });
   }
 });

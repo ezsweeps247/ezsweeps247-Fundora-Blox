@@ -419,6 +419,477 @@ Error responses include details:
 5. **Monitor API Usage** - Track your API calls and session creation rates
 6. **Test in Sandbox** - Test your integration thoroughly before going live
 
+## Advanced API Endpoints
+
+### Session Management
+
+#### List All Sessions
+
+Get a paginated list of all sessions with optional filtering.
+
+**Endpoint:** `GET /api/game/sessions`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+```
+
+**Query Parameters:**
+- `status` (optional): Filter by status ("active" or "completed")
+- `playerId` (optional): Filter by external player ID
+- `limit` (optional): Number of results (default: 50, max: 200)
+- `offset` (optional): Pagination offset (default: 0)
+
+**Example:**
+```bash
+curl -H "X-API-Key: your_api_key_here" \
+     "https://your-game-domain.com/api/game/sessions?status=completed&limit=10"
+```
+
+**Response:**
+```json
+{
+  "sessions": [
+    {
+      "id": 1,
+      "sessionToken": "a1b2c3d4...",
+      "externalPlayerId": "player123",
+      "playerName": "John Doe",
+      "score": 450,
+      "prize": "2.00",
+      "status": "completed",
+      "createdAt": "2025-01-24T10:30:00Z"
+    }
+  ],
+  "pagination": {
+    "total": 100,
+    "limit": 10,
+    "offset": 0,
+    "hasMore": true
+  }
+}
+```
+
+#### Track Gameplay Events
+
+Send real-time gameplay events for monitoring and analytics.
+
+**Endpoint:** `POST /api/game/sessions/:sessionToken/events`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "eventType": "block_placed",
+  "data": {
+    "row": 5,
+    "columns": 2,
+    "score": 150,
+    "combo": 3
+  }
+}
+```
+
+**Event Types:**
+- `block_placed` - When a block is successfully placed
+- `combo_started` - When a combo streak begins
+- `combo_broken` - When a combo streak ends
+- `milestone_reached` - When player reaches a specific row
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Event tracked successfully",
+  "eventType": "block_placed"
+}
+```
+
+**Webhook:** This triggers a `gameplay.{eventType}` webhook to your configured URL.
+
+### Analytics & Statistics
+
+#### Get Analytics Overview
+
+Get comprehensive analytics for all your game sessions.
+
+**Endpoint:** `GET /api/game/analytics/overview`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+```
+
+**Query Parameters:**
+- `range` (optional): Time range - "7" (7 days), "30" (30 days), "90" (90 days), or "all" (default: "7d")
+
+**Example:**
+```bash
+curl -H "X-API-Key: your_api_key_here" \
+     "https://your-game-domain.com/api/game/analytics/overview?range=30"
+```
+
+**Response:**
+```json
+{
+  "timeRange": "30d",
+  "statistics": {
+    "totalSessions": 1250,
+    "completedSessions": 1180,
+    "activeSessions": 70,
+    "totalScore": 456000,
+    "totalStakes": 2500.00,
+    "totalPrizes": 1850.00,
+    "averageScore": 365,
+    "averageBlocksStacked": 8.5,
+    "highestRow": 13,
+    "uniquePlayers": 450
+  },
+  "stakeDistribution": [
+    {
+      "stake": "1.00",
+      "count": 500,
+      "totalPrizes": 750.00
+    },
+    {
+      "stake": "2.00",
+      "count": 350,
+      "totalPrizes": 600.00
+    }
+  ],
+  "topPlayers": [
+    {
+      "externalPlayerId": "player123",
+      "playerName": "John Doe",
+      "totalSessions": 45,
+      "totalScore": 15600,
+      "totalPrizes": 125.00,
+      "highestRow": 12
+    }
+  ]
+}
+```
+
+#### Get Session Statistics
+
+Get time-series data for session metrics.
+
+**Endpoint:** `GET /api/game/analytics/sessions/stats`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+```
+
+**Query Parameters:**
+- `groupBy` (optional): Time grouping - "hour", "day" (default), "week", or "month"
+- `limit` (optional): Number of periods (default: 30, max: 365)
+
+**Response:**
+```json
+{
+  "groupBy": "day",
+  "data": [
+    {
+      "period": "2025-01-24T00:00:00Z",
+      "totalSessions": 85,
+      "completedSessions": 80,
+      "totalScore": 28500,
+      "totalStakes": 170.00,
+      "totalPrizes": 125.00
+    }
+  ]
+}
+```
+
+#### Get Player Statistics
+
+Get detailed statistics for a specific player.
+
+**Endpoint:** `GET /api/game/analytics/players/:playerId/stats`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+```
+
+**Example:**
+```bash
+curl -H "X-API-Key: your_api_key_here" \
+     "https://your-game-domain.com/api/game/analytics/players/player123/stats"
+```
+
+**Response:**
+```json
+{
+  "playerId": "player123",
+  "statistics": {
+    "totalSessions": 45,
+    "completedSessions": 42,
+    "activeSessions": 3,
+    "totalScore": 15600,
+    "averageScore": 347,
+    "highestScore": 650,
+    "totalStakes": 90.00,
+    "totalPrizes": 125.00,
+    "averageBlocksStacked": 9.2,
+    "highestRow": 12,
+    "lastPlayedAt": "2025-01-24T15:30:00Z"
+  },
+  "recentSessions": [
+    {
+      "sessionToken": "a1b2c3d4...",
+      "score": 450,
+      "stake": "2.00",
+      "prize": "4.00",
+      "prizeType": "cash",
+      "blocksStacked": 10,
+      "highestRow": 10,
+      "status": "completed",
+      "createdAt": "2025-01-24T14:30:00Z",
+      "endedAt": "2025-01-24T14:35:00Z"
+    }
+  ]
+}
+```
+
+### Credit Management
+
+The credit management system allows you to manage player balances independently of game sessions.
+
+#### Load Credits
+
+Add credits to a player's account.
+
+**Endpoint:** `POST /api/game/credits/load`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "externalPlayerId": "player123",
+  "amount": 50.00,
+  "reference": "deposit_12345",
+  "metadata": {
+    "source": "stripe",
+    "transactionId": "ch_abc123"
+  }
+}
+```
+
+**Parameters:**
+- `externalPlayerId` (required): Your platform's player ID
+- `amount` (required): Amount to add (positive decimal)
+- `reference` (optional): External reference ID
+- `metadata` (optional): Additional transaction data
+
+**Response:**
+```json
+{
+  "success": true,
+  "externalPlayerId": "player123",
+  "balanceBefore": "100.00",
+  "balanceAfter": "150.00",
+  "amountLoaded": "50.00",
+  "transaction": {
+    "id": 456,
+    "type": "load",
+    "createdAt": "2025-01-24T10:30:00Z"
+  }
+}
+```
+
+#### Redeem Credits
+
+Withdraw credits from a player's account.
+
+**Endpoint:** `POST /api/game/credits/redeem`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "externalPlayerId": "player123",
+  "amount": 25.00,
+  "reference": "withdrawal_67890",
+  "metadata": {
+    "destination": "bank_account",
+    "requestId": "req_xyz789"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "externalPlayerId": "player123",
+  "balanceBefore": "150.00",
+  "balanceAfter": "125.00",
+  "amountRedeemed": "25.00",
+  "transaction": {
+    "id": 457,
+    "type": "redeem",
+    "createdAt": "2025-01-24T10:35:00Z"
+  }
+}
+```
+
+#### Get Credit Balance
+
+Check a player's current credit balance.
+
+**Endpoint:** `GET /api/game/credits/balance/:playerId`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+```
+
+**Response:**
+```json
+{
+  "externalPlayerId": "player123",
+  "balance": "125.00",
+  "createdAt": "2025-01-24T08:00:00Z",
+  "updatedAt": "2025-01-24T10:35:00Z"
+}
+```
+
+#### Get Transaction History
+
+Retrieve a player's credit transaction history.
+
+**Endpoint:** `GET /api/game/credits/transactions/:playerId`
+
+**Headers:**
+```
+X-API-Key: your_api_key_here
+```
+
+**Query Parameters:**
+- `limit` (optional): Number of transactions (default: 50, max: 200)
+
+**Response:**
+```json
+{
+  "externalPlayerId": "player123",
+  "currentBalance": "125.00",
+  "transactions": [
+    {
+      "id": 457,
+      "type": "redeem",
+      "amount": "25.00",
+      "balanceBefore": "150.00",
+      "balanceAfter": "125.00",
+      "reference": "withdrawal_67890",
+      "metadata": {
+        "destination": "bank_account"
+      },
+      "createdAt": "2025-01-24T10:35:00Z"
+    },
+    {
+      "id": 456,
+      "type": "load",
+      "amount": "50.00",
+      "balanceBefore": "100.00",
+      "balanceAfter": "150.00",
+      "reference": "deposit_12345",
+      "createdAt": "2025-01-24T10:30:00Z"
+    }
+  ]
+}
+```
+
+## Multiple Session Support
+
+The API fully supports multiple concurrent sessions per API key. Each session is identified by a unique `sessionToken` and can be tracked independently.
+
+**Best Practices:**
+- Create separate sessions for each player/game instance
+- Use `externalPlayerId` to track sessions by player
+- Filter sessions by status to find active games
+- Use the analytics endpoints to monitor all sessions
+
+**Example: Managing Multiple Players**
+```javascript
+// Create sessions for multiple players
+const player1Session = await createGameSession('player1', 'Alice', 100, '2');
+const player2Session = await createGameSession('player2', 'Bob', 50, '1');
+
+// Later, list all active sessions
+const activeSessions = await axios.get(
+  `${GAME_API_URL}/sessions?status=active&limit=100`,
+  { headers: { 'X-API-Key': API_KEY } }
+);
+
+// Get specific player's sessions
+const player1Sessions = await axios.get(
+  `${GAME_API_URL}/sessions?playerId=player1`,
+  { headers: { 'X-API-Key': API_KEY } }
+);
+```
+
+## Webhook Events Reference
+
+### Existing Events
+
+#### game.started
+Triggered when a new session is created.
+
+#### game.ended
+Triggered when a session completes.
+
+#### prize.won
+Triggered when a player wins a prize.
+
+### New Gameplay Events
+
+#### gameplay.block_placed
+Triggered when tracking a block placement event.
+
+**Payload:**
+```json
+{
+  "sessionId": 1,
+  "sessionToken": "a1b2c3d4...",
+  "externalPlayerId": "player123",
+  "playerName": "John Doe",
+  "eventType": "block_placed",
+  "data": {
+    "row": 5,
+    "columns": 2,
+    "score": 150,
+    "combo": 3
+  },
+  "timestamp": "2025-01-24T10:30:15Z"
+}
+```
+
+#### gameplay.combo_started
+Triggered when a combo streak begins.
+
+#### gameplay.combo_broken
+Triggered when a combo streak ends.
+
+#### gameplay.milestone_reached
+Triggered when player reaches specific rows.
+
 ## Support
 
 For technical support or to request an API key, contact your system administrator.
