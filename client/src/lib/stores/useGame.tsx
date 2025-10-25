@@ -223,6 +223,24 @@ export const useGame = create<GameState>()(
         phase: "ended",
         credits: newCredits
       });
+
+      // Save game result to backend for real-time feed
+      const stakeValue = state.stake === 'FREE' ? 'FREE' : state.stake.toString();
+      fetch('/api/history', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          playerName: 'Player',
+          score: state.score,
+          stake: stakeValue,
+          prize: prizeInfo.amount > 0 ? prizeInfo.amount.toString() : null,
+          prizeType: prizeInfo.amount > 0 ? prizeInfo.type : null,
+          blocksStacked: state.blocksStacked,
+          highestRow: state.highestRow,
+        }),
+      }).catch(err => console.error('Failed to save game history:', err));
     },
     
     spawnNewBlock: () => {
