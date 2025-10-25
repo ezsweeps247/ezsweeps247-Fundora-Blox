@@ -49,7 +49,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
       width: '200px'
     }}>
       <div style={{
-        fontSize: '20px',
+        fontSize: '28px',
         fontWeight: 'bold',
         color: color,
         textShadow: `
@@ -61,7 +61,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
         letterSpacing: '1px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        backgroundColor: 'transparent',
         padding: '6px 12px',
         borderRadius: '8px',
         border: `2px solid ${color}`,
@@ -73,14 +73,23 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: '10px',
+        fontSize: '16px',
         fontWeight: 'bold',
         color: '#ffffff',
-        textShadow: '0 0 5px rgba(0, 0, 0, 0.8)',
+        textShadow: `
+          -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
+          1px 1px 0 #000,
+          -2px -2px 0 #000,
+          2px -2px 0 #000,
+          -2px 2px 0 #000,
+          2px 2px 0 #000
+        `,
         fontFamily: "'Roboto', sans-serif",
         textAlign: 'center',
         marginTop: '4px',
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        backgroundColor: 'transparent',
         padding: '3px 8px',
         borderRadius: '4px'
       }}>
