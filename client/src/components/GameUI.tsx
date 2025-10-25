@@ -355,59 +355,80 @@ export function GameUI() {
       {phase === 'ended' && (
           <div style={{
             position: 'absolute',
-            top: '80px',
+            bottom: '50px',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             backgroundColor: 'rgba(255, 255, 255, 0.98)',
-            padding: '12px 20px',
-            borderRadius: '10px',
+            padding: '12px 20px 14px 20px',
+            borderRadius: '12px',
             boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
             border: '2px solid #333',
             pointerEvents: 'auto',
             zIndex: 100
           }}>
             <div style={{ 
-              fontSize: '16px', 
+              fontSize: '14px', 
               fontWeight: 'bold',
               color: '#333',
-              marginBottom: '3px'
+              marginBottom: '2px'
             }}>
               Game Over
             </div>
             <div style={{
               display: 'flex',
-              gap: '15px',
-              alignItems: 'center'
+              gap: '20px',
+              alignItems: 'center',
+              marginBottom: '2px'
             }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>
+                <div style={{ 
+                  fontSize: '8px', 
+                  color: '#666', 
+                  marginBottom: '2px',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.5px'
+                }}>
                   SCORE
                 </div>
-                <div style={{ fontSize: '18px', color: '#d64545', fontWeight: 'bold' }}>
+                <div style={{ 
+                  fontSize: '20px', 
+                  color: '#d64545', 
+                  fontWeight: 'bold',
+                  fontFamily: "'Digital-7 Mono', monospace"
+                }}>
                   {score}
                 </div>
               </div>
               <div style={{
                 width: '1px',
-                height: '30px',
+                height: '32px',
                 backgroundColor: '#ddd'
               }} />
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>
+                <div style={{ 
+                  fontSize: '8px', 
+                  color: '#666', 
+                  marginBottom: '2px',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.5px'
+                }}>
                   PRIZE
                 </div>
                 <div style={{ 
-                  fontSize: '18px', 
+                  fontSize: '20px', 
                   fontWeight: 'bold',
-                  color: potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800'
+                  fontFamily: "'Digital-7 Mono', monospace",
+                  color: potentialPrize.amount === 0 ? '#ff8800' : (potentialPrize.type === 'cash' ? '#00aa00' : '#ff8800')
                 }}>
-                  {potentialPrize.type === 'cash' 
-                    ? `$${potentialPrize.amount.toFixed(2)}`
-                    : `${potentialPrize.amount.toLocaleString()}P`
+                  {potentialPrize.amount === 0 
+                    ? '0P'
+                    : potentialPrize.type === 'cash' 
+                      ? `$${potentialPrize.amount.toFixed(2)}`
+                      : `${potentialPrize.amount.toLocaleString()}P`
                   }
                 </div>
               </div>
@@ -415,10 +436,10 @@ export function GameUI() {
             <button
               {...handleTouchButton(restart)}
               style={{
-                padding: '8px 24px',
-                fontSize: '14px',
+                padding: '8px 28px',
+                fontSize: '13px',
                 fontWeight: 'bold',
-                marginTop: '3px',
+                marginTop: '2px',
                 background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
                 border: 'none',
