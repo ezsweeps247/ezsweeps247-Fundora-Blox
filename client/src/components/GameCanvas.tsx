@@ -33,7 +33,7 @@ export function GameCanvas() {
       const delta = (now - lastTimeRef.current) / 1000;
       lastTimeRef.current = now;
       
-      if (phase === 'playing') {
+      if (phase === 'playing' || phase === 'demo') {
         updateBlockPosition(delta);
       }
       
@@ -42,12 +42,8 @@ export function GameCanvas() {
       drawGrid(ctx);
       drawPlacedBlocks(ctx, blocks);
       
-      if (currentBlock && phase === 'playing') {
+      if (currentBlock && (phase === 'playing' || phase === 'demo')) {
         drawMovingBlock(ctx, currentBlock, currentBlockPosition);
-      }
-      
-      if (phase === 'ready') {
-        drawDemoMode(ctx, delta);
       }
       
       animationRef.current = requestAnimationFrame(render);

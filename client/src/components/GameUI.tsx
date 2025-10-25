@@ -113,6 +113,7 @@ export function GameUI() {
   const comboStreak = useGame(state => state.comboStreak);
   const getPotentialPrize = useGame(state => state.getPotentialPrize);
   const start = useGame(state => state.start);
+  const startDemo = useGame(state => state.startDemo);
   const restart = useGame(state => state.restart);
   const stopBlock = useGame(state => state.stopBlock);
   const isMuted = useAudio(state => state.isMuted);
@@ -137,6 +138,17 @@ export function GameUI() {
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [phase, stopBlock]);
+
+  // Auto-start demo after 3 seconds of idle time in ready state
+  useEffect(() => {
+    if (phase === 'ready') {
+      const demoTimer = setTimeout(() => {
+        startDemo();
+      }, 3000);
+      
+      return () => clearTimeout(demoTimer);
+    }
+  }, [phase, startDemo]);
 
   const handleGameEnd = () => {
     setShowNameEntry(true);

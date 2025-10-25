@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 
-export type GamePhase = "ready" | "playing" | "ended";
+export type GamePhase = "ready" | "playing" | "ended" | "demo";
 
 export interface Block {
   row: number;
@@ -26,12 +26,14 @@ interface GameState {
   comboStreak: number;
   perfectAlignments: number;
   lastPlacedBlock: { row: number; columns: number[]; isPerfect: boolean } | null;
+  demoAutoStopTimer: NodeJS.Timeout | null;
   
   setStake: (stake: number | 'FREE') => void;
   cycleStake: (direction: 'up' | 'down') => void;
   getPotentialPrize: () => { amount: number; type: 'cash' | 'points' };
   calculatePrizeMultiplier: (row: number) => { multiplier: number; type: 'cash' | 'points' };
   start: () => void;
+  startDemo: () => void;
   restart: () => void;
   end: () => void;
   stopBlock: () => void;
@@ -88,6 +90,7 @@ export const useGame = create<GameState>()(
     comboStreak: 0,
     perfectAlignments: 0,
     lastPlacedBlock: null,
+    demoAutoStopTimer: null,
     
     setStake: (stake: number | 'FREE') => {
       const state = get();
@@ -148,6 +151,11 @@ export const useGame = create<GameState>()(
     start: () => {
       const state = get();
       
+      // Clear any demo auto-stop timer
+      if (state.demoAutoStopTimer) {
+        clearTimeout(state.demoAutoStopTimer);
+      }
+      
       if (state.stake !== 'FREE' && state.stake > state.credits) {
         console.log("Insufficient credits!");
         return;
@@ -178,6 +186,36 @@ export const useGame = create<GameState>()(
         comboStreak: 0,
         perfectAlignments: 0,
         lastPlacedBlock: null,
+        demoAutoStopTimer: null,
+      });
+      
+      setTimeout(() => {
+        get().spawnNewBlock();
+      }, 500);
+    },
+    
+    startDemo: () => {
+      console.log("🎮 Starting demo mode...");
+      
+      set({
+        phase: "demo",
+        blocks: [{
+          row: 0,
+          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
+        }],
+        currentBlock: null,
+        currentBlockPosition: 0,
+        movementDirection: 1,
+        movementSpeed: BASE_SPEED,
+        score: 0,
+        bonusPoints: 0,
+        highestRow: 0,
+        blocksStacked: 0,
+        comboMultiplier: 1,
+        comboStreak: 0,
+        perfectAlignments: 0,
+        lastPlacedBlock: null,
+        demoAutoStopTimer: null,
       });
       
       setTimeout(() => {
@@ -245,7 +283,7 @@ export const useGame = create<GameState>()(
     
     spawnNewBlock: () => {
       const state = get();
-      if (state.phase !== "playing") return;
+      if (state.phase !== "playing" && state.phase !== "demo") return;
       
       const lastBlock = state.blocks[state.blocks.length - 1];
       const newRow = lastBlock ? lastBlock.row + 1 : 1;
@@ -296,17 +334,34 @@ export const useGame = create<GameState>()(
       
       console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${finalSpeed.toFixed(2)} (stake multiplier: ${stakeMultiplier}x)`);
       
+      // In demo mode, set up auto-stop timer
+      let autoStopTimer: NodeJS.Timeout | null = null;
+      if (state.phase === "demo") {
+        // Calculate a target position for demo (slightly random but reasonable)
+        const targetOffset = (Math.random() - 0.5) * 0.4; // Small offset for variety
+        const travelDistance = Math.abs(targetOffset - randomPosition);
+        const timeToTarget = (travelDistance / finalSpeed) * 1000 + 300 + (Math.random() * 400);
+        
+        autoStopTimer = setTimeout(() => {
+          const currentState = get();
+          if (currentState.phase === "demo" && currentState.currentBlock) {
+            get().stopBlock();
+          }
+        }, timeToTarget);
+      }
+      
       set({
         currentBlock: newBlock,
         currentBlockPosition: randomPosition,
         movementDirection: newDirection,
-        movementSpeed: finalSpeed
+        movementSpeed: finalSpeed,
+        demoAutoStopTimer: autoStopTimer
       });
     },
     
     updateBlockPosition: (delta: number) => {
       const state = get();
-      if (!state.currentBlock || state.phase !== "playing") return;
+      if (!state.currentBlock || (state.phase !== "playing" && state.phase !== "demo")) return;
       
       // Find the leftmost and rightmost active columns in the block
       let leftmostCol = -1;
@@ -342,9 +397,14 @@ export const useGame = create<GameState>()(
     
     stopBlock: () => {
       const state = get();
-      if (!state.currentBlock || state.phase !== "playing") {
+      if (!state.currentBlock || (state.phase !== "playing" && state.phase !== "demo")) {
         console.log("Cannot stop block - invalid state");
         return;
+      }
+      
+      // Clear demo auto-stop timer if exists
+      if (state.demoAutoStopTimer) {
+        clearTimeout(state.demoAutoStopTimer);
       }
       
       console.log(`Stopping block at position ${state.currentBlockPosition}`);
@@ -451,11 +511,21 @@ export const useGame = create<GameState>()(
       });
       
       // Check if we've reached row 13 (the 14th row) - game should end
-      if (newHighestRow >= 13) {
-        console.log("🎉 Game complete! Reached the top (row 13)!");
-        setTimeout(() => {
-          get().end();
-        }, 500);
+      // In demo mode, end at row 7-10 for variety
+      const endRow = state.phase === "demo" ? (7 + Math.floor(Math.random() * 4)) : 13;
+      
+      if (newHighestRow >= endRow) {
+        if (state.phase === "demo") {
+          console.log("🎮 Demo complete! Restarting...");
+          setTimeout(() => {
+            get().startDemo();
+          }, 1500);
+        } else {
+          console.log("🎉 Game complete! Reached the top (row 13)!");
+          setTimeout(() => {
+            get().end();
+          }, 500);
+        }
       } else {
         setTimeout(() => {
           get().spawnNewBlock();
