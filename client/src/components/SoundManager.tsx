@@ -6,6 +6,8 @@ export function SoundManager() {
   const setBackgroundMusic = useAudio(state => state.setBackgroundMusic);
   const setHitSound = useAudio(state => state.setHitSound);
   const setSuccessSound = useAudio(state => state.setSuccessSound);
+  const setHitBuffer = useAudio(state => state.setHitBuffer);
+  const setAudioContext = useAudio(state => state.setAudioContext);
   const playHit = useAudio(state => state.playHit);
   const playSuccess = useAudio(state => state.playSuccess);
   const isMuted = useAudio(state => state.isMuted);
@@ -15,15 +17,12 @@ export function SoundManager() {
   const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
   const audioBufferRef = useRef<AudioBuffer | null>(null);
+  const hitBufferRef = useRef<AudioBuffer | null>(null);
   
   useEffect(() => {
     const bgMusic = new Audio('/sounds/background-music.mp3');
     bgMusic.preload = 'auto';
     setBackgroundMusic(bgMusic);
-    
-    const hitAudio = new Audio('/sounds/hit.mp3');
-    hitAudio.volume = 0.3;
-    setHitSound(hitAudio);
     
     const successAudio = new Audio('/sounds/success.mp3');
     successAudio.volume = 0.5;
@@ -31,7 +30,9 @@ export function SoundManager() {
     
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     audioContextRef.current = audioContext;
+    setAudioContext(audioContext);
     
+    // Load background music with Web Audio API for seamless looping
     fetch('/sounds/background-music.mp3')
       .then(response => response.arrayBuffer())
       .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
@@ -40,6 +41,17 @@ export function SoundManager() {
         console.log('Background music loaded for seamless looping');
       })
       .catch(err => console.log('Error loading background music:', err));
+    
+    // Load hit sound with Web Audio API for low-latency playback
+    fetch('/sounds/hit.mp3')
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => {
+        hitBufferRef.current = audioBuffer;
+        setHitBuffer(audioBuffer);
+        console.log('Hit sound loaded for low-latency playback');
+      })
+      .catch(err => console.log('Error loading hit sound:', err));
     
     return () => {
       if (sourceNodeRef.current) {
@@ -53,7 +65,7 @@ export function SoundManager() {
         audioContextRef.current.close();
       }
     };
-  }, [setBackgroundMusic, setHitSound, setSuccessSound]);
+  }, [setBackgroundMusic, setSuccessSound, setHitBuffer, setAudioContext]);
   
   useEffect(() => {
     if (!audioContextRef.current || !audioBufferRef.current) return;
