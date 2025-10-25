@@ -33,7 +33,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
     <div style={{
       position: 'absolute',
       top: 'calc(50% + 20px)',
-      right: 'calc(50% + 340px)',
+      right: 'calc(50% + 220px)',
       pointerEvents: 'none',
       zIndex: 100,
       width: '140px'
@@ -211,7 +211,7 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         top: 'calc(50% - 329px)',
-        right: 'calc(50% + 340px)',
+        right: 'calc(50% + 220px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
@@ -225,7 +225,7 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 289px + 40px)',
-        right: 'calc(50% + 340px)',
+        right: 'calc(50% + 220px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
