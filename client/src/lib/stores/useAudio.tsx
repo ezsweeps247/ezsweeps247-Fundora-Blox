@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+type SoundMode = 'ALL_ON' | 'SE_OFF' | 'BG_OFF' | 'MUTE';
+
 interface AudioState {
   backgroundMusic: HTMLAudioElement | null;
   hitSound: HTMLAudioElement | null;
@@ -7,6 +9,7 @@ interface AudioState {
   hitBuffer: AudioBuffer | null;
   audioContext: AudioContext | null;
   isMuted: boolean;
+  soundMode: SoundMode;
   
   // Setter functions
   setBackgroundMusic: (music: HTMLAudioElement) => void;
@@ -17,6 +20,7 @@ interface AudioState {
   
   // Control functions
   toggleMute: () => void;
+  cycleSoundMode: () => void;
   playHit: () => void;
   playSuccess: () => void;
 }
@@ -28,6 +32,7 @@ export const useAudio = create<AudioState>((set, get) => ({
   hitBuffer: null,
   audioContext: null,
   isMuted: true, // Start muted by default
+  soundMode: 'MUTE',
   
   setBackgroundMusic: (music) => set({ backgroundMusic: music }),
   setHitSound: (sound) => set({ hitSound: sound }),
@@ -46,9 +51,40 @@ export const useAudio = create<AudioState>((set, get) => ({
     console.log(`Sound ${newMutedState ? 'muted' : 'unmuted'}`);
   },
   
+  cycleSoundMode: () => {
+    const { soundMode } = get();
+    let newMode: SoundMode;
+    let newMutedState: boolean;
+    
+    switch (soundMode) {
+      case 'MUTE':
+        newMode = 'ALL_ON';
+        newMutedState = false;
+        break;
+      case 'ALL_ON':
+        newMode = 'SE_OFF';
+        newMutedState = false;
+        break;
+      case 'SE_OFF':
+        newMode = 'BG_OFF';
+        newMutedState = false;
+        break;
+      case 'BG_OFF':
+        newMode = 'MUTE';
+        newMutedState = true;
+        break;
+      default:
+        newMode = 'ALL_ON';
+        newMutedState = false;
+    }
+    
+    set({ soundMode: newMode, isMuted: newMutedState });
+    console.log(`Sound mode: ${newMode}`);
+  },
+  
   playHit: () => {
-    const { hitBuffer, audioContext, isMuted } = get();
-    if (!hitBuffer || !audioContext || isMuted) {
+    const { hitBuffer, audioContext, soundMode } = get();
+    if (!hitBuffer || !audioContext || soundMode === 'MUTE' || soundMode === 'SE_OFF') {
       return;
     }
     
@@ -82,11 +118,11 @@ export const useAudio = create<AudioState>((set, get) => ({
   },
   
   playSuccess: () => {
-    const { successSound, isMuted } = get();
+    const { successSound, soundMode } = get();
     if (successSound) {
-      // If sound is muted, don't play anything
-      if (isMuted) {
-        console.log("Success sound skipped (muted)");
+      // If sound effects are muted, don't play anything
+      if (soundMode === 'MUTE' || soundMode === 'SE_OFF') {
+        console.log("Success sound skipped (SE off or muted)");
         return;
       }
       

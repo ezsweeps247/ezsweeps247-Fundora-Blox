@@ -125,8 +125,8 @@ export function GameUI() {
   const startDemo = useGame(state => state.startDemo);
   const restart = useGame(state => state.restart);
   const stopBlock = useGame(state => state.stopBlock);
-  const isMuted = useAudio(state => state.isMuted);
-  const toggleMute = useAudio(state => state.toggleMute);
+  const soundMode = useAudio(state => state.soundMode);
+  const cycleSoundMode = useAudio(state => state.cycleSoundMode);
   
   const potentialPrize = getPotentialPrize();
   
@@ -584,7 +584,7 @@ export function GameUI() {
         zIndex: 50
       }}>
         <button
-          {...handleTouchButton(toggleMute)}
+          {...handleTouchButton(cycleSoundMode)}
           style={{
             width: '45px',
             height: '70px',
@@ -604,18 +604,16 @@ export function GameUI() {
           <div style={{
             width: '33px',
             height: '42px',
-            background: isMuted 
-              ? 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)'
-              : 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
+            background: 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
             borderRadius: '12px',
             boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            transform: isMuted ? 'translateY(6px)' : 'translateY(-6px)',
+            transform: soundMode === 'MUTE' ? 'translateY(6px)' : 'translateY(-6px)',
             transition: 'transform 0.2s'
           }}>
-            {isMuted ? (
+            {soundMode === 'MUTE' ? (
               <VolumeX size={18} color="#666" strokeWidth={2} />
             ) : (
               <Volume2 size={18} color="#666" strokeWidth={2} />
@@ -623,16 +621,20 @@ export function GameUI() {
           </div>
         </button>
         <div style={{
-          fontSize: '9px',
+          fontSize: '8px',
           fontWeight: 'bold',
-          color: 'rgba(255, 255, 255, 0.7)',
+          color: 'rgba(255, 255, 255, 0.9)',
           textTransform: 'uppercase',
-          letterSpacing: '0.5px',
+          letterSpacing: '0.3px',
           textAlign: 'center',
           fontFamily: "'Roboto', sans-serif",
-          textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+          textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+          lineHeight: '1.2'
         }}>
-          SOUND ON/OFF
+          {soundMode === 'MUTE' && 'MUTE'}
+          {soundMode === 'ALL_ON' && <>ALL ON</>}
+          {soundMode === 'SE_OFF' && <>SE OFF<br/>BG ON</>}
+          {soundMode === 'BG_OFF' && <>BG OFF<br/>SE ON</>}
         </div>
       </div>
 

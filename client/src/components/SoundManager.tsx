@@ -10,7 +10,7 @@ export function SoundManager() {
   const setAudioContext = useAudio(state => state.setAudioContext);
   const playHit = useAudio(state => state.playHit);
   const playSuccess = useAudio(state => state.playSuccess);
-  const isMuted = useAudio(state => state.isMuted);
+  const soundMode = useAudio(state => state.soundMode);
   const backgroundMusic = useAudio(state => state.backgroundMusic);
   
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -70,7 +70,9 @@ export function SoundManager() {
   useEffect(() => {
     if (!audioContextRef.current || !audioBufferRef.current) return;
     
-    if (!isMuted) {
+    const shouldPlayBG = soundMode === 'ALL_ON' || soundMode === 'SE_OFF';
+    
+    if (shouldPlayBG) {
       if (audioContextRef.current.state === 'suspended') {
         audioContextRef.current.resume();
       }
@@ -102,7 +104,7 @@ export function SoundManager() {
         gainNodeRef.current = null;
       }
     }
-  }, [isMuted]);
+  }, [soundMode]);
   
   useEffect(() => {
     const unsubscribe = useGame.subscribe(
