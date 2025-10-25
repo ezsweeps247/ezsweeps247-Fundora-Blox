@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAudio } from '@/lib/stores/useAudio';
 import { useGame } from '@/lib/stores/useGame';
 
@@ -11,10 +11,14 @@ export function SoundManager() {
   const isMuted = useAudio(state => state.isMuted);
   const backgroundMusic = useAudio(state => state.backgroundMusic);
   
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
+  const audioBufferRef = useRef<AudioBuffer | null>(null);
+  
   useEffect(() => {
-    const bgMusic = new Audio('/sounds/background-music.wav');
-    bgMusic.loop = true;
-    bgMusic.volume = 0.2;
+    const bgMusic = new Audio('/sounds/background-music.mp3');
+    bgMusic.preload = 'auto';
     setBackgroundMusic(bgMusic);
     
     const hitAudio = new Audio('/sounds/hit.mp3');
@@ -24,27 +28,69 @@ export function SoundManager() {
     const successAudio = new Audio('/sounds/success.mp3');
     successAudio.volume = 0.5;
     setSuccessSound(successAudio);
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    audioContextRef.current = audioContext;
+    
+    fetch('/sounds/background-music.mp3')
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => {
+        audioBufferRef.current = audioBuffer;
+        console.log('Background music loaded for seamless looping');
+      })
+      .catch(err => console.log('Error loading background music:', err));
+    
+    return () => {
+      if (sourceNodeRef.current) {
+        sourceNodeRef.current.stop();
+        sourceNodeRef.current.disconnect();
+      }
+      if (gainNodeRef.current) {
+        gainNodeRef.current.disconnect();
+      }
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
   }, [setBackgroundMusic, setHitSound, setSuccessSound]);
   
   useEffect(() => {
-    if (backgroundMusic) {
-      if (!isMuted) {
-        const playPromise = backgroundMusic.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log('Background music started playing');
-            })
-            .catch(err => {
-              console.log('Background music play prevented:', err);
-            });
-        }
-      } else {
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
+    if (!audioContextRef.current || !audioBufferRef.current) return;
+    
+    if (!isMuted) {
+      if (audioContextRef.current.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+      
+      if (!sourceNodeRef.current) {
+        const source = audioContextRef.current.createBufferSource();
+        source.buffer = audioBufferRef.current;
+        source.loop = true;
+        
+        const gainNode = audioContextRef.current.createGain();
+        gainNode.gain.value = 0.15;
+        gainNodeRef.current = gainNode;
+        
+        source.connect(gainNode);
+        gainNode.connect(audioContextRef.current.destination);
+        
+        source.start(0);
+        sourceNodeRef.current = source;
+        console.log('Background music started playing (seamless loop)');
+      }
+    } else {
+      if (sourceNodeRef.current) {
+        sourceNodeRef.current.stop();
+        sourceNodeRef.current.disconnect();
+        sourceNodeRef.current = null;
+      }
+      if (gainNodeRef.current) {
+        gainNodeRef.current.disconnect();
+        gainNodeRef.current = null;
       }
     }
-  }, [isMuted, backgroundMusic]);
+  }, [isMuted]);
   
   useEffect(() => {
     const unsubscribe = useGame.subscribe(
