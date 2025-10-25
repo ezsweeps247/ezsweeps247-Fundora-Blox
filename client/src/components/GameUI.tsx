@@ -184,7 +184,7 @@ export function GameUI() {
     }}>
       <div style={{
         position: 'absolute',
-        top: 'calc(50% - 400px)',
+        top: 'calc(50% - 448px)',
         left: '50%',
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
