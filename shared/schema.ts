@@ -83,3 +83,29 @@ export const insertGameSessionSchema = createInsertSchema(gameSessions).pick({
 
 export type InsertGameSession = z.infer<typeof insertGameSessionSchema>;
 export type GameSession = typeof gameSessions.$inferSelect;
+
+// Game history for real-time feed display
+export const gameHistory = pgTable("game_history", {
+  id: serial("id").primaryKey(),
+  playerName: text("player_name").notNull().default('Anonymous'),
+  score: integer("score").notNull(),
+  stake: text("stake").notNull(),
+  prize: decimal("prize", { precision: 10, scale: 2 }),
+  prizeType: text("prize_type"),
+  blocksStacked: integer("blocks_stacked").notNull(),
+  highestRow: integer("highest_row").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertGameHistorySchema = createInsertSchema(gameHistory).pick({
+  playerName: true,
+  score: true,
+  stake: true,
+  prize: true,
+  prizeType: true,
+  blocksStacked: true,
+  highestRow: true,
+});
+
+export type InsertGameHistory = z.infer<typeof insertGameHistorySchema>;
+export type GameHistory = typeof gameHistory.$inferSelect;
