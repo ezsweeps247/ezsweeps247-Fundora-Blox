@@ -99,7 +99,7 @@ export function GameFeed() {
       border: '2px solid #333',
       borderRadius: '12px',
       padding: '8px',
-      width: '140px',
+      width: '170px',
       height: '250px',
       boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
       display: 'flex',
