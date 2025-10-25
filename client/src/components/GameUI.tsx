@@ -184,6 +184,40 @@ export function GameUI() {
     }}>
       <div style={{
         position: 'absolute',
+        top: 'calc(50% - 370px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        pointerEvents: 'none',
+        zIndex: 100
+      }}>
+        <div style={{
+          fontSize: '48px',
+          fontWeight: 'bold',
+          color: '#ffffff',
+          fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
+          textShadow: `
+            0 0 10px rgba(255, 0, 0, 0.8),
+            0 0 20px rgba(255, 0, 0, 0.6),
+            0 0 30px rgba(255, 0, 0, 0.4),
+            3px 3px 6px rgba(0, 0, 0, 0.9)
+          `,
+          letterSpacing: '8px',
+          textAlign: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          padding: '12px 30px',
+          borderRadius: '12px',
+          border: '3px solid #ff0000',
+          boxShadow: `
+            0 0 20px rgba(255, 0, 0, 0.5),
+            inset 0 0 20px rgba(0, 0, 0, 0.5)
+          `
+        }}>
+          FUNDORA BLOX
+        </div>
+      </div>
+
+      <div style={{
+        position: 'absolute',
         top: 'calc(50% - 329px)',
         right: 'calc(50% + 170px)',
         display: 'flex',
@@ -193,15 +227,6 @@ export function GameUI() {
       }}>
         <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
         <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
-      </div>
-      
-      <div style={{
-        position: 'absolute',
-        top: 'calc(50% - 189px)',
-        right: 'calc(50% + 170px)',
-        pointerEvents: 'auto',
-        zIndex: 50
-      }}>
         <GameFeed />
       </div>
 
