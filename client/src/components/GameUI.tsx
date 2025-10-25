@@ -42,7 +42,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
   return (
     <div style={{
       position: 'absolute',
-      bottom: 'calc(50% - 340px)',
+      bottom: 'calc(50% - 450px)',
       right: 'calc(50% + 196px)',
       pointerEvents: 'none',
       zIndex: 100,
