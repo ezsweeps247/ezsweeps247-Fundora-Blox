@@ -694,15 +694,15 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       backgroundColor: 'white',
       border: '2px solid #333',
       borderRadius: '12px',
-      padding: '6px 10px',
-      minWidth: '140px',
+      padding: '6px 12px',
+      minWidth: '170px',
       boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
     }}>
       <div style={{
-        fontSize: '10px',
+        fontSize: '11px',
         fontWeight: '900',
         color: '#333',
         marginBottom: '3px'
@@ -715,11 +715,11 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         gap: '6px'
       }}>
         <div style={{
-          fontSize: '24px',
+          fontSize: '28px',
           fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
-          padding: '4px 8px',
+          padding: '4px 10px',
           borderRadius: '8px',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
           letterSpacing: '1px',
