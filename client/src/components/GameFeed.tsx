@@ -167,15 +167,17 @@ export function GameFeed() {
                 letterSpacing: '0.5px',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                textOverflow: 'ellipsis',
+                textAlign: 'left'
               }}>
                 {item.playerName}
               </div>
               <div style={{
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
-                gap: '4px'
+                gap: '8px',
+                textAlign: 'left'
               }}>
                 <div style={{
                   fontSize: '12px',
@@ -198,7 +200,8 @@ export function GameFeed() {
                 fontSize: '8px',
                 color: '#888',
                 fontFamily: "'Roboto', sans-serif",
-                marginTop: '1px'
+                marginTop: '1px',
+                textAlign: 'left'
               }}>
                 <span style={{ fontWeight: 'bold' }}>${item.stake}</span> • Row <span style={{ fontWeight: 'bold' }}>{item.highestRow}</span>
               </div>
