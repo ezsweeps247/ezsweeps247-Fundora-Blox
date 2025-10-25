@@ -414,7 +414,7 @@ export function GameUI() {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '12px',
-            background: 'linear-gradient(to bottom, rgba(220, 225, 230, 0.95) 0%, rgba(210, 215, 220, 0.96) 50%, rgba(200, 205, 210, 0.97) 100%)',
+            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(50, 55, 65, 0.92) 15%, rgba(60, 65, 75, 0.94) 35%, rgba(55, 60, 70, 0.95) 50%, rgba(60, 65, 75, 0.94) 65%, rgba(50, 55, 65, 0.92) 85%, rgba(40, 45, 55, 0.90) 100%)',
             padding: '24px 40px 28px 40px',
             borderRadius: '16px',
             boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.1)',
