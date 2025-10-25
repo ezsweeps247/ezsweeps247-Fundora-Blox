@@ -351,106 +351,57 @@ export function GameUI() {
         pointerEvents: 'auto',
         zIndex: 50
       }}>
-        {phase === 'ready' && (
-          <>
-            <button
-              {...handleTouchButton(start)}
-              disabled={stake !== 'FREE' && stake > credits}
-              style={{
-                padding: '8px 60px',
-                minHeight: '45px',
-                fontSize: '20px',
-                fontWeight: 'bold',
-                background: (stake !== 'FREE' && stake > credits) 
-                  ? 'linear-gradient(to top, #999 0%, #666 100%)' 
-                  : 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '25px',
-                cursor: (stake !== 'FREE' && stake > credits) ? 'not-allowed' : 'pointer',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
-                textTransform: 'uppercase',
-                fontFamily: "'Roboto', sans-serif",
-                position: 'relative',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (stake === 'FREE' || stake <= credits) {
-                  e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
-                }
-              }}
-            >
-              {(stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
-            </button>
-            <div style={{
-              fontSize: '11px',
-              fontWeight: 'bold',
-              color: 'rgba(255, 255, 255, 0.7)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              textAlign: 'center',
-              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-            }}>
-              STOP BLOCKS
-            </div>
-          </>
-        )}
-        
-        {phase === 'playing' && (
-          <>
-            <button
-              {...handleTouchButton(stopBlock)}
-              style={{
-                padding: '8px 60px',
-                minHeight: '45px',
-                fontSize: '20px',
-                fontWeight: 'bold',
-                background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '25px',
-                cursor: 'pointer',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
-                textTransform: 'uppercase',
-                fontFamily: "'Roboto', sans-serif",
-                position: 'relative',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
-              }}
-            >
-              STOP
-            </button>
-            <div style={{
-              fontSize: '11px',
-              fontWeight: 'bold',
-              color: 'rgba(255, 255, 255, 0.7)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              textAlign: 'center',
-              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-            }}>
-              STOP BLOCKS
-            </div>
-          </>
-        )}
+        <button
+          {...handleTouchButton(phase === 'ready' ? start : (phase === 'playing' ? stopBlock : () => {}))}
+          disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
+          style={{
+            padding: '8px 60px',
+            minHeight: '45px',
+            fontSize: '20px',
+            fontWeight: 'bold',
+            background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
+              ? 'linear-gradient(to top, #999 0%, #666 100%)' 
+              : 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
+            color: 'white',
+            border: 'none',
+            borderRadius: '25px',
+            cursor: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)) ? 'not-allowed' : 'pointer',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
+            textTransform: 'uppercase',
+            fontFamily: "'Roboto', sans-serif",
+            position: 'relative',
+            transition: 'all 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            if (phase !== 'ended' && phase !== 'demo' && (phase !== 'ready' || stake === 'FREE' || stake <= credits)) {
+              e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (phase !== 'ended' && phase !== 'demo' && (phase !== 'ready' || stake === 'FREE' || stake <= credits)) {
+              e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
+            }
+          }}
+        >
+          {phase === 'ended' || phase === 'demo' ? 'PLEASE WAIT' : 
+           phase === 'playing' ? 'STOP' :
+           (stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
+        </button>
+        <div style={{
+          fontSize: '11px',
+          fontWeight: 'bold',
+          color: 'rgba(255, 255, 255, 0.7)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          textAlign: 'center',
+          textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+        }}>
+          STOP BLOCKS
+        </div>
       </div>
       
       {phase === 'ended' && (
