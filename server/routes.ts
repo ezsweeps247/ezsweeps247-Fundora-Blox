@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertHighScoreSchema } from "@shared/schema";
+import gameRouter from "./api/game";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -9,6 +10,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+
+  // Game API routes for external platform integration
+  app.use("/api/game", gameRouter);
 
   app.post("/api/scores", async (req, res) => {
     try {
