@@ -248,7 +248,7 @@ export function GameUI() {
         transform: 'translateX(-50%)',
         width: '700px',
         height: '1px',
-        backgroundColor: 'rgba(0, 0, 0, 0.15)',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
         pointerEvents: 'none',
         zIndex: 40
       }} />
