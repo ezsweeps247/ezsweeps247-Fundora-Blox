@@ -4,6 +4,7 @@ import { useAudio } from '@/lib/stores/useAudio';
 import { Volume2, VolumeX, Trophy } from 'lucide-react';
 import { Leaderboard } from './Leaderboard';
 import { StakeSelector } from './StakeSelector';
+import { GameFeed } from './GameFeed';
 import { apiRequest } from '@/lib/queryClient';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -194,6 +195,16 @@ export function GameUI() {
         <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
       </div>
       
+      <div style={{
+        position: 'absolute',
+        top: 'calc(50% - 189px)',
+        right: 'calc(50% + 170px)',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
+        <GameFeed />
+      </div>
+
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 289px + 40px)',

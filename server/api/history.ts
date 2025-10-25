@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
   try {
     const { playerName, score, stake, prize, prizeType, blocksStacked, highestRow } = req.body;
 
-    if (!score || !stake || blocksStacked === undefined || !highestRow) {
+    if (score === undefined || !stake || blocksStacked === undefined || highestRow === undefined) {
       return res.status(400).json({
         error: 'Missing required fields',
         message: 'score, stake, blocksStacked, and highestRow are required'

@@ -22,8 +22,18 @@ export function GameFeed() {
     // Fetch initial history
     fetch('/api/history?limit=20')
       .then(res => res.json())
-      .then(data => setHistory(data))
-      .catch(err => console.error('Failed to fetch game history:', err));
+      .then(data => {
+        if (Array.isArray(data)) {
+          setHistory(data);
+        } else {
+          console.error('Invalid history data:', data);
+          setHistory([]);
+        }
+      })
+      .catch(err => {
+        console.error('Failed to fetch game history:', err);
+        setHistory([]);
+      });
 
     // Set up WebSocket connection
     const connectWebSocket = () => {
