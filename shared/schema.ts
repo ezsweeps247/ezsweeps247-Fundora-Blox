@@ -109,3 +109,47 @@ export const insertGameHistorySchema = createInsertSchema(gameHistory).pick({
 
 export type InsertGameHistory = z.infer<typeof insertGameHistorySchema>;
 export type GameHistory = typeof gameHistory.$inferSelect;
+
+// Player credits for credit management
+export const playerCredits = pgTable("player_credits", {
+  id: serial("id").primaryKey(),
+  apiKeyId: integer("api_key_id").references(() => apiKeys.id).notNull(),
+  externalPlayerId: text("external_player_id").notNull(),
+  balance: decimal("balance", { precision: 10, scale: 2 }).notNull().default('0'),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Credit transactions for audit trail
+export const creditTransactions = pgTable("credit_transactions", {
+  id: serial("id").primaryKey(),
+  playerCreditId: integer("player_credit_id").references(() => playerCredits.id).notNull(),
+  type: text("type").notNull(), // 'load', 'redeem', 'stake', 'prize'
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  balanceBefore: decimal("balance_before", { precision: 10, scale: 2 }).notNull(),
+  balanceAfter: decimal("balance_after", { precision: 10, scale: 2 }).notNull(),
+  reference: text("reference"), // session token or external reference
+  metadata: json("metadata"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertPlayerCreditSchema = createInsertSchema(playerCredits).pick({
+  apiKeyId: true,
+  externalPlayerId: true,
+  balance: true,
+});
+
+export const insertCreditTransactionSchema = createInsertSchema(creditTransactions).pick({
+  playerCreditId: true,
+  type: true,
+  amount: true,
+  balanceBefore: true,
+  balanceAfter: true,
+  reference: true,
+  metadata: true,
+});
+
+export type InsertPlayerCredit = z.infer<typeof insertPlayerCreditSchema>;
+export type PlayerCredit = typeof playerCredits.$inferSelect;
+export type InsertCreditTransaction = z.infer<typeof insertCreditTransactionSchema>;
+export type CreditTransaction = typeof creditTransactions.$inferSelect;
