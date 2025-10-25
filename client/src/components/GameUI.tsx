@@ -8,6 +8,16 @@ import { GameFeed } from './GameFeed';
 import { apiRequest } from '@/lib/queryClient';
 import { useQueryClient } from '@tanstack/react-query';
 
+function formatNumber(num: number): string {
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return num.toLocaleString();
+}
+
 function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultiplier: number; comboStreak: number; phase: string }) {
   const [animate, setAnimate] = useState(false);
   const [prevStreak, setPrevStreak] = useState(0);
@@ -218,7 +228,7 @@ export function GameUI() {
         pointerEvents: 'auto'
       }}>
         <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
-        <DisplayBox label="BONUS POINTS" value={bonusPoints.toLocaleString()} unit="P" />
+        <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
         <GameFeed />
       </div>
 
