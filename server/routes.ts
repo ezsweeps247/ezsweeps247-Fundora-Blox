@@ -1,8 +1,10 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import { WebSocketServer } from "ws";
 import { storage } from "./storage";
 import { insertHighScoreSchema } from "@shared/schema";
 import gameRouter from "./api/game";
+import historyRouter from "./api/history";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -13,6 +15,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Game API routes for external platform integration
   app.use("/api/game", gameRouter);
+
+  // Game history API routes
+  app.use("/api/history", historyRouter);
 
   app.post("/api/scores", async (req, res) => {
     try {
@@ -36,6 +41,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   const httpServer = createServer(app);
+
+  // Set up WebSocket server for real-time game feed
+  const wss = new WebSocketServer({ server: httpServer, path: '/ws/game-feed' });
+
+  wss.on('connection', (ws) => {
+    console.log('WebSocket client connected to game feed');
+
+    ws.on('close', () => {
+      console.log('WebSocket client disconnected from game feed');
+    });
+
+    ws.on('error', (error) => {
+      console.error('WebSocket error:', error);
+    });
+  });
+
+  // Store WebSocket server in app.locals so API routes can access it
+  app.locals.wss = wss;
 
   return httpServer;
 }
