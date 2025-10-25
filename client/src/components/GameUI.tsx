@@ -31,49 +31,47 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
   return (
     <div style={{
       position: 'absolute',
-      top: '120px',
+      top: '100px',
       left: '50%',
       transform: 'translateX(-50%)',
       pointerEvents: 'none',
       zIndex: 100
     }}>
       <div style={{
-        fontSize: '48px',
+        fontSize: '28px',
         fontWeight: 'bold',
         color: color,
         textShadow: `
-          0 0 10px ${glowColor},
-          0 0 20px ${glowColor},
-          0 0 30px ${glowColor},
-          0 0 40px ${glowColor},
+          0 0 8px ${glowColor},
+          0 0 15px ${glowColor},
           2px 2px 4px rgba(0, 0, 0, 0.8)
         `,
         fontFamily: "'Roboto', sans-serif",
-        letterSpacing: '4px',
+        letterSpacing: '2px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        padding: '15px 30px',
-        borderRadius: '10px',
-        border: `3px solid ${color}`,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        padding: '8px 18px',
+        borderRadius: '8px',
+        border: `2px solid ${color}`,
         boxShadow: `
-          0 0 20px ${glowColor},
-          inset 0 0 20px rgba(0, 0, 0, 0.5)
+          0 0 15px ${glowColor},
+          inset 0 0 15px rgba(0, 0, 0, 0.5)
         `
       }}>
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: '20px',
+        fontSize: '12px',
         fontWeight: 'bold',
         color: '#ffffff',
         textShadow: '0 0 5px rgba(0, 0, 0, 0.8)',
         fontFamily: "'Roboto', sans-serif",
         textAlign: 'center',
-        marginTop: '10px',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        padding: '5px 15px',
-        borderRadius: '5px'
+        marginTop: '6px',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        padding: '3px 10px',
+        borderRadius: '4px'
       }}>
         {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
       </div>
@@ -85,7 +83,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
         }
         @keyframes comboFloat {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+          50% { transform: translateY(-8px); }
         }
       `}</style>
     </div>
