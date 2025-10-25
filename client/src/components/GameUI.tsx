@@ -462,10 +462,10 @@ export function GameUI() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '6px',
+            gap: '12px',
             background: 'linear-gradient(to bottom, rgba(80, 85, 95, 0.90) 0%, rgba(70, 75, 85, 0.92) 50%, rgba(60, 65, 75, 0.95) 100%)',
-            padding: '12px 20px 14px 20px',
-            borderRadius: '12px',
+            padding: '24px 40px 28px 40px',
+            borderRadius: '16px',
             boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.1)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
             backdropFilter: 'blur(10px)',
@@ -473,32 +473,32 @@ export function GameUI() {
             zIndex: 100
           }}>
             <div style={{ 
-              fontSize: '14px', 
+              fontSize: '22px', 
               fontWeight: 'bold',
               color: '#ffffff',
-              marginBottom: '2px',
+              marginBottom: '4px',
               textShadow: '0 2px 4px rgba(0,0,0,0.5)'
             }}>
               Game Over
             </div>
             <div style={{
               display: 'flex',
-              gap: '20px',
+              gap: '32px',
               alignItems: 'center',
-              marginBottom: '2px'
+              marginBottom: '4px'
             }}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ 
-                  fontSize: '8px', 
+                  fontSize: '12px', 
                   color: 'rgba(255, 255, 255, 0.6)', 
-                  marginBottom: '2px',
+                  marginBottom: '4px',
                   fontWeight: 'bold',
                   letterSpacing: '0.5px'
                 }}>
                   SCORE
                 </div>
                 <div style={{ 
-                  fontSize: '20px', 
+                  fontSize: '32px', 
                   color: '#ff6666', 
                   fontWeight: 'bold',
                   fontFamily: "'Digital-7 Mono', monospace",
@@ -508,22 +508,22 @@ export function GameUI() {
                 </div>
               </div>
               <div style={{
-                width: '1px',
-                height: '32px',
+                width: '2px',
+                height: '50px',
                 backgroundColor: 'rgba(255, 255, 255, 0.2)'
               }} />
               <div style={{ textAlign: 'center' }}>
                 <div style={{ 
-                  fontSize: '8px', 
+                  fontSize: '12px', 
                   color: 'rgba(255, 255, 255, 0.6)', 
-                  marginBottom: '2px',
+                  marginBottom: '4px',
                   fontWeight: 'bold',
                   letterSpacing: '0.5px'
                 }}>
                   PRIZE
                 </div>
                 <div style={{ 
-                  fontSize: '20px', 
+                  fontSize: '32px', 
                   fontWeight: 'bold',
                   fontFamily: "'Digital-7 Mono', monospace",
                   color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
@@ -543,14 +543,14 @@ export function GameUI() {
             <button
               {...handleTouchButton(restart)}
               style={{
-                padding: '8px 28px',
-                fontSize: '13px',
+                padding: '12px 48px',
+                fontSize: '18px',
                 fontWeight: 'bold',
-                marginTop: '2px',
+                marginTop: '4px',
                 background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '25px',
+                borderRadius: '30px',
                 cursor: 'pointer',
                 textTransform: 'uppercase',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
