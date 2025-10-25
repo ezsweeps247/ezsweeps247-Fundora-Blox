@@ -111,7 +111,7 @@ export function GameFeed() {
         fontWeight: '900',
         color: '#333',
         marginBottom: '6px',
-        textAlign: 'center',
+        textAlign: 'left',
         letterSpacing: '0.5px'
       }}>
         LIVE FEED
