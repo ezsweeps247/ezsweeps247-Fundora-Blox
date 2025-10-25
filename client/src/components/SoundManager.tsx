@@ -12,9 +12,9 @@ export function SoundManager() {
   const backgroundMusic = useAudio(state => state.backgroundMusic);
   
   useEffect(() => {
-    const bgMusic = new Audio('/attached_assets/DSGNBoom-"Hard-hitting_trap_l-Elevenlabs_1761420109413.wav');
+    const bgMusic = new Audio('/sounds/background-music.wav');
     bgMusic.loop = true;
-    bgMusic.volume = 0.3;
+    bgMusic.volume = 0.2;
     setBackgroundMusic(bgMusic);
     
     const hitAudio = new Audio('/sounds/hit.mp3');
@@ -29,9 +29,19 @@ export function SoundManager() {
   useEffect(() => {
     if (backgroundMusic) {
       if (!isMuted) {
-        backgroundMusic.play().catch(err => console.log('Background music play prevented:', err));
+        const playPromise = backgroundMusic.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('Background music started playing');
+            })
+            .catch(err => {
+              console.log('Background music play prevented:', err);
+            });
+        }
       } else {
         backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
       }
     }
   }, [isMuted, backgroundMusic]);
