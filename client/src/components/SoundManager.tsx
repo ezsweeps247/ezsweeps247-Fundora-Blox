@@ -20,7 +20,7 @@ export function SoundManager() {
   const hitBufferRef = useRef<AudioBuffer | null>(null);
   
   useEffect(() => {
-    const bgMusic = new Audio('/sounds/background-music.mp3');
+    const bgMusic = new Audio('/sounds/background-music-original.mp3');
     bgMusic.preload = 'auto';
     setBackgroundMusic(bgMusic);
     
@@ -33,7 +33,7 @@ export function SoundManager() {
     setAudioContext(audioContext);
     
     // Load background music with Web Audio API for seamless looping
-    fetch('/sounds/background-music.mp3')
+    fetch('/sounds/background-music-original.mp3')
       .then(response => response.arrayBuffer())
       .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
       .then(audioBuffer => {
@@ -43,7 +43,7 @@ export function SoundManager() {
       .catch(err => console.log('Error loading background music:', err));
     
     // Load hit sound with Web Audio API for low-latency playback
-    fetch('/sounds/hit.mp3')
+    fetch('/sounds/hit-new.wav')
       .then(response => response.arrayBuffer())
       .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
       .then(audioBuffer => {
@@ -81,7 +81,7 @@ export function SoundManager() {
         source.loop = true;
         
         const gainNode = audioContextRef.current.createGain();
-        gainNode.gain.value = 0.08;
+        gainNode.gain.value = 0.05;
         gainNodeRef.current = gainNode;
         
         source.connect(gainNode);
