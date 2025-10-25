@@ -32,14 +32,14 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
   return (
     <div style={{
       position: 'absolute',
-      top: '100px',
-      left: '50%',
-      transform: 'translateX(-50%)',
+      top: 'calc(50% + 20px)',
+      right: 'calc(50% + 170px)',
       pointerEvents: 'none',
-      zIndex: 100
+      zIndex: 100,
+      width: '140px'
     }}>
       <div style={{
-        fontSize: '28px',
+        fontSize: '20px',
         fontWeight: 'bold',
         color: color,
         textShadow: `
@@ -48,11 +48,11 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
           2px 2px 4px rgba(0, 0, 0, 0.8)
         `,
         fontFamily: "'Roboto', sans-serif",
-        letterSpacing: '2px',
+        letterSpacing: '1px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        padding: '8px 18px',
+        padding: '6px 12px',
         borderRadius: '8px',
         border: `2px solid ${color}`,
         boxShadow: `
@@ -63,15 +63,15 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: '12px',
+        fontSize: '10px',
         fontWeight: 'bold',
         color: '#ffffff',
         textShadow: '0 0 5px rgba(0, 0, 0, 0.8)',
         fontFamily: "'Roboto', sans-serif",
         textAlign: 'center',
-        marginTop: '6px',
+        marginTop: '4px',
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        padding: '3px 10px',
+        padding: '3px 8px',
         borderRadius: '4px'
       }}>
         {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
