@@ -100,7 +100,7 @@ export function GameFeed() {
       borderRadius: '12px',
       padding: '8px',
       width: '140px',
-      maxHeight: '220px',
+      height: '360px',
       boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
       display: 'flex',
       flexDirection: 'column',
@@ -133,7 +133,6 @@ export function GameFeed() {
         backgroundColor: '#000',
         borderRadius: '6px',
         padding: '4px',
-        maxHeight: '186px',
         scrollbarWidth: 'thin',
         scrollbarColor: '#333 #000'
       }}>
