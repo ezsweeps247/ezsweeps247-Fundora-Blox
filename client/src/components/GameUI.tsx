@@ -134,6 +134,7 @@ export function GameUI() {
   const [showNameEntry, setShowNameEntry] = useState(false);
   const [playerName, setPlayerName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -148,16 +149,16 @@ export function GameUI() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [phase, stopBlock]);
 
-  // Auto-start demo after 3 seconds of idle time in ready state
+  // Auto-start demo after 3 seconds of idle time in ready state (only if user hasn't interacted)
   useEffect(() => {
-    if (phase === 'ready') {
+    if (phase === 'ready' && !userInteracted) {
       const demoTimer = setTimeout(() => {
         startDemo();
       }, 3000);
       
       return () => clearTimeout(demoTimer);
     }
-  }, [phase, startDemo]);
+  }, [phase, startDemo, userInteracted]);
 
   const handleGameEnd = () => {
     setShowNameEntry(true);
@@ -352,7 +353,7 @@ export function GameUI() {
         zIndex: 50
       }}>
         <button
-          {...handleTouchButton(phase === 'ready' ? start : (phase === 'playing' ? stopBlock : () => {}))}
+          {...handleTouchButton(phase === 'ready' ? () => { setUserInteracted(true); start(); } : (phase === 'playing' ? stopBlock : () => {}))}
           disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
           style={{
             padding: '8px 60px',
@@ -526,7 +527,7 @@ export function GameUI() {
               )}
             </div>
             <button
-              {...handleTouchButton(restart)}
+              {...handleTouchButton(() => { setUserInteracted(true); restart(); })}
               style={{
                 padding: '12px 48px',
                 fontSize: '18px',
