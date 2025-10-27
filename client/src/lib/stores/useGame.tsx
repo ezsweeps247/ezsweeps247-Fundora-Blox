@@ -293,9 +293,26 @@ export const useGame = create<GameState>()(
       const lastBlock = state.blocks[state.blocks.length - 1];
       const newRow = lastBlock ? lastBlock.row + 1 : 1;
       
+      // For the first block, randomize starting position for paid games
+      let initialColumns: boolean[];
+      if (lastBlock) {
+        // Use previous block's columns
+        initialColumns = [...lastBlock.columns];
+      } else {
+        // First block - randomize for paid games, center for FREE
+        if (state.stake === 'FREE') {
+          // FREE mode: always start in the middle (columns 2, 3, 4)
+          initialColumns = Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4);
+        } else {
+          // Paid games: randomize starting position
+          const startCol = Math.floor(Math.random() * (GRID_WIDTH - 2)); // 0 to 4 (ensures 3 blocks fit)
+          initialColumns = Array(GRID_WIDTH).fill(false).map((_, i) => i >= startCol && i <= startCol + 2);
+        }
+      }
+      
       const newBlock: Block = {
         row: newRow,
-        columns: lastBlock ? [...lastBlock.columns] : Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
+        columns: initialColumns
       };
       
       // Find the leftmost and rightmost active columns to calculate position range
