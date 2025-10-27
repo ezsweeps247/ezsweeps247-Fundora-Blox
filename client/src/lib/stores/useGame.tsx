@@ -127,9 +127,8 @@ export const useGame = create<GameState>()(
       if (row >= 11) return { multiplier: 5, type: 'cash' as const };
       if (row >= 10) return { multiplier: 2, type: 'cash' as const };
       if (row >= 9) return { multiplier: 1, type: 'cash' as const };
-      if (row >= 8) return { multiplier: 1000, type: 'points' as const };
-      if (row >= 7) return { multiplier: 500, type: 'points' as const };
-      if (row >= 6) return { multiplier: 250, type: 'points' as const };
+      if (row >= 8) return { multiplier: 500, type: 'points' as const };
+      if (row >= 7) return { multiplier: 250, type: 'points' as const };
       return { multiplier: 0, type: 'points' as const };
     },
     
@@ -497,11 +496,11 @@ export const useGame = create<GameState>()(
         newComboMultiplier = 1;
       }
       
-      // Apply combo multiplier to score - only count score points if row >= 6 (first points row)
+      // Apply combo multiplier to score - only count score points if row >= 7 (first points row)
       // But bonus points are always added regardless of row
       const basePoints = activeBlockCount * 10;
       const multipliedPoints = Math.round(basePoints * newComboMultiplier);
-      const shouldCountScore = state.currentBlock.row >= 6;
+      const shouldCountScore = state.currentBlock.row >= 7;
       const newScore = shouldCountScore ? state.score + multipliedPoints : state.score;
       const newBonusPoints = state.bonusPoints + (activeBlockCount * 50);
       const newHighestRow = Math.max(state.highestRow, state.currentBlock.row);
