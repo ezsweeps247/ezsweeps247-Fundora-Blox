@@ -9,22 +9,43 @@ const PRIZE_TIERS = [
   { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
   { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
   { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', textColor: '#000' },
-  { minRow: 9, color: '#0099cc', multiplier: 1, type: 'cash', textColor: '#fff' },
-  { minRow: 8, color: '#333333', multiplier: 1000, type: 'points', textColor: '#fff' },
-  { minRow: 7, color: '#666666', multiplier: 500, type: 'points', textColor: '#fff' },
-  { minRow: 6, color: '#888888', multiplier: 250, type: 'points', textColor: '#fff' },
+  { minRow: 9, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 8, color: '#333333', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
 ];
 
-// Helper function to get point prize multiplier based on stake
-const getPointMultiplier = (stake: number | 'FREE'): number => {
-  if (stake === 'FREE') return 1;
-  if (stake === 0.5) return 0.2;
-  if (stake === 1) return 1;
-  if (stake === 2) return 2;
-  if (stake === 5) return 4;
-  if (stake === 10) return 20;
-  if (stake === 20) return 80;
-  return 1;
+// Get stake-dependent point values for rows 7-9
+const getStakeDependentPoints = (row: number, stake: number | 'FREE'): number => {
+  const stakeAmount = typeof stake === 'number' ? stake : 0;
+  
+  if (row >= 9) {
+    // Row 9
+    if (stakeAmount >= 20) return 700;
+    if (stakeAmount >= 10) return 500;
+    if (stakeAmount >= 5) return 350;
+    if (stakeAmount >= 2) return 200;
+    return 150; // $1 or FREE
+  }
+  
+  if (row >= 8) {
+    // Row 8
+    if (stakeAmount >= 20) return 650;
+    if (stakeAmount >= 10) return 450;
+    if (stakeAmount >= 5) return 300;
+    if (stakeAmount >= 2) return 150;
+    return 100; // $1 or FREE
+  }
+  
+  if (row >= 7) {
+    // Row 7
+    if (stakeAmount >= 20) return 600;
+    if (stakeAmount >= 10) return 400;
+    if (stakeAmount >= 5) return 250;
+    if (stakeAmount >= 2) return 100;
+    return 25; // $1 or FREE
+  }
+  
+  return 0;
 };
 
 function getPrizeTier(row: number) {
@@ -43,8 +64,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
-  const pointMultiplier = getPointMultiplier(stake);
+  const displayedRows = [13, 12, 11, 10, 9, 8, 7]; // Removed row 6 - it no longer gives prizes
   
   return (
     <div style={{
@@ -63,8 +83,9 @@ export function PrizeIndicators() {
         let displayText = '';
         
         if (tier.type === 'points') {
-          const scaledPoints = tier.multiplier * pointMultiplier;
-          displayText = `${scaledPoints.toLocaleString()} P`;
+          // For rows 7-9, use stake-dependent points
+          const points = getStakeDependentPoints(row, stake);
+          displayText = `${points.toLocaleString()} P`;
         } else {
           const prizeAmount = stakeAmount * tier.multiplier;
           displayText = `${prizeAmount.toFixed(2)} $`;
