@@ -506,17 +506,17 @@ export const useGame = create<GameState>()(
         newComboMultiplier = 1;
       }
       
-      // Apply combo multiplier to score - only count score points if row >= 7 (first points row)
-      // But bonus points are always added regardless of row
+      // Apply combo multiplier to score - only count score AND bonus points if row >= 7 (first points row)
       const basePoints = activeBlockCount * 10;
       const multipliedPoints = Math.round(basePoints * newComboMultiplier);
       const shouldCountScore = state.currentBlock.row >= 7;
+      const bonusPointsToAdd = activeBlockCount * 50;
       const newScore = shouldCountScore ? state.score + multipliedPoints : state.score;
-      const newBonusPoints = state.bonusPoints + (activeBlockCount * 50);
+      const newBonusPoints = shouldCountScore ? state.bonusPoints + bonusPointsToAdd : state.bonusPoints;
       const newHighestRow = Math.max(state.highestRow, state.currentBlock.row);
       const newBlocksStacked = state.blocksStacked + 1;
       
-      console.log(`Block placed! Active columns: ${activeBlockCount}, Row: ${state.currentBlock.row}, Score ${shouldCountScore ? 'COUNTED' : 'NOT counted'}, Bonus: +${activeBlockCount * 50}, Base points: ${basePoints}, Multiplier: ${newComboMultiplier.toFixed(1)}x, Score: ${shouldCountScore ? `+${multipliedPoints} = ${newScore}` : `${newScore} (below threshold)`}, Bonus: ${newBonusPoints}`);
+      console.log(`Block placed! Active columns: ${activeBlockCount}, Row: ${state.currentBlock.row}, ${shouldCountScore ? `✅ COUNTED - Score: +${multipliedPoints} = ${newScore}, Bonus: +${bonusPointsToAdd} = ${newBonusPoints}` : `❌ NOT counted (rows 1-6 don't count) - Score: ${newScore}, Bonus: ${newBonusPoints}`}`);
       
       const finalBlock: Block = {
         row: state.currentBlock.row,
