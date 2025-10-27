@@ -348,22 +348,30 @@ export const useGame = create<GameState>()(
         ? (Math.random() > 0.5 ? 1 : -1)
         : (Math.random() > 0.3 ? -state.movementDirection : state.movementDirection);
       
-      // Calculate speed with random increment for each row
-      // Speed progressively increases, with row 14 being the fastest
-      const randomIncrement = MIN_SPEED_INCREMENT + (Math.random() * (MAX_SPEED_INCREMENT - MIN_SPEED_INCREMENT));
-      const rowSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
+      // Calculate speed with increasing randomness for rows 7-13
+      let rowSpeed: number;
+      
+      if (newRow < 7) {
+        // Rows 1-6: Progressive but moderate speed increase
+        const randomIncrement = MIN_SPEED_INCREMENT + (Math.random() * (MAX_SPEED_INCREMENT - MIN_SPEED_INCREMENT));
+        rowSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
+      } else if (newRow === 13) {
+        // Row 14 (index 13): THE FASTEST - guaranteed maximum speed
+        rowSpeed = BASE_SPEED + (newRow * 0.8); // Much higher multiplier for row 14
+        console.log(`🔥 ROW 14 - MAXIMUM SPEED! Speed: ${rowSpeed.toFixed(2)}`);
+      } else {
+        // Rows 7-13: HIGH randomness to make it unpredictable and challenging
+        // Random speed increment ranges from 0.3 to 0.7 (much wider range)
+        const minIncrement = 0.3;
+        const maxIncrement = 0.7;
+        const randomIncrement = minIncrement + (Math.random() * (maxIncrement - minIncrement));
+        rowSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
+        console.log(`⚡ Row ${newRow} random speed: increment ${randomIncrement.toFixed(2)}, speed: ${rowSpeed.toFixed(2)}`);
+      }
       
       // Apply stake multiplier - higher stakes = faster blocks
       const stakeMultiplier = getStakeSpeedMultiplier(state.stake);
       let finalSpeed = rowSpeed * stakeMultiplier;
-      
-      // Add random speed spike when reaching first money line (row 9+)
-      // This makes the cash prize levels significantly more challenging
-      if (newRow >= 9) {
-        const moneyLineSpike = 1.15 + (Math.random() * 0.35); // 1.15x to 1.5x spike
-        finalSpeed *= moneyLineSpike;
-        console.log(`💰 Money line speed spike! Row ${newRow} gets ${moneyLineSpike.toFixed(2)}x multiplier`);
-      }
       
       console.log(`Spawning new block at row ${newRow}, position ${randomPosition.toFixed(2)}, direction ${newDirection}, speed: ${finalSpeed.toFixed(2)} (stake multiplier: ${stakeMultiplier}x)`);
       
