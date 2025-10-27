@@ -164,14 +164,19 @@ export const useGame = create<GameState>()(
       const stakeAmount = typeof state.stake === 'number' ? state.stake : 0;
       const newCredits = isFreeMode ? state.credits : state.credits - stakeAmount;
       
-      console.log(`Game started! Stake: ${isFreeMode ? 'FREE MODE' : `$${state.stake}`}, Credits: $${newCredits}`);
+      // Randomize first block starting position (columns 0-4 as start, 3-wide block)
+      const randomStart = Math.floor(Math.random() * 5); // 0, 1, 2, 3, or 4
+      const startCol = randomStart;
+      const endCol = randomStart + 2; // 3-column wide block
+      
+      console.log(`Game started! Stake: ${isFreeMode ? 'FREE MODE' : `$${state.stake}`}, Credits: $${newCredits}, First block: columns ${startCol}-${endCol}`);
       
       set({
         phase: "playing",
         credits: newCredits,
         blocks: [{
           row: 0,
-          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
+          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= startCol && i <= endCol)
         }],
         currentBlock: null,
         currentBlockPosition: 0,
@@ -196,11 +201,16 @@ export const useGame = create<GameState>()(
     startDemo: () => {
       console.log("🎮 Starting demo mode...");
       
+      // Randomize first block starting position (columns 0-4 as start, 3-wide block)
+      const randomStart = Math.floor(Math.random() * 5); // 0, 1, 2, 3, or 4
+      const startCol = randomStart;
+      const endCol = randomStart + 2; // 3-column wide block
+      
       set({
         phase: "demo",
         blocks: [{
           row: 0,
-          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4)
+          columns: Array(GRID_WIDTH).fill(false).map((_, i) => i >= startCol && i <= endCol)
         }],
         currentBlock: null,
         currentBlockPosition: 0,
