@@ -303,10 +303,12 @@ export const useGame = create<GameState>()(
         if (state.stake === 'FREE') {
           // FREE mode: always start in the middle (columns 2, 3, 4)
           initialColumns = Array(GRID_WIDTH).fill(false).map((_, i) => i >= 2 && i <= 4);
+          console.log('🆓 FREE mode: Starting blocks in middle (columns 2-4)');
         } else {
           // Paid games: randomize starting position
           const startCol = Math.floor(Math.random() * (GRID_WIDTH - 2)); // 0 to 4 (ensures 3 blocks fit)
           initialColumns = Array(GRID_WIDTH).fill(false).map((_, i) => i >= startCol && i <= startCol + 2);
+          console.log(`💰 Paid game ($${state.stake}): Starting blocks in columns ${startCol}-${startCol + 2}`);
         }
       }
       
