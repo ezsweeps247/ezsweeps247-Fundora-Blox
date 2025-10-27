@@ -100,7 +100,7 @@ export const useAudio = create<AudioState>((set, get) => ({
       
       // Create gain node for volume control
       const gainNode = audioContext.createGain();
-      gainNode.gain.value = 0.3;
+      gainNode.gain.value = 0.7;
       
       // Connect and play
       source.connect(gainNode);
