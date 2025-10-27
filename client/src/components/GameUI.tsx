@@ -135,6 +135,7 @@ export function GameUI() {
   const [playerName, setPlayerName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -149,16 +150,20 @@ export function GameUI() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [phase, stopBlock]);
 
-  // Auto-start demo after 3 seconds of idle time in ready state (only if user hasn't interacted)
+  // Auto-start demo on first load immediately, or after 3 seconds on subsequent ready states
   useEffect(() => {
     if (phase === 'ready' && !userInteracted) {
+      // On first load, start demo immediately
+      const delay = isFirstLoad ? 0 : 3000;
+      
       const demoTimer = setTimeout(() => {
         startDemo();
-      }, 3000);
+        setIsFirstLoad(false); // Mark that demo has started
+      }, delay);
       
       return () => clearTimeout(demoTimer);
     }
-  }, [phase, startDemo, userInteracted]);
+  }, [phase, startDemo, userInteracted, isFirstLoad]);
 
   const handleGameEnd = () => {
     setShowNameEntry(true);
