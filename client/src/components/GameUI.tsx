@@ -225,7 +225,11 @@ export function GameUI() {
         left: '50%',
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
-        zIndex: 100
+        zIndex: 100,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '15px'
       }}>
         <div style={{
           fontSize: '48px',
@@ -243,6 +247,41 @@ export function GameUI() {
         }}>
           FUNDORA BLOX
         </div>
+        
+        {/* Back to Casino Button */}
+        <button
+          {...handleTouchButton(() => {
+            // Navigate back to host platform
+            window.history.back();
+          })}
+          style={{
+            pointerEvents: 'auto',
+            padding: '10px 30px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            fontFamily: "'Roboto', sans-serif",
+            color: '#ffffff',
+            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
+            backdropFilter: 'blur(12px)',
+            border: '2px solid rgba(255, 255, 255, 0.3)',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            transition: 'all 0.2s ease',
+            letterSpacing: '1px'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
+          }}
+        >
+          ← BACK TO CASINO
+        </button>
       </div>
 
       <div style={{
