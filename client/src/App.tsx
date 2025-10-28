@@ -8,13 +8,24 @@ function App() {
     <div style={{ 
       width: '100vw', 
       height: '100vh', 
-      position: 'relative', 
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       overflow: 'hidden',
       background: '#f8f8f8'
     }}>
-      <GameCanvas />
-      <GameUI />
-      <SoundManager />
+      <div style={{
+        width: '100%',
+        maxWidth: '1400px',
+        height: '100%',
+        position: 'relative',
+        background: '#f8f8f8',
+        boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)'
+      }}>
+        <GameCanvas />
+        <GameUI />
+        <SoundManager />
+      </div>
     </div>
   );
 }
