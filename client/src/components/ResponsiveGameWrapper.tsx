@@ -13,7 +13,7 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      // Base game dimensions - balanced for mobile and desktop
+      // Base game dimensions
       const baseWidth = 550;
       const baseHeight = 400;
       
@@ -21,8 +21,8 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
       const scaleX = width / baseWidth;
       const scaleY = height / baseHeight;
       
-      // Use the smaller scale - moderate upscaling for good balance
-      const newScale = Math.min(scaleX, scaleY, 2.2); // Allow upscaling up to 2.2x
+      // Use the smaller scale - no max limit, fill the entire viewport
+      const newScale = Math.min(scaleX, scaleY);
       
       setScale(newScale);
       setDimensions({ width, height });
