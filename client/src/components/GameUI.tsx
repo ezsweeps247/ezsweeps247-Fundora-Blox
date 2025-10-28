@@ -221,7 +221,7 @@ export function GameUI() {
     }}>
       <div style={{
         position: 'absolute',
-        top: 'calc(50% - 448px)',
+        top: 'calc(50% - 470px)',
         left: '50%',
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
@@ -229,7 +229,7 @@ export function GameUI() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '15px'
+        gap: '10px'
       }}>
         <div style={{
           fontSize: '48px',
@@ -256,15 +256,15 @@ export function GameUI() {
           })}
           style={{
             pointerEvents: 'auto',
-            padding: '10px 30px',
-            fontSize: '16px',
+            padding: '6px 20px',
+            fontSize: '14px',
             fontWeight: 'bold',
             fontFamily: "'Roboto', sans-serif",
             color: '#ffffff',
             background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
             backdropFilter: 'blur(12px)',
             border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '8px',
+            borderRadius: '6px',
             cursor: 'pointer',
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
