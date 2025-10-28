@@ -259,28 +259,24 @@ export function GameUI() {
           })}
           style={{
             pointerEvents: 'auto',
-            padding: isMobile ? '6px 16px' : '10px 30px',
-            fontSize: isMobile ? '12px' : '16px',
+            padding: isMobile ? '8px 20px' : '12px 40px',
+            fontSize: isMobile ? '13px' : '16px',
             fontWeight: 'bold',
             fontFamily: "'Roboto', sans-serif",
             color: '#ffffff',
-            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
-            backdropFilter: 'blur(12px)',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '8px',
+            background: '#3a4149',
+            border: 'none',
+            borderRadius: '4px',
             cursor: 'pointer',
-            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            letterSpacing: '1.5px',
             transition: 'all 0.2s ease',
-            letterSpacing: '1px'
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.6)';
+            e.currentTarget.style.background = '#484f58';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
+            e.currentTarget.style.background = '#3a4149';
           }}
         >
           ← BACK TO CASINO
