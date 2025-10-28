@@ -47,7 +47,7 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
         height: '100vh',
         position: 'relative',
         overflow: 'hidden',
-        background: '#f8f8f8',
+        background: '#1a2332',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
