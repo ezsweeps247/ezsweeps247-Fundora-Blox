@@ -264,7 +264,7 @@ export function GameUI() {
             background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
             backdropFilter: 'blur(12px)',
             border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '20px',
+            borderRadius: '6px',
             cursor: 'pointer',
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
@@ -280,7 +280,7 @@ export function GameUI() {
             e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
           }}
         >
-          BACK TO CASINO
+          ← BACK TO CASINO
         </button>
       </div>
 

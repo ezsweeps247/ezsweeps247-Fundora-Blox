@@ -13,16 +13,16 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      // Base game dimensions
-      const baseWidth = 550;
-      const baseHeight = 400;
+      // Base game dimensions (approximate total area needed)
+      const baseWidth = 1200; // Enough space for game + UI elements on sides
+      const baseHeight = 900; // Enough vertical space
       
       // Calculate scale to fit both width and height
       const scaleX = width / baseWidth;
       const scaleY = height / baseHeight;
       
-      // Use the smaller scale - no max limit, fill the entire viewport
-      const newScale = Math.min(scaleX, scaleY);
+      // Use the smaller scale to ensure everything fits
+      const newScale = Math.min(scaleX, scaleY, 1); // Cap at 1 to avoid upscaling on large screens
       
       setScale(newScale);
       setDimensions({ width, height });
@@ -47,7 +47,7 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
         height: '100vh',
         position: 'relative',
         overflow: 'hidden',
-        background: '#1a2332',
+        background: '#f8f8f8',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
@@ -57,8 +57,8 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
         style={{
           transform: `scale(${scale})`,
           transformOrigin: 'center center',
-          width: '550px',
-          height: '400px',
+          width: '1200px',
+          height: '900px',
           position: 'relative'
         }}
       >
