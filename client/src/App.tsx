@@ -12,15 +12,16 @@ function App() {
       justifyContent: 'center',
       alignItems: 'center',
       overflow: 'hidden',
-      background: '#f8f8f8'
+      background: '#e0e0e0'
     }}>
       <div style={{
-        width: '100%',
-        maxWidth: '1400px',
+        width: 'fit-content',
+        maxWidth: '1000px',
         height: '100%',
         position: 'relative',
         background: '#f8f8f8',
-        boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)'
+        boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)',
+        padding: '0 20px'
       }}>
         <GameCanvas />
         <GameUI />
