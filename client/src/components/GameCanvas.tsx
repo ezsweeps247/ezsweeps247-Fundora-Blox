@@ -65,17 +65,15 @@ export function GameCanvas() {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       marginTop: '-40px',
-      width: '100%',
+      width: 'calc(100% - 20px)',
       maxWidth: '900px',
       display: 'flex',
-      justifyContent: 'center',
-      padding: '0 10px'
+      justifyContent: 'center'
     }}>
       <div style={{ 
         position: 'relative',
         width: '100%',
-        maxWidth: `${GRID_WIDTH + 20}px`,
-        aspectRatio: `${GRID_WIDTH + 20} / ${GRID_HEIGHT + 20}`
+        maxWidth: `${GRID_WIDTH + 20}px`
       }}>
         <canvas
           ref={canvasRef}
@@ -83,7 +81,7 @@ export function GameCanvas() {
           height={GRID_HEIGHT + 20}
           style={{
             width: '100%',
-            height: '100%',
+            height: 'auto',
             border: '4px solid #333',
             borderRadius: '20px',
             backgroundColor: '#ffffff',
