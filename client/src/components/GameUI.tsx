@@ -222,6 +222,7 @@ export function GameUI() {
       pointerEvents: 'none',
       fontFamily: "'Roboto', sans-serif"
     }}>
+      {/* Title - Separate positioning */}
       <div style={{
         position: 'absolute',
         top: isMobile ? '10px' : 'calc(50% - 448px)',
@@ -229,10 +230,6 @@ export function GameUI() {
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
         zIndex: 100,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: isMobile ? '8px' : '15px'
       }}>
         <div style={{
           fontSize: isMobile ? '28px' : '48px',
@@ -250,8 +247,17 @@ export function GameUI() {
         }}>
           FUNDORA BLOX
         </div>
-        
-        {/* Back to Casino Button */}
+      </div>
+
+      {/* Back to Casino Button - Positioned above grid canvas */}
+      <div style={{
+        position: 'absolute',
+        top: isMobile ? '50px' : 'calc(50% - 395px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        pointerEvents: 'none',
+        zIndex: 100,
+      }}>
         <button
           {...handleTouchButton(() => {
             // Navigate back to host platform
@@ -259,24 +265,27 @@ export function GameUI() {
           })}
           style={{
             pointerEvents: 'auto',
-            padding: isMobile ? '8px 20px' : '12px 40px',
-            fontSize: isMobile ? '13px' : '16px',
-            fontWeight: 'bold',
+            padding: isMobile ? '10px 24px' : '14px 48px',
+            fontSize: isMobile ? '13px' : '15px',
+            fontWeight: '600',
             fontFamily: "'Roboto', sans-serif",
             color: '#ffffff',
             background: '#3a4149',
             border: 'none',
-            borderRadius: '4px',
+            borderRadius: '25px',
             cursor: 'pointer',
-            letterSpacing: '1.5px',
+            letterSpacing: '1.2px',
             transition: 'all 0.2s ease',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+            boxShadow: '0 3px 10px rgba(0, 0, 0, 0.25)',
+            lineHeight: '1'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#484f58';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = '#3a4149';
+            e.currentTarget.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.25)';
           }}
         >
           ← BACK TO CASINO
