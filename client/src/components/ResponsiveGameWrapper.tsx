@@ -13,16 +13,16 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      // Base game dimensions - much smaller base to allow larger scaling
-      const baseWidth = 400;
-      const baseHeight = 300;
+      // Base game dimensions - balanced for mobile and desktop
+      const baseWidth = 550;
+      const baseHeight = 400;
       
       // Calculate scale to fit both width and height
       const scaleX = width / baseWidth;
       const scaleY = height / baseHeight;
       
-      // Use the smaller scale - allow much larger upscaling
-      const newScale = Math.min(scaleX, scaleY, 5.0); // Allow upscaling up to 5x
+      // Use the smaller scale - moderate upscaling for good balance
+      const newScale = Math.min(scaleX, scaleY, 2.2); // Allow upscaling up to 2.2x
       
       setScale(newScale);
       setDimensions({ width, height });
@@ -57,8 +57,8 @@ export function ResponsiveGameWrapper({ children }: ResponsiveGameWrapperProps) 
         style={{
           transform: `scale(${scale})`,
           transformOrigin: 'center center',
-          width: '400px',
-          height: '300px',
+          width: '550px',
+          height: '400px',
           position: 'relative'
         }}
       >
