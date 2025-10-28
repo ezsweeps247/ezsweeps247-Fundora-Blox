@@ -2,20 +2,21 @@ import "@fontsource/roboto";
 import { GameCanvas } from "./components/GameCanvas";
 import { GameUI } from "./components/GameUI";
 import { SoundManager } from "./components/SoundManager";
+import { ResponsiveGameWrapper } from "./components/ResponsiveGameWrapper";
 
 function App() {
   return (
-    <div style={{ 
-      width: '100vw', 
-      height: '100vh', 
-      position: 'relative', 
-      overflow: 'hidden',
-      background: '#f8f8f8'
-    }}>
-      <GameCanvas />
-      <GameUI />
-      <SoundManager />
-    </div>
+    <ResponsiveGameWrapper>
+      <div style={{ 
+        width: '100%', 
+        height: '100%', 
+        position: 'relative'
+      }}>
+        <GameCanvas />
+        <GameUI />
+        <SoundManager />
+      </div>
+    </ResponsiveGameWrapper>
   );
 }
 
