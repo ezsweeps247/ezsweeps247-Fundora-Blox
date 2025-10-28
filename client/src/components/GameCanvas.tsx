@@ -64,18 +64,31 @@ export function GameCanvas() {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      marginTop: '-40px'
+      marginTop: '-40px',
+      width: '100%',
+      maxWidth: '900px',
+      display: 'flex',
+      justifyContent: 'center',
+      padding: '0 10px'
     }}>
-      <div style={{ position: 'relative' }}>
+      <div style={{ 
+        position: 'relative',
+        width: '100%',
+        maxWidth: `${GRID_WIDTH + 20}px`,
+        aspectRatio: `${GRID_WIDTH + 20} / ${GRID_HEIGHT + 20}`
+      }}>
         <canvas
           ref={canvasRef}
           width={GRID_WIDTH + 20}
           height={GRID_HEIGHT + 20}
           style={{
+            width: '100%',
+            height: '100%',
             border: '4px solid #333',
             borderRadius: '20px',
             backgroundColor: '#ffffff',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
+            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+            display: 'block'
           }}
         />
         <PrizeIndicators />
