@@ -87,7 +87,7 @@ export function GameCanvas() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: '8px'
+      gap: '4px'
     }}>
       {/* Title Container */}
       <div style={{
