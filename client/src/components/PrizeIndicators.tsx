@@ -82,7 +82,7 @@ export function PrizeIndicators() {
       borderRadius: '16px',
       padding: '18px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-      width: isMobile ? '260px' : '380px',
+      width: isMobile ? '240px' : '280px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
       fontSize: isMobile ? '16px' : '22px',
