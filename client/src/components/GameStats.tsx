@@ -28,24 +28,41 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         fontSize: '11px',
         fontWeight: '900',
         color: '#333',
-        marginBottom: '2px',
-        textAlign: 'left',
-        letterSpacing: '0.5px'
+        marginBottom: '3px'
       }}>
         {label}
       </div>
       <div style={{
-        fontSize: '24px',
-        fontWeight: 'bold',
-        color: '#000',
-        fontFamily: "'Arial Black', sans-serif",
-        textAlign: 'left',
         display: 'flex',
-        alignItems: 'baseline',
-        gap: '4px'
+        alignItems: 'center',
+        gap: '6px'
       }}>
-        {unit && <span style={{ fontSize: '18px', opacity: 0.7 }}>{unit}</span>}
-        <span>{value}</span>
+        <div style={{
+          fontSize: '28px',
+          fontWeight: 'bold',
+          color: '#ff0000',
+          backgroundColor: '#000',
+          padding: '4px 10px',
+          borderRadius: '8px',
+          fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
+          letterSpacing: '1px',
+          flex: '1',
+          textShadow: '0 0 1px #ff0000'
+        }}>
+          {value}
+        </div>
+        {unit && (
+          <div style={{
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#fff',
+            fontFamily: "'Roboto', sans-serif",
+            paddingRight: '4px',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+          }}>
+            {unit}
+          </div>
+        )}
       </div>
     </div>
   );
