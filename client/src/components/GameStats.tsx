@@ -90,7 +90,7 @@ export function GameStats() {
     <div style={{
       position: 'absolute',
       left: 'calc(100% + 10px)',
-      top: '10px',
+      top: '-6px',
       display: 'flex',
       flexDirection: 'column',
       gap: '12px',
