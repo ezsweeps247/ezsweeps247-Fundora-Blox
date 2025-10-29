@@ -52,8 +52,8 @@ function App() {
       justifyContent: 'center'
     }}>
       <div style={{
-        width: `${1200 * scale}px`,
-        height: `${1000 * scale}px`,
+        width: '1200px',
+        height: '1000px',
         position: 'relative',
         transform: `scale(${scale})`,
         transformOrigin: 'center center',
