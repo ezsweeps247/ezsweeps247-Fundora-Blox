@@ -90,54 +90,57 @@ export function GameStats() {
         position: 'absolute',
         left: 'calc(100% + 10px)',
         top: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        pointerEvents: 'auto'
+      }}>
+        <button
+          {...handleTouchButton(() => {
+            window.history.back();
+          })}
+          style={{
+            padding: '6px 12px',
+            fontSize: '11px',
+            fontWeight: 'bold',
+            fontFamily: "'Roboto', sans-serif",
+            color: '#ffffff',
+            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.85) 0%, rgba(60, 65, 75, 0.90) 100%)',
+            backdropFilter: 'blur(10px)',
+            border: '1.5px solid rgba(255, 255, 255, 0.25)',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            transition: 'all 0.2s ease',
+            letterSpacing: '0.8px',
+            width: '170px'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.3)';
+          }}
+        >
+          BACK TO CASINO
+        </button>
+        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
+        <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
+        <GameFeed />
+      </div>
+
+      <div style={{
+        position: 'absolute',
+        left: 'calc(100% + 10px)',
         bottom: '10px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        pointerEvents: 'auto'
+        pointerEvents: 'auto',
+        zIndex: 50
       }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px'
-        }}>
-          <button
-            {...handleTouchButton(() => {
-              window.history.back();
-            })}
-            style={{
-              padding: '6px 12px',
-              fontSize: '11px',
-              fontWeight: 'bold',
-              fontFamily: "'Roboto', sans-serif",
-              color: '#ffffff',
-              background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.85) 0%, rgba(60, 65, 75, 0.90) 100%)',
-              backdropFilter: 'blur(10px)',
-              border: '1.5px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-              transition: 'all 0.2s ease',
-              letterSpacing: '0.8px',
-              width: '170px'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.3)';
-            }}
-          >
-            BACK TO CASINO
-          </button>
-          <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
-          <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
-          <GameFeed />
-        </div>
-        
         <DisplayBox 
           label="STAKE" 
           value={stake === 'FREE' ? 'FREE' : stake.toFixed(2)} 
