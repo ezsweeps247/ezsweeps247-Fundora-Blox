@@ -17,12 +17,6 @@ export function GameCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   
-  const blocks = useGame(state => state.blocks);
-  const currentBlock = useGame(state => state.currentBlock);
-  const currentBlockPosition = useGame(state => state.currentBlockPosition);
-  const phase = useGame(state => state.phase);
-  const updateBlockPosition = useGame(state => state.updateBlockPosition);
-  
   const lastTimeRef = useRef(Date.now());
   
   useEffect(() => {
@@ -36,6 +30,9 @@ export function GameCanvas() {
       const now = Date.now();
       const delta = (now - lastTimeRef.current) / 1000;
       lastTimeRef.current = now;
+      
+      const state = useGame.getState();
+      const { phase, updateBlockPosition, blocks, currentBlock, currentBlockPosition } = state;
       
       if (phase === 'playing' || phase === 'demo') {
         updateBlockPosition(delta);
@@ -60,7 +57,7 @@ export function GameCanvas() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [blocks, currentBlock, currentBlockPosition, phase]);
+  }, []);
   
   const soundMode = useAudio(state => state.soundMode);
   const cycleSoundMode = useAudio(state => state.cycleSoundMode);
@@ -68,6 +65,7 @@ export function GameCanvas() {
   const credits = useGame(state => state.credits);
   const start = useGame(state => state.start);
   const stopBlock = useGame(state => state.stopBlock);
+  const phase = useGame(state => state.phase);
 
   const handleTouchButton = (callback: () => void) => {
     return {
@@ -226,10 +224,10 @@ export function GameCanvas() {
             {...handleTouchButton(phase === 'ready' ? () => { start(); } : (phase === 'playing' ? stopBlock : () => {}))}
             disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
             style={{
-              padding: '8px 24px',
-              minHeight: '45px',
-              minWidth: '240px',
-              fontSize: '20px',
+              padding: '8px 32px',
+              minHeight: '50px',
+              minWidth: '300px',
+              fontSize: '22px',
               fontWeight: 'bold',
               background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
                 ? 'linear-gradient(to top, #999 0%, #666 100%)' 
