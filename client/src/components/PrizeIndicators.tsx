@@ -73,7 +73,7 @@ export function PrizeIndicators() {
     <div style={{
       position: 'absolute',
       right: 'calc(100% - 2px)',
-      top: '0px',
+      top: '-86px',
       width: isMobile ? '150px' : '200px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
@@ -83,7 +83,7 @@ export function PrizeIndicators() {
     }}>
       {displayedRows.map((row) => {
         const tier = getPrizeTier(row);
-        const yPosition = (GRID_ROWS - row) * (CELL_SIZE + CELL_SPACING);
+        const yPosition = (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
         
         let displayText = '';
         
