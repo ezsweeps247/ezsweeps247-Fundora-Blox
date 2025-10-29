@@ -93,7 +93,7 @@ export function PrizeIndicators() {
           displayText = `${points.toLocaleString()} P`;
         } else {
           const prizeAmount = stakeAmount * tier.multiplier;
-          displayText = `${prizeAmount.toFixed(2)} $`;
+          displayText = `$${prizeAmount.toFixed(2)}`;
         }
         
         const isActive = highestRow >= row;
