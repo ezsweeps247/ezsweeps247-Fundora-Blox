@@ -97,7 +97,7 @@ export function GameCanvas() {
         borderRadius: '12px',
         padding: '8px 16px',
         boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-        width: `${GRID_WIDTH + 80}px`,
+        width: `${GRID_WIDTH + 90}px`,
         boxSizing: 'border-box'
       }}>
         <div style={{
@@ -137,7 +137,7 @@ export function GameCanvas() {
       
       {/* Footer bar docked underneath canvas */}
       <div style={{
-        width: `${GRID_WIDTH + 80}px`,
+        width: `${GRID_WIDTH + 90}px`,
         position: 'relative',
         background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
         backdropFilter: 'blur(12px)',
