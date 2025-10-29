@@ -149,7 +149,8 @@ export function GameCanvas() {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '12px'
+        gap: '12px',
+        paddingLeft: '30px'
       }}>
         {/* Sound toggle */}
         <div style={{
