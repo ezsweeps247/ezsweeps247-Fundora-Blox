@@ -128,7 +128,7 @@ export function PrizeIndicators() {
               minWidth: isMobile ? '80px' : '110px',
               textAlign: 'right',
               opacity: 1,
-              fontSize: isMobile ? '20px' : '28px',
+              fontSize: isMobile ? '28px' : '36px',
               letterSpacing: '0.5px',
               fontWeight: 'bold',
             }}>
