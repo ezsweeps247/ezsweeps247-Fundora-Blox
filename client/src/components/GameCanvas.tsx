@@ -83,7 +83,7 @@ export function GameCanvas() {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      marginTop: '-120px',
+      marginTop: '40px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

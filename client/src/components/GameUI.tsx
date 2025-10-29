@@ -240,7 +240,7 @@ export function GameUI() {
       {phase === 'ended' && (
           <div style={{
             position: 'absolute',
-            top: '35%',
+            top: '45%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             display: 'flex',
