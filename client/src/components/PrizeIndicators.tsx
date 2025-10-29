@@ -132,14 +132,16 @@ export function PrizeIndicators() {
               <div style={{
                 width: 0,
                 height: 0,
-                borderTop: '8px solid transparent',
-                borderBottom: '8px solid transparent',
-                borderRight: `14px solid ${tier.color}`,
+                borderTop: '10px solid transparent',
+                borderBottom: '10px solid transparent',
+                borderRight: `16px solid ${tier.color}`,
                 opacity: 1,
+                flexShrink: 0,
               }} />
               <div style={{
                 color: tier.color,
                 padding: 0,
+                margin: 0,
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
                 minWidth: isMobile ? '70px' : '90px',
                 textAlign: 'right',
@@ -149,9 +151,7 @@ export function PrizeIndicators() {
                 fontWeight: 'bold',
                 WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
                 lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
+                height: 'auto',
               }}>
                 {displayText}
               </div>
