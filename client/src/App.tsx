@@ -15,9 +15,9 @@ function App() {
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       
-      // Design dimensions
-      const designWidth = 1400;
-      const designHeight = 900; // Fixed design height for consistent aspect ratio
+      // Design dimensions - iPhone X/11/12/13 Pro portrait
+      const designWidth = 1125;
+      const designHeight = 2436;
       
       // Calculate scale to fit viewport while maintaining aspect ratio
       const scaleX = viewportWidth / designWidth;
@@ -46,8 +46,8 @@ function App() {
       <div 
         ref={containerRef}
         style={{
-          width: '1400px',
-          height: '900px',
+          width: '1125px',
+          height: '2436px',
           position: 'relative',
           background: '#f8f8f8',
           boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)'
