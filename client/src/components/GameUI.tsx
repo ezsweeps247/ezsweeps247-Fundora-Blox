@@ -404,20 +404,22 @@ export function GameUI() {
           pointerEvents: 'auto'
         }}>
           <div style={{
-            backgroundColor: 'white',
+            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+            backdropFilter: 'blur(12px)',
             border: '2px solid #333',
             borderRadius: '10px',
             padding: '12px 20px',
             minWidth: '240px',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+            boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.3)',
             fontFamily: "'Roboto', sans-serif"
           }}>
             <h2 style={{
               margin: '0 0 8px 0',
               fontSize: '14px',
-              color: '#333',
+              color: '#fff',
               textAlign: 'center',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
             }}>
               Save Score
             </h2>
@@ -429,17 +431,17 @@ export function GameUI() {
               marginBottom: '10px'
             }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>SCORE</div>
-                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#d64545' }}>{score}</div>
+                <div style={{ fontSize: '9px', color: '#bbb', marginBottom: '2px' }}>SCORE</div>
+                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#ff5555' }}>{score}</div>
               </div>
               <div style={{
                 width: '1px',
                 height: '25px',
-                backgroundColor: '#ddd'
+                backgroundColor: '#555'
               }} />
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '9px', color: '#666', marginBottom: '2px' }}>BLOCKS</div>
-                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#d64545' }}>{blocksStacked}</div>
+                <div style={{ fontSize: '9px', color: '#bbb', marginBottom: '2px' }}>BLOCKS</div>
+                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#ff5555' }}>{blocksStacked}</div>
               </div>
             </div>
 
