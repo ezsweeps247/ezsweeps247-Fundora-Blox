@@ -122,7 +122,7 @@ export function GameCanvas() {
       <div style={{ position: 'relative' }}>
         <canvas
           ref={canvasRef}
-          width={GRID_WIDTH + 80}
+          width={GRID_WIDTH + 140}
           height={GRID_HEIGHT + 20}
           style={{
             border: '4px solid #333',
@@ -304,7 +304,7 @@ export function GameCanvas() {
 }
 
 function drawGrid(ctx: CanvasRenderingContext2D) {
-  const offsetX = 40;
+  const offsetX = 70;
   const offsetY = 10;
   
   for (let row = 0; row < GRID_ROWS; row++) {
@@ -342,7 +342,7 @@ function drawRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, wi
 }
 
 function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
-  const offsetX = 40;
+  const offsetX = 70;
   const offsetY = 10;
   
   blocks.forEach((block) => {
@@ -364,7 +364,7 @@ function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
 }
 
 function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: number) {
-  const offsetX = 40;
+  const offsetX = 70;
   const offsetY = 10;
   
   block.columns.forEach((isActive: boolean, colIndex: number) => {
