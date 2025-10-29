@@ -19,18 +19,18 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       backdropFilter: 'blur(12px)',
       border: '2px solid #333',
       borderRadius: '12px',
-      padding: '6px 12px',
-      minWidth: '170px',
+      padding: '8px 14px',
+      minWidth: '248px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
     }}>
       <div style={{
-        fontSize: '11px',
+        fontSize: '15px',
         fontWeight: '900',
         color: '#fff',
-        marginBottom: '3px',
+        marginBottom: '4px',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
       }}>
         {label}
@@ -38,14 +38,14 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '6px'
+        gap: '8px'
       }}>
         <div style={{
-          fontSize: '28px',
+          fontSize: '38px',
           fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
-          padding: '4px 10px',
+          padding: '6px 12px',
           borderRadius: '8px',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
           letterSpacing: '1px',
@@ -56,7 +56,7 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         </div>
         {unit && (
           <div style={{
-            fontSize: '16px',
+            fontSize: '22px',
             fontWeight: 'bold',
             color: '#fff',
             fontFamily: "'Roboto', sans-serif",
@@ -99,17 +99,17 @@ export function GameStats() {
       backdropFilter: 'blur(12px)',
       border: '3px solid #333',
       borderRadius: '16px',
-      padding: '16px',
+      padding: '18px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-      width: '200px'
+      width: '280px'
     }}>
       <button
         {...handleTouchButton(() => {
           window.history.back();
         })}
         style={{
-          padding: '6px 12px',
-          fontSize: '11px',
+          padding: '8px 14px',
+          fontSize: '14px',
           fontWeight: 'bold',
           fontFamily: "'Roboto', sans-serif",
           color: '#ffffff',

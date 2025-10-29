@@ -99,8 +99,8 @@ export function GameFeed() {
       backdropFilter: 'blur(12px)',
       border: '2px solid #333',
       borderRadius: '12px',
-      padding: '8px',
-      width: '170px',
+      padding: '8px 14px',
+      width: '248px',
       height: '380px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
       display: 'flex',
@@ -108,10 +108,10 @@ export function GameFeed() {
       position: 'relative'
     }}>
       <div style={{
-        fontSize: '10px',
+        fontSize: '14px',
         fontWeight: '900',
         color: '#fff',
-        marginBottom: '6px',
+        marginBottom: '8px',
         textAlign: 'left',
         letterSpacing: '0.5px',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
@@ -119,11 +119,11 @@ export function GameFeed() {
         LIVE FEED
         <div style={{
           display: 'inline-block',
-          width: '6px',
-          height: '6px',
+          width: '8px',
+          height: '8px',
           borderRadius: '50%',
           backgroundColor: isConnected ? '#00ff00' : '#ff0000',
-          marginLeft: '6px',
+          marginLeft: '8px',
           animation: isConnected ? 'pulse 2s ease-in-out infinite' : 'none'
         }} />
       </div>
@@ -141,7 +141,7 @@ export function GameFeed() {
         {history.length === 0 ? (
           <div style={{
             color: '#666',
-            fontSize: '9px',
+            fontSize: '13px',
             textAlign: 'center',
             padding: '20px 5px',
             fontFamily: "'Roboto', sans-serif"
@@ -153,18 +153,18 @@ export function GameFeed() {
             <div
               key={item.id}
               style={{
-                marginBottom: '6px',
-                paddingBottom: '6px',
+                marginBottom: '8px',
+                paddingBottom: '8px',
                 borderBottom: index < history.length - 1 ? '1px solid #222' : 'none',
                 animation: index === 0 ? 'slideIn 0.3s ease-out' : 'none'
               }}
             >
               <div style={{
-                fontSize: '16px',
+                fontSize: '20px',
                 fontWeight: 'bold',
                 color: '#ffffff',
                 fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
-                marginBottom: '2px',
+                marginBottom: '3px',
                 textShadow: '0 0 2px #ffffff',
                 letterSpacing: '0.5px',
                 whiteSpace: 'nowrap',
@@ -178,11 +178,11 @@ export function GameFeed() {
                 display: 'flex',
                 justifyContent: 'flex-start',
                 alignItems: 'center',
-                gap: '8px',
+                gap: '10px',
                 textAlign: 'left'
               }}>
                 <div style={{
-                  fontSize: '15px',
+                  fontSize: '18px',
                   color: '#ffffff',
                   fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
                   textShadow: '0 0 2px #ffffff'
@@ -190,7 +190,7 @@ export function GameFeed() {
                   {item.score}
                 </div>
                 <div style={{
-                  fontSize: '13px',
+                  fontSize: '16px',
                   color: item.prizeType === 'cash' ? '#00ff00' : '#ffaa00',
                   fontFamily: "'Roboto', sans-serif",
                   fontWeight: 'bold'
@@ -199,10 +199,10 @@ export function GameFeed() {
                 </div>
               </div>
               <div style={{
-                fontSize: '11px',
+                fontSize: '13px',
                 color: '#888',
                 fontFamily: "'Roboto', sans-serif",
-                marginTop: '1px',
+                marginTop: '2px',
                 textAlign: 'left'
               }}>
                 <span style={{ fontWeight: 'bold' }}>${item.stake}</span> • Row <span style={{ fontWeight: 'bold' }}>{item.highestRow}</span>
