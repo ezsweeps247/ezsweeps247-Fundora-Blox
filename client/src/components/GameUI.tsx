@@ -265,7 +265,7 @@ export function GameUI() {
           })}
           style={{
             pointerEvents: 'auto',
-            padding: isMobile ? '10px 24px' : '14px 48px',
+            padding: isMobile ? '8px 20px' : '10px 32px',
             fontSize: isMobile ? '13px' : '15px',
             fontWeight: '600',
             fontFamily: "'Roboto', sans-serif",
@@ -288,7 +288,7 @@ export function GameUI() {
             e.currentTarget.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.25)';
           }}
         >
-          ← BACK TO CASINO
+          BACK TO CASINO
         </button>
       </div>
 
