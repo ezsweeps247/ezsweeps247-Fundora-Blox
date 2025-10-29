@@ -147,8 +147,9 @@ export function GameCanvas() {
         padding: '20px 15px',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '20px'
       }}>
         {/* Sound toggle */}
         <div style={{
@@ -219,8 +220,7 @@ export function GameCanvas() {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '8px',
-          flex: '1 1 auto',
-          minWidth: 0
+          flex: '0 0 auto'
         }}>
           <button
             {...handleTouchButton(phase === 'ready' ? () => { start(); } : (phase === 'playing' ? stopBlock : () => {}))}
