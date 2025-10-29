@@ -72,7 +72,7 @@ export function PrizeIndicators() {
   const containerHeight = displayedRows.length * (CELL_SIZE + CELL_SPACING);
   
   const CANVAS_OFFSET_Y = 20;
-  const BORDER_ADJUSTMENT = -30;
+  const BORDER_ADJUSTMENT = -20;
   
   return (
     <div style={{
