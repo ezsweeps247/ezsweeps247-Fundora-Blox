@@ -297,6 +297,7 @@ export const useGame = create<GameState>()(
       const prizeInfo = state.getPotentialPrize();
       
       let newCredits = state.credits;
+      let newBonusPoints = state.bonusPoints;
       
       // Always log bonus points earned
       console.log(`Game ended! Bonus points earned: ${state.bonusPoints}P`);
@@ -307,12 +308,15 @@ export const useGame = create<GameState>()(
         newCredits = state.credits + prizeInfo.amount;
         console.log(`Prize won: $${prizeInfo.amount.toFixed(2)}, Total credits: $${newCredits.toFixed(2)}`);
       } else {
-        console.log(`Prize won: ${prizeInfo.amount}P, Credits: $${state.credits.toFixed(2)}`);
+        // Add prize points to bonus points for FREE mode
+        newBonusPoints = state.bonusPoints + prizeInfo.amount;
+        console.log(`Prize won: ${prizeInfo.amount}P, Total bonus points: ${newBonusPoints}P, Credits: $${state.credits.toFixed(2)}`);
       }
       
       set({ 
         phase: "ended",
-        credits: newCredits
+        credits: newCredits,
+        bonusPoints: newBonusPoints
       });
 
       // Save game result to backend for real-time feed
@@ -330,7 +334,7 @@ export const useGame = create<GameState>()(
           prizeType: prizeInfo.amount > 0 ? prizeInfo.type : null,
           blocksStacked: state.blocksStacked,
           highestRow: state.highestRow,
-          bonusPoints: state.bonusPoints, // Include bonus points
+          bonusPoints: newBonusPoints, // Include updated bonus points with prize
         }),
       }).catch(err => console.error('Failed to save game history:', err));
     },
