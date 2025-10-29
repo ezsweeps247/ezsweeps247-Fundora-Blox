@@ -379,25 +379,28 @@ export const useGame = create<GameState>()(
         ? (Math.random() > 0.5 ? 1 : -1)
         : (Math.random() > 0.3 ? -state.movementDirection : state.movementDirection);
       
-      // Calculate speed with increasing randomness for rows 7-13
+      // Calculate speed with AGGRESSIVE increase and GROWING randomness for each row
       let rowSpeed: number;
       
-      if (newRow < 7) {
-        // Rows 1-6: Progressive but moderate speed increase
-        const randomIncrement = MIN_SPEED_INCREMENT + (Math.random() * (MAX_SPEED_INCREMENT - MIN_SPEED_INCREMENT));
-        rowSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
-      } else if (newRow === 13) {
-        // Row 14 (index 13): THE FASTEST - guaranteed maximum speed
-        rowSpeed = BASE_SPEED + (newRow * 0.8); // Much higher multiplier for row 14
-        console.log(`🔥 ROW 14 - MAXIMUM SPEED! Speed: ${rowSpeed.toFixed(2)}`);
+      // Calculate progressive speed multiplier that compounds with each row
+      // Each row gets significantly faster than the previous
+      const baseMultiplier = 0.35; // Starting increment per row
+      const progressiveMultiplier = baseMultiplier + (newRow * 0.08); // Increases by 0.08 per row
+      
+      // Calculate randomness range that GROWS with each row
+      // Higher rows = wider random variation = more unpredictable
+      const randomnessRange = 0.15 + (newRow * 0.05); // Grows from 0.15 to 0.85 by row 14
+      const randomVariation = (Math.random() - 0.5) * randomnessRange; // Can be + or -
+      
+      // Apply progressive speed formula
+      rowSpeed = BASE_SPEED + ((newRow - 1) * progressiveMultiplier) + randomVariation;
+      
+      // Row 14 gets an EXTREME speed boost
+      if (newRow === 13) {
+        rowSpeed = rowSpeed * 1.4; // 40% faster than formula would give
+        console.log(`🔥 ROW 14 - EXTREME SPEED! Speed: ${rowSpeed.toFixed(2)}`);
       } else {
-        // Rows 7-13: HIGH randomness to make it unpredictable and challenging
-        // Random speed increment ranges from 0.3 to 0.7 (much wider range)
-        const minIncrement = 0.3;
-        const maxIncrement = 0.7;
-        const randomIncrement = minIncrement + (Math.random() * (maxIncrement - minIncrement));
-        rowSpeed = BASE_SPEED + ((newRow - 1) * randomIncrement);
-        console.log(`⚡ Row ${newRow} random speed: increment ${randomIncrement.toFixed(2)}, speed: ${rowSpeed.toFixed(2)}`);
+        console.log(`⚡ Row ${newRow} speed: ${rowSpeed.toFixed(2)} (base multiplier: ${progressiveMultiplier.toFixed(2)}, random variation: ${randomVariation >= 0 ? '+' : ''}${randomVariation.toFixed(2)})`);
       }
       
       // Apply stake multiplier - higher stakes = faster blocks
