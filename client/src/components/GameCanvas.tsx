@@ -89,8 +89,34 @@ export function GameCanvas() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: '0px'
+      gap: '12px'
     }}>
+      {/* Title Container */}
+      <div style={{
+        background: 'linear-gradient(to bottom, rgba(245, 245, 245, 0.95) 0%, rgba(235, 235, 235, 0.95) 100%)',
+        backdropFilter: 'blur(10px)',
+        border: '3px solid #333',
+        borderRadius: '16px',
+        padding: '16px 32px',
+        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)'
+      }}>
+        <div style={{
+          fontSize: '48px',
+          fontWeight: 'bold',
+          color: '#ff0000',
+          fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
+          textShadow: `
+            0 0 10px rgba(255, 0, 0, 0.6),
+            0 0 20px rgba(255, 0, 0, 0.4),
+            2px 2px 4px rgba(0, 0, 0, 0.8)
+          `,
+          letterSpacing: '8px',
+          textAlign: 'center'
+        }}>
+          FUNDORA BLOX
+        </div>
+      </div>
+
       <div style={{ position: 'relative' }}>
         <canvas
           ref={canvasRef}
