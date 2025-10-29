@@ -69,75 +69,88 @@ export function PrizeIndicators() {
   // Detect mobile for responsive sizing
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
   
+  const containerHeight = displayedRows.length * (CELL_SIZE + CELL_SPACING);
+  
   return (
     <div style={{
       position: 'absolute',
-      right: 'calc(100% - 2px)',
+      right: 'calc(100% + 10px)',
       top: '10px',
-      width: isMobile ? '150px' : '200px',
+      background: 'linear-gradient(to bottom, rgba(245, 245, 245, 0.95) 0%, rgba(235, 235, 235, 0.95) 100%)',
+      backdropFilter: 'blur(10px)',
+      border: '3px solid #333',
+      borderRadius: '16px',
+      padding: '16px',
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+      width: isMobile ? '180px' : '230px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
       fontSize: isMobile ? '14px' : '18px',
       transform: isMobile ? 'scale(0.8)' : 'none',
       transformOrigin: 'right top'
     }}>
-      {displayedRows.map((row) => {
-        const tier = getPrizeTier(row);
-        const yPosition = (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
-        
-        let displayText = '';
-        
-        if (tier.type === 'points') {
-          // For rows 7-9, use stake-dependent points
-          const points = getStakeDependentPoints(row, stake);
-          displayText = `${points.toLocaleString()} P`;
-        } else {
-          const prizeAmount = stakeAmount * tier.multiplier;
-          displayText = `$${prizeAmount.toFixed(2)}`;
-        }
-        
-        const isActive = highestRow >= row;
-        
-        return (
-          <div
-            key={row}
-            style={{
-              position: 'absolute',
-              top: `${yPosition}px`,
-              right: 0,
-              height: `${CELL_SIZE}px`,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              transition: 'all 0.3s ease',
-              flexDirection: 'row-reverse',
-            }}
-          >
-            <div style={{
-              width: 0,
-              height: 0,
-              borderTop: '8px solid transparent',
-              borderBottom: '8px solid transparent',
-              borderRight: `12px solid ${tier.color}`,
-              opacity: 1,
-            }} />
-            <div style={{
-              color: tier.color,
-              padding: isMobile ? '4px 8px' : '6px 12px',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
-              minWidth: isMobile ? '80px' : '110px',
-              textAlign: 'right',
-              opacity: 1,
-              fontSize: isMobile ? '28px' : '36px',
-              letterSpacing: '0.5px',
-              fontWeight: 'bold',
-              WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
-            }}>
-              {displayText}
+      <div style={{
+        position: 'relative',
+        height: `${containerHeight}px`
+      }}>
+        {displayedRows.map((row) => {
+          const tier = getPrizeTier(row);
+          const yPosition = (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
+          
+          let displayText = '';
+          
+          if (tier.type === 'points') {
+            // For rows 7-9, use stake-dependent points
+            const points = getStakeDependentPoints(row, stake);
+            displayText = `${points.toLocaleString()} P`;
+          } else {
+            const prizeAmount = stakeAmount * tier.multiplier;
+            displayText = `$${prizeAmount.toFixed(2)}`;
+          }
+          
+          const isActive = highestRow >= row;
+          
+          return (
+            <div
+              key={row}
+              style={{
+                position: 'absolute',
+                top: `${yPosition}px`,
+                right: 0,
+                height: `${CELL_SIZE}px`,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.3s ease',
+                flexDirection: 'row-reverse',
+              }}
+            >
+              <div style={{
+                width: 0,
+                height: 0,
+                borderTop: '8px solid transparent',
+                borderBottom: '8px solid transparent',
+                borderRight: `12px solid ${tier.color}`,
+                opacity: 1,
+              }} />
+              <div style={{
+                color: tier.color,
+                padding: isMobile ? '4px 8px' : '6px 12px',
+                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
+                minWidth: isMobile ? '80px' : '110px',
+                textAlign: 'right',
+                opacity: 1,
+                fontSize: isMobile ? '28px' : '36px',
+                letterSpacing: '0.5px',
+                fontWeight: 'bold',
+                WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
+              }}>
+                {displayText}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
