@@ -1,3 +1,4 @@
+import React from 'react';
 import { useGame } from '@/lib/stores/useGame';
 import { GameFeed } from './GameFeed';
 
@@ -73,6 +74,16 @@ export function GameStats() {
   const bonusPoints = useGame(state => state.bonusPoints);
   const stake = useGame(state => state.stake);
   
+  const handleTouchButton = (callback: () => void) => {
+    return {
+      onClick: callback,
+      onTouchStart: (e: React.TouchEvent) => {
+        e.preventDefault();
+        callback();
+      }
+    };
+  };
+  
   return (
     <>
       <div style={{
@@ -84,6 +95,38 @@ export function GameStats() {
         gap: '10px',
         pointerEvents: 'auto'
       }}>
+        <button
+          {...handleTouchButton(() => {
+            window.history.back();
+          })}
+          style={{
+            padding: '8px 16px',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            fontFamily: "'Roboto', sans-serif",
+            color: '#ffffff',
+            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
+            backdropFilter: 'blur(12px)',
+            border: '2px solid rgba(255, 255, 255, 0.3)',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            transition: 'all 0.2s ease',
+            letterSpacing: '1px',
+            width: '170px'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
+          }}
+        >
+          BACK TO CASINO
+        </button>
         <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
         <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
         <GameFeed />

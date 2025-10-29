@@ -555,63 +555,6 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 380px)',
-        left: 'calc(50% + 211px)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '8px',
-        pointerEvents: 'auto',
-        zIndex: 50
-      }}>
-        <button
-          {...handleTouchButton(() => {
-            // Navigate back to host platform
-            window.history.back();
-          })}
-          style={{
-            padding: '12px 24px',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            fontFamily: "'Roboto', sans-serif",
-            color: '#ffffff',
-            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
-            backdropFilter: 'blur(12px)',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-            transition: 'all 0.2s ease',
-            letterSpacing: '1px'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.6)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
-          }}
-        >
-          BACK TO CASINO
-        </button>
-        <div style={{
-          fontSize: '9px',
-          fontWeight: 'bold',
-          color: 'rgba(255, 255, 255, 0.7)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-          textAlign: 'center',
-          fontFamily: "'Roboto', sans-serif",
-          textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-        }}>
-          EXIT GAME
-        </div>
-      </div>
-      
-      <div style={{
-        position: 'absolute',
-        bottom: 'calc(50% - 380px)',
         right: 'calc(50% + 211px)',
         display: 'flex',
         flexDirection: 'column',
