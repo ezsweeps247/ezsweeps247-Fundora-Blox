@@ -8,8 +8,8 @@ import { Volume2, VolumeX } from 'lucide-react';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
-const CELL_SIZE = 60;
-const CELL_SPACING = 3;
+const CELL_SIZE = 70;
+const CELL_SPACING = 4;
 const GRID_WIDTH = GRID_COLS * CELL_SIZE + (GRID_COLS - 1) * CELL_SPACING;
 const GRID_HEIGHT = GRID_ROWS * CELL_SIZE + (GRID_ROWS - 1) * CELL_SPACING;
 
@@ -122,8 +122,8 @@ export function GameCanvas() {
       <div style={{ position: 'relative' }}>
         <canvas
           ref={canvasRef}
-          width={GRID_WIDTH + 140}
-          height={GRID_HEIGHT + 140}
+          width={GRID_WIDTH + 90}
+          height={GRID_HEIGHT + 60}
           style={{
             border: '4px solid #333',
             borderRadius: '20px',
@@ -304,8 +304,8 @@ export function GameCanvas() {
 }
 
 function drawGrid(ctx: CanvasRenderingContext2D) {
-  const offsetX = 70;
-  const offsetY = 70;
+  const offsetX = 45;
+  const offsetY = 30;
   
   for (let row = 0; row < GRID_ROWS; row++) {
     for (let col = 0; col < GRID_COLS; col++) {
@@ -342,8 +342,8 @@ function drawRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, wi
 }
 
 function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
-  const offsetX = 70;
-  const offsetY = 70;
+  const offsetX = 45;
+  const offsetY = 30;
   
   blocks.forEach((block) => {
     block.columns.forEach((isActive: boolean, colIndex: number) => {
@@ -364,8 +364,8 @@ function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
 }
 
 function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: number) {
-  const offsetX = 70;
-  const offsetY = 70;
+  const offsetX = 45;
+  const offsetY = 30;
   
   block.columns.forEach((isActive: boolean, colIndex: number) => {
     if (!isActive) return;
