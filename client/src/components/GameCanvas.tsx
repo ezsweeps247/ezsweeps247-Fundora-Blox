@@ -97,11 +97,13 @@ export function GameCanvas() {
         backdropFilter: 'blur(12px)',
         border: '3px solid #333',
         borderRadius: '12px',
-        padding: '8px 24px',
-        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)'
+        padding: '8px 16px',
+        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
+        width: `${GRID_WIDTH + 28}px`,
+        boxSizing: 'border-box'
       }}>
         <div style={{
-          fontSize: '36px',
+          fontSize: '48px',
           fontWeight: 'bold',
           color: '#ff0000',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
@@ -110,7 +112,7 @@ export function GameCanvas() {
             0 0 20px rgba(255, 0, 0, 0.4),
             2px 2px 4px rgba(0, 0, 0, 0.8)
           `,
-          letterSpacing: '6px',
+          letterSpacing: '18px',
           textAlign: 'center',
           lineHeight: '1',
           whiteSpace: 'nowrap'
