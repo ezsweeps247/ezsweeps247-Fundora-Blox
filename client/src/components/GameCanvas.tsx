@@ -226,10 +226,10 @@ export function GameCanvas() {
             {...handleTouchButton(phase === 'ready' ? () => { start(); } : (phase === 'playing' ? stopBlock : () => {}))}
             disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
             style={{
-              padding: '8px 32px',
-              minHeight: '50px',
-              minWidth: '300px',
-              fontSize: '22px',
+              padding: '6px 24px',
+              minHeight: '44px',
+              minWidth: '260px',
+              fontSize: '20px',
               fontWeight: 'bold',
               background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
                 ? 'linear-gradient(to top, #999 0%, #666 100%)' 
