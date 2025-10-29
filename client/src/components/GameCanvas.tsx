@@ -112,7 +112,7 @@ export function GameCanvas() {
             0 0 20px rgba(255, 0, 0, 0.4),
             2px 2px 4px rgba(0, 0, 0, 0.8)
           `,
-          letterSpacing: '18px',
+          letterSpacing: '12px',
           textAlign: 'center',
           lineHeight: '1',
           whiteSpace: 'nowrap'
