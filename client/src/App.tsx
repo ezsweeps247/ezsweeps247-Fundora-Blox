@@ -50,7 +50,7 @@ function App() {
       display: 'flex',
       alignItems: 'flex-end',
       justifyContent: 'center',
-      paddingBottom: '20px'
+      paddingBottom: '80px'
     }}>
       <div style={{
         width: '1200px',
