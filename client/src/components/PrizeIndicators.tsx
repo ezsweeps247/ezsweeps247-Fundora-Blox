@@ -9,6 +9,7 @@ const PRIZE_TIERS = [
   { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
   { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
   { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', textColor: '#000' },
+  { minRow: 6, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
   { minRow: 9, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
   { minRow: 8, color: '#333333', multiplier: 0, type: 'points', textColor: '#fff' },
   { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
@@ -64,7 +65,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [13, 12, 11, 10, 9, 8, 7]; // Removed row 6 - it no longer gives prizes
+  const displayedRows = [13, 12, 11, 10, 6, 9, 8, 7];
   
   // Detect mobile for responsive sizing
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
