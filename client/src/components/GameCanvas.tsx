@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useGame } from '@/lib/stores/useGame';
 import { PrizeIndicators } from './PrizeIndicators';
+import { GameStats } from './GameStats';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
@@ -79,6 +80,7 @@ export function GameCanvas() {
           }}
         />
         <PrizeIndicators />
+        <GameStats />
       </div>
     </div>
   );

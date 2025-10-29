@@ -4,7 +4,6 @@ import { useAudio } from '@/lib/stores/useAudio';
 import { Volume2, VolumeX, Trophy } from 'lucide-react';
 import { Leaderboard } from './Leaderboard';
 import { StakeSelector } from './StakeSelector';
-import { GameFeed } from './GameFeed';
 import { apiRequest } from '@/lib/queryClient';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -299,41 +298,6 @@ export function GameUI() {
         >
           BACK TO CASINO
         </button>
-      </div>
-
-      <div style={{
-        position: 'absolute',
-        top: 'calc(50% - 329px)',
-        right: isMobile ? '10px' : 'calc(50% + 196px)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        pointerEvents: 'auto',
-        transform: isMobile ? 'scale(0.8)' : 'none',
-        transformOrigin: 'top right'
-      }}>
-        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
-        <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
-        <GameFeed />
-      </div>
-
-      <div style={{
-        position: 'absolute',
-        bottom: 'calc(50% - 289px + 40px)',
-        right: isMobile ? '10px' : 'calc(50% + 196px)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        pointerEvents: 'auto',
-        zIndex: 50,
-        transform: isMobile ? 'scale(0.8)' : 'none',
-        transformOrigin: 'bottom right'
-      }}>
-        <DisplayBox 
-          label="STAKE" 
-          value={stake === 'FREE' ? 'FREE' : stake.toFixed(2)} 
-          unit={stake === 'FREE' ? '' : '$'} 
-        />
       </div>
       
       <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
@@ -807,63 +771,6 @@ export function GameUI() {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-function DisplayBox({ label, value, unit }: { label: string; value: string; unit: string }) {
-  return (
-    <div style={{
-      backgroundColor: 'white',
-      border: '2px solid #333',
-      borderRadius: '12px',
-      padding: '6px 12px',
-      minWidth: '170px',
-      boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
-      <div style={{
-        fontSize: '11px',
-        fontWeight: '900',
-        color: '#333',
-        marginBottom: '3px'
-      }}>
-        {label}
-      </div>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '6px'
-      }}>
-        <div style={{
-          fontSize: '28px',
-          fontWeight: 'bold',
-          color: '#ff0000',
-          backgroundColor: '#000',
-          padding: '4px 10px',
-          borderRadius: '8px',
-          fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
-          letterSpacing: '1px',
-          flex: '1',
-          textShadow: '0 0 1px #ff0000'
-        }}>
-          {value}
-        </div>
-        {unit && (
-          <div style={{
-            fontSize: '16px',
-            fontWeight: 'bold',
-            color: '#fff',
-            fontFamily: "'Roboto', sans-serif",
-            paddingRight: '4px',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-          }}>
-            {unit}
-          </div>
-        )}
-      </div>
     </div>
   );
 }
