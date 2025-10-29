@@ -42,9 +42,9 @@ interface GameState {
 }
 
 const GRID_WIDTH = 7;
-const BASE_SPEED = 2.5;
-const MIN_SPEED_INCREMENT = 0.25;
-const MAX_SPEED_INCREMENT = 0.45;
+const BASE_SPEED = 4.5;
+const MIN_SPEED_INCREMENT = 0.4;
+const MAX_SPEED_INCREMENT = 0.7;
 
 // Helper function to get point prize multiplier based on stake
 const getPointMultiplier = (stake: number | 'FREE'): number => {
@@ -384,12 +384,12 @@ export const useGame = create<GameState>()(
       
       // Calculate progressive speed multiplier that compounds with each row
       // Each row gets significantly faster than the previous
-      const baseMultiplier = 0.35; // Starting increment per row
-      const progressiveMultiplier = baseMultiplier + (newRow * 0.08); // Increases by 0.08 per row
+      const baseMultiplier = 0.55; // Starting increment per row (increased from 0.35)
+      const progressiveMultiplier = baseMultiplier + (newRow * 0.12); // Increases by 0.12 per row (increased from 0.08)
       
       // Calculate randomness range that GROWS with each row
       // Higher rows = wider random variation = more unpredictable
-      const randomnessRange = 0.15 + (newRow * 0.05); // Grows from 0.15 to 0.85 by row 14
+      const randomnessRange = 0.3 + (newRow * 0.08); // Wider random variation (increased from 0.15 + 0.05)
       const randomVariation = (Math.random() - 0.5) * randomnessRange; // Can be + or -
       
       // Apply progressive speed formula
