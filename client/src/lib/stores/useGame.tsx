@@ -3,6 +3,45 @@ import { subscribeWithSelector } from "zustand/middleware";
 
 export type GamePhase = "ready" | "playing" | "ended" | "demo";
 
+// Helper to get or create player ID
+function getOrCreatePlayerId(): string {
+  let playerId = localStorage.getItem('playerId');
+  if (!playerId) {
+    playerId = `player_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('playerId', playerId);
+  }
+  return playerId;
+}
+
+// Helper to load bonus points from database
+async function loadBonusPointsFromDB(): Promise<number> {
+  try {
+    const playerId = getOrCreatePlayerId();
+    const response = await fetch(`/api/bonus-points/${playerId}`);
+    if (response.ok) {
+      const data = await response.json();
+      return data.bonusPoints || 0;
+    }
+  } catch (error) {
+    console.error('Failed to load bonus points from database:', error);
+  }
+  return 0;
+}
+
+// Helper to save bonus points to database
+async function saveBonusPointsToDB(bonusPoints: number): Promise<void> {
+  try {
+    const playerId = getOrCreatePlayerId();
+    await fetch('/api/bonus-points', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ playerId, bonusPoints }),
+    });
+  } catch (error) {
+    console.error('Failed to save bonus points to database:', error);
+  }
+}
+
 export interface Block {
   row: number;
   columns: boolean[];
@@ -71,6 +110,13 @@ const getStakeSpeedMultiplier = (stake: number | 'FREE'): number => {
   return 1.0;
 };
 
+// Load initial bonus points from database
+let initialBonusPoints = 0;
+loadBonusPointsFromDB().then(points => {
+  useGame.setState({ bonusPoints: points });
+  console.log(`Loaded ${points} bonus points from database`);
+});
+
 export const useGame = create<GameState>()(
   subscribeWithSelector((set, get) => ({
     phase: "ready",
@@ -81,7 +127,7 @@ export const useGame = create<GameState>()(
     movementSpeed: BASE_SPEED,
     score: 0,
     credits: 100,
-    bonusPoints: 0,
+    bonusPoints: initialBonusPoints,
     stake: 1,
     availableStakes: ['FREE', 0.5, 1, 2, 5, 10, 20],
     highestRow: 0,
@@ -318,6 +364,9 @@ export const useGame = create<GameState>()(
         credits: newCredits,
         bonusPoints: newBonusPoints
       });
+
+      // Save bonus points to database
+      saveBonusPointsToDB(newBonusPoints);
 
       // Save game result to backend for real-time feed
       const stakeValue = state.stake === 'FREE' ? 'FREE' : state.stake.toString();

@@ -52,6 +52,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Bonus points endpoints for standalone game
+  app.post("/api/bonus-points", async (req, res) => {
+    try {
+      const { playerId, bonusPoints } = req.body;
+      if (!playerId || bonusPoints === undefined) {
+        return res.status(400).json({ error: "playerId and bonusPoints are required" });
+      }
+
+      const result = await storage.saveBonusPoints(playerId, bonusPoints);
+      res.json({ success: true, playerId, bonusPoints: result.bonusPoints });
+    } catch (error) {
+      console.error("Error saving bonus points:", error);
+      res.status(500).json({ error: "Failed to save bonus points" });
+    }
+  });
+
+  app.get("/api/bonus-points/:playerId", async (req, res) => {
+    try {
+      const { playerId } = req.params;
+      const result = await storage.getBonusPoints(playerId);
+      res.json({ playerId, bonusPoints: result.bonusPoints });
+    } catch (error) {
+      console.error("Error fetching bonus points:", error);
+      res.status(500).json({ error: "Failed to fetch bonus points" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   // Set up WebSocket server for real-time game feed

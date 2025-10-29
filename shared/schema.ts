@@ -116,6 +116,7 @@ export const playerCredits = pgTable("player_credits", {
   apiKeyId: integer("api_key_id").references(() => apiKeys.id).notNull(),
   externalPlayerId: text("external_player_id").notNull(),
   balance: decimal("balance", { precision: 10, scale: 2 }).notNull().default('0'),
+  bonusPoints: integer("bonus_points").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

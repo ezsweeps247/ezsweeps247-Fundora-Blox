@@ -1,4 +1,6 @@
-import { users, type User, type InsertUser, highScores, type HighScore, type InsertHighScore } from "@shared/schema";
+import { users, type User, type InsertUser, highScores, type HighScore, type InsertHighScore, playerCredits } from "@shared/schema";
+import { db } from "./db";
+import { eq, sql as drizzleSql } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -9,6 +11,8 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
   getTopHighScores(limit: number): Promise<HighScore[]>;
+  saveBonusPoints(playerId: string, bonusPoints: number): Promise<{ bonusPoints: number }>;
+  getBonusPoints(playerId: string): Promise<{ bonusPoints: number }>;
 }
 
 export class MemStorage implements IStorage {
@@ -56,6 +60,67 @@ export class MemStorage implements IStorage {
     return Array.from(this.highScores.values())
       .sort((a, b) => b.score - a.score)
       .slice(0, limit);
+  }
+
+  async saveBonusPoints(playerId: string, bonusPoints: number): Promise<{ bonusPoints: number }> {
+    // Use database for persistent storage
+    try {
+      // Try to insert or update
+      const [result] = await db
+        .insert(playerCredits)
+        .values({
+          apiKeyId: 1, // Default API key for standalone game
+          externalPlayerId: playerId,
+          bonusPoints: bonusPoints,
+          balance: '0',
+        })
+        .onConflictDoUpdate({
+          target: [playerCredits.apiKeyId, playerCredits.externalPlayerId],
+          set: {
+            bonusPoints: bonusPoints,
+            updatedAt: new Date(),
+          },
+        })
+        .returning();
+
+      return { bonusPoints: result.bonusPoints };
+    } catch (error) {
+      console.error("Error saving bonus points to database:", error);
+      return { bonusPoints: 0 };
+    }
+  }
+
+  async getBonusPoints(playerId: string): Promise<{ bonusPoints: number }> {
+    // Use database for persistent storage
+    try {
+      const [result] = await db
+        .select()
+        .from(playerCredits)
+        .where(
+          drizzleSql`${playerCredits.apiKeyId} = 1 AND ${playerCredits.externalPlayerId} = ${playerId}`
+        )
+        .limit(1);
+
+      if (result) {
+        return { bonusPoints: result.bonusPoints };
+      }
+
+      // Create default entry if doesn't exist
+      const [newResult] = await db
+        .insert(playerCredits)
+        .values({
+          apiKeyId: 1,
+          externalPlayerId: playerId,
+          bonusPoints: 0,
+          balance: '0',
+        })
+        .returning();
+
+      return { bonusPoints: newResult.bonusPoints };
+    } catch (error) {
+      console.error("Error getting bonus points from database:", error);
+      return { bonusPoints: 0 };
+    }
   }
 }
 
