@@ -119,10 +119,10 @@ export function GameCanvas() {
         borderRight: '4px solid #333',
         borderRadius: '0 0 20px 20px',
         boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-        padding: '20px 40px',
+        padding: '20px 20px',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         alignItems: 'center'
       }}>
         {/* Sound toggle */}
