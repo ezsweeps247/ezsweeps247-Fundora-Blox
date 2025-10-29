@@ -66,9 +66,7 @@ export function GameCanvas() {
       transform: 'translate(-50%, -50%)',
       marginTop: '-40px'
     }}>
-      <div style={{ 
-        position: 'relative'
-      }}>
+      <div style={{ position: 'relative' }}>
         <canvas
           ref={canvasRef}
           width={GRID_WIDTH + 20}
@@ -77,8 +75,7 @@ export function GameCanvas() {
             border: '4px solid #333',
             borderRadius: '20px',
             backgroundColor: '#ffffff',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-            display: 'block'
+            boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
           }}
         />
         <PrizeIndicators />

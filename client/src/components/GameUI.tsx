@@ -7,7 +7,6 @@ import { StakeSelector } from './StakeSelector';
 import { GameFeed } from './GameFeed';
 import { apiRequest } from '@/lib/queryClient';
 import { useQueryClient } from '@tanstack/react-query';
-import { useIsMobile } from '@/hooks/useIsMobile';
 
 function formatNumber(num: number): string {
   if (num >= 1000000) {
@@ -19,7 +18,7 @@ function formatNumber(num: number): string {
   return num.toLocaleString();
 }
 
-function ComboIndicator({ comboMultiplier, comboStreak, phase, isMobile }: { comboMultiplier: number; comboStreak: number; phase: string; isMobile: boolean }) {
+function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultiplier: number; comboStreak: number; phase: string }) {
   const [animate, setAnimate] = useState(false);
   const [prevStreak, setPrevStreak] = useState(0);
   
@@ -43,15 +42,14 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase, isMobile }: { com
   return (
     <div style={{
       position: 'absolute',
-      bottom: isMobile ? '50%' : 'calc(50% - 230px)',
-      left: isMobile ? '50%' : 'calc(50% + 173px)',
-      transform: isMobile ? 'translateX(-50%)' : 'none',
+      bottom: 'calc(50% - 230px)',
+      left: 'calc(50% + 173px)',
       pointerEvents: 'none',
       zIndex: 100,
-      width: isMobile ? '150px' : '200px'
+      width: '200px'
     }}>
       <div style={{
-        fontSize: isMobile ? '20px' : '28px',
+        fontSize: '28px',
         fontWeight: 'bold',
         color: color,
         textShadow: `
@@ -60,13 +58,13 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase, isMobile }: { com
           2px 2px 4px rgba(0, 0, 0, 0.8)
         `,
         fontFamily: "'Roboto', sans-serif",
-        letterSpacing: isMobile ? '0.5px' : '1px',
+        letterSpacing: '1px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
         backgroundColor: 'transparent',
-        padding: isMobile ? '4px 8px' : '6px 12px',
-        borderRadius: isMobile ? '6px' : '8px',
-        border: `${isMobile ? '1.5px' : '2px'} solid ${color}`,
+        padding: '6px 12px',
+        borderRadius: '8px',
+        border: `2px solid ${color}`,
         boxShadow: `
           0 0 15px ${glowColor},
           inset 0 0 15px rgba(0, 0, 0, 0.5)
@@ -75,7 +73,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase, isMobile }: { com
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: isMobile ? '14px' : '18px',
+        fontSize: '18px',
         fontWeight: '900',
         color: '#ffffff',
         textShadow: `
@@ -87,13 +85,13 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase, isMobile }: { com
         `,
         fontFamily: "'Arial Black', 'Arial', sans-serif",
         textAlign: 'center',
-        marginTop: isMobile ? '3px' : '4px',
+        marginTop: '4px',
         backgroundColor: 'transparent',
-        padding: isMobile ? '2px 6px' : '3px 8px',
-        borderRadius: isMobile ? '3px' : '4px',
+        padding: '3px 8px',
+        borderRadius: '4px',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
-        letterSpacing: isMobile ? '0.3px' : '0.5px'
+        letterSpacing: '0.5px'
       } as React.CSSProperties}>
         {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
       </div>
@@ -113,7 +111,6 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase, isMobile }: { com
 }
 
 export function GameUI() {
-  const isMobile = useIsMobile();
   const phase = useGame(state => state.phase);
   const score = useGame(state => state.score);
   const credits = useGame(state => state.credits);
@@ -222,17 +219,20 @@ export function GameUI() {
       pointerEvents: 'none',
       fontFamily: "'Roboto', sans-serif"
     }}>
-      {/* Title - Separate positioning */}
       <div style={{
         position: 'absolute',
-        top: isMobile ? '10px' : 'calc(50% - 448px)',
+        top: 'calc(50% - 448px)',
         left: '50%',
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
         zIndex: 100,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '15px'
       }}>
         <div style={{
-          fontSize: isMobile ? '28px' : '48px',
+          fontSize: '48px',
           fontWeight: 'bold',
           color: '#ffffff',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
@@ -242,22 +242,13 @@ export function GameUI() {
             0 0 30px rgba(255, 0, 0, 0.4),
             3px 3px 6px rgba(0, 0, 0, 0.9)
           `,
-          letterSpacing: isMobile ? '3px' : '8px',
+          letterSpacing: '8px',
           textAlign: 'center'
         }}>
           FUNDORA BLOX
         </div>
-      </div>
-
-      {/* Back to Casino Button - Positioned above grid canvas */}
-      <div style={{
-        position: 'absolute',
-        top: isMobile ? '60px' : 'calc(50% - 380px)',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        pointerEvents: 'none',
-        zIndex: 100,
-      }}>
+        
+        {/* Back to Casino Button */}
         <button
           {...handleTouchButton(() => {
             // Navigate back to host platform
@@ -265,122 +256,112 @@ export function GameUI() {
           })}
           style={{
             pointerEvents: 'auto',
-            padding: isMobile ? '8px 20px' : '10px 32px',
-            fontSize: isMobile ? '13px' : '15px',
-            fontWeight: '600',
+            padding: '10px 30px',
+            fontSize: '16px',
+            fontWeight: 'bold',
             fontFamily: "'Roboto', sans-serif",
             color: '#ffffff',
-            background: '#3a4149',
-            border: 'none',
-            borderRadius: '25px',
+            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(60, 65, 75, 0.94) 100%)',
+            backdropFilter: 'blur(12px)',
+            border: '2px solid rgba(255, 255, 255, 0.3)',
+            borderRadius: '8px',
             cursor: 'pointer',
-            letterSpacing: '1.2px',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
             transition: 'all 0.2s ease',
-            boxShadow: '0 3px 10px rgba(0, 0, 0, 0.25)',
-            lineHeight: '1'
+            letterSpacing: '1px'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#484f58';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.6)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#3a4149';
-            e.currentTarget.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.25)';
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
           }}
         >
-          BACK TO CASINO
+          ← BACK TO CASINO
         </button>
       </div>
 
       <div style={{
         position: 'absolute',
-        top: isMobile ? '85px' : 'calc(50% - 329px)',
-        left: isMobile ? '10px' : 'auto',
-        right: isMobile ? 'auto' : 'calc(50% + 196px)',
+        top: 'calc(50% - 329px)',
+        right: 'calc(50% + 196px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
         pointerEvents: 'auto'
       }}>
-        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" isMobile={isMobile} />
-        <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" isMobile={isMobile} />
+        <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
+        <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
         <GameFeed />
       </div>
 
-      {!isMobile && (
-        <div style={{
-          position: 'absolute',
-          bottom: 'calc(50% - 289px + 40px)',
-          right: 'calc(50% + 196px)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          pointerEvents: 'auto',
-          zIndex: 50
-        }}>
-          <DisplayBox 
-            label="STAKE" 
-            value={stake === 'FREE' ? 'FREE' : stake.toFixed(2)} 
-            unit={stake === 'FREE' ? '' : '$'}
-            isMobile={isMobile}
-          />
-        </div>
-      )}
+      <div style={{
+        position: 'absolute',
+        bottom: 'calc(50% - 289px + 40px)',
+        right: 'calc(50% + 196px)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        pointerEvents: 'auto',
+        zIndex: 50
+      }}>
+        <DisplayBox 
+          label="STAKE" 
+          value={stake === 'FREE' ? 'FREE' : stake.toFixed(2)} 
+          unit={stake === 'FREE' ? '' : '$'} 
+        />
+      </div>
       
-      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} isMobile={isMobile} />
-      
-      {!isMobile && (
-        <div style={{
-          position: 'absolute',
-          bottom: 'calc(50% - 390px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '900px',
-          height: '119px',
-          background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
-          backdropFilter: 'blur(12px)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
-          boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.3)',
-          pointerEvents: 'none',
-          zIndex: 35,
-          transition: 'all 0.3s ease-in-out'
-        }} />
-      )}
-      
-      {!isMobile && (
-        <>
-          <div style={{
-            position: 'absolute',
-            bottom: 'calc(50% - 390px)',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '900px',
-            height: '1px',
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            pointerEvents: 'none',
-            zIndex: 40
-          }} />
-          
-          <div style={{
-            position: 'absolute',
-            bottom: 'calc(50% - 271px)',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '900px',
-            height: '1px',
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            pointerEvents: 'none',
-            zIndex: 40
-          }} />
-        </>
-      )}
+      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
       
       <div style={{
         position: 'absolute',
-        bottom: isMobile ? '10px' : 'calc(50% - 380px)',
-        left: isMobile ? '10px' : 'auto',
-        right: isMobile ? 'auto' : 'calc(50% + 231px)',
+        bottom: 'calc(50% - 390px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '900px',
+        height: '119px',
+        background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+        backdropFilter: 'blur(12px)',
+        borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.3)',
+        pointerEvents: 'none',
+        zIndex: 35,
+        transition: 'all 0.3s ease-in-out'
+      }} />
+      
+      <div style={{
+        position: 'absolute',
+        bottom: 'calc(50% - 390px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '900px',
+        height: '1px',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        pointerEvents: 'none',
+        zIndex: 40
+      }} />
+      
+      <div style={{
+        position: 'absolute',
+        bottom: 'calc(50% - 271px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '900px',
+        height: '1px',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        pointerEvents: 'none',
+        zIndex: 40
+      }} />
+      
+      <div style={{
+        position: 'absolute',
+        bottom: 'calc(50% - 380px)',
+        right: 'calc(50% + 231px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -390,7 +371,7 @@ export function GameUI() {
       }}>
         <StakeSelector />
         <div style={{
-          fontSize: isMobile ? '8px' : '9px',
+          fontSize: '9px',
           fontWeight: 'bold',
           color: 'rgba(255, 255, 255, 0.7)',
           textTransform: 'uppercase',
@@ -405,7 +386,7 @@ export function GameUI() {
       
       <div className="game-controls" style={{
         position: 'absolute',
-        bottom: isMobile ? '10px' : 'calc(50% - 380px)',
+        bottom: 'calc(50% - 380px)',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
@@ -419,9 +400,9 @@ export function GameUI() {
           {...handleTouchButton(phase === 'ready' ? () => { setUserInteracted(true); start(); } : (phase === 'playing' ? stopBlock : () => {}))}
           disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
           style={{
-            padding: isMobile ? '6px 30px' : '8px 60px',
-            minHeight: isMobile ? '38px' : '45px',
-            fontSize: isMobile ? '16px' : '20px',
+            padding: '8px 60px',
+            minHeight: '45px',
+            fontSize: '20px',
             fontWeight: 'bold',
             background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
               ? 'linear-gradient(to top, #999 0%, #666 100%)' 
@@ -456,7 +437,7 @@ export function GameUI() {
            (stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
         </button>
         <div style={{
-          fontSize: isMobile ? '8px' : '11px',
+          fontSize: '11px',
           fontWeight: 'bold',
           color: 'rgba(255, 255, 255, 0.7)',
           textTransform: 'uppercase',
@@ -477,22 +458,21 @@ export function GameUI() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: isMobile ? '8px' : '12px',
+            gap: '12px',
             background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(50, 55, 65, 0.92) 15%, rgba(60, 65, 75, 0.94) 35%, rgba(55, 60, 70, 0.95) 50%, rgba(60, 65, 75, 0.94) 65%, rgba(50, 55, 65, 0.92) 85%, rgba(40, 45, 55, 0.90) 100%)',
-            padding: isMobile ? '16px 24px 20px 24px' : '24px 40px 28px 40px',
-            borderRadius: isMobile ? '12px' : '16px',
+            padding: '24px 40px 28px 40px',
+            borderRadius: '16px',
             boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.1)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
             backdropFilter: 'blur(10px)',
             pointerEvents: 'auto',
-            zIndex: 100,
-            maxWidth: isMobile ? '90%' : 'none'
+            zIndex: 100
           }}>
             <div style={{ 
-              fontSize: isMobile ? '18px' : '22px', 
+              fontSize: '22px', 
               fontWeight: 'bold',
               color: '#ffffff',
-              marginBottom: isMobile ? '2px' : '4px',
+              marginBottom: '4px',
               textShadow: '0 2px 4px rgba(0,0,0,0.5)'
             }}>
               Game Over
@@ -500,26 +480,26 @@ export function GameUI() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: isMobile ? '8px' : '12px',
-              marginBottom: isMobile ? '2px' : '4px'
+              gap: '12px',
+              marginBottom: '4px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: isMobile ? '16px' : '32px',
+                gap: '32px',
                 alignItems: 'center'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
-                    fontSize: isMobile ? '10px' : '12px', 
+                    fontSize: '12px', 
                     color: 'rgba(255, 255, 255, 0.6)', 
-                    marginBottom: isMobile ? '2px' : '4px',
+                    marginBottom: '4px',
                     fontWeight: 'bold',
                     letterSpacing: '0.5px'
                   }}>
                     SCORE
                   </div>
                   <div style={{ 
-                    fontSize: isMobile ? '24px' : '32px', 
+                    fontSize: '32px', 
                     color: '#ff6666', 
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
@@ -529,22 +509,22 @@ export function GameUI() {
                   </div>
                 </div>
                 <div style={{
-                  width: isMobile ? '1px' : '2px',
-                  height: isMobile ? '35px' : '50px',
+                  width: '2px',
+                  height: '50px',
                   backgroundColor: 'rgba(255, 255, 255, 0.2)'
                 }} />
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
-                    fontSize: isMobile ? '10px' : '12px', 
+                    fontSize: '12px', 
                     color: 'rgba(255, 255, 255, 0.6)', 
-                    marginBottom: isMobile ? '2px' : '4px',
+                    marginBottom: '4px',
                     fontWeight: 'bold',
                     letterSpacing: '0.5px'
                   }}>
                     PRIZE
                   </div>
                   <div style={{ 
-                    fontSize: isMobile ? '24px' : '32px', 
+                    fontSize: '32px', 
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
                     color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
@@ -564,22 +544,22 @@ export function GameUI() {
               {bonusPoints > 0 && (
                 <div style={{
                   textAlign: 'center',
-                  padding: isMobile ? '6px 12px' : '8px 16px',
+                  padding: '8px 16px',
                   background: 'rgba(255, 170, 68, 0.15)',
-                  borderRadius: isMobile ? '6px' : '8px',
+                  borderRadius: '8px',
                   border: '1px solid rgba(255, 170, 68, 0.3)'
                 }}>
                   <div style={{
-                    fontSize: isMobile ? '9px' : '11px',
+                    fontSize: '11px',
                     color: 'rgba(255, 255, 255, 0.7)',
-                    marginBottom: isMobile ? '1px' : '2px',
+                    marginBottom: '2px',
                     fontWeight: 'bold',
                     letterSpacing: '0.5px'
                   }}>
                     BONUS POINTS EARNED
                   </div>
                   <div style={{
-                    fontSize: isMobile ? '18px' : '24px',
+                    fontSize: '24px',
                     color: '#ffaa44',
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
@@ -593,10 +573,10 @@ export function GameUI() {
             <button
               {...handleTouchButton(() => { setUserInteracted(true); restart(); })}
               style={{
-                padding: isMobile ? '10px 32px' : '12px 48px',
-                fontSize: isMobile ? '16px' : '18px',
+                padding: '12px 48px',
+                fontSize: '18px',
                 fontWeight: 'bold',
-                marginTop: isMobile ? '2px' : '4px',
+                marginTop: '4px',
                 background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
                 border: 'none',
@@ -624,9 +604,8 @@ export function GameUI() {
       
       <div style={{
         position: 'absolute',
-        bottom: isMobile ? '10px' : 'calc(50% - 380px)',
-        right: isMobile ? '10px' : 'auto',
-        left: isMobile ? 'auto' : 'calc(50% + 211px)',
+        bottom: 'calc(50% - 380px)',
+        left: 'calc(50% + 211px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -637,8 +616,8 @@ export function GameUI() {
         <button
           {...handleTouchButton(cycleSoundMode)}
           style={{
-            width: isMobile ? '38px' : '45px',
-            height: isMobile ? '58px' : '70px',
+            width: '45px',
+            height: '70px',
             background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
             border: 'none',
             borderRadius: '16px',
@@ -649,30 +628,30 @@ export function GameUI() {
             boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
             transition: 'all 0.2s',
             position: 'relative',
-            padding: isMobile ? '5px' : '6px'
+            padding: '6px'
           }}
         >
           <div style={{
-            width: isMobile ? '28px' : '33px',
-            height: isMobile ? '35px' : '42px',
+            width: '33px',
+            height: '42px',
             background: 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
             borderRadius: '12px',
             boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            transform: soundMode === 'MUTE' ? (isMobile ? 'translateY(5px)' : 'translateY(6px)') : (isMobile ? 'translateY(-5px)' : 'translateY(-6px)'),
+            transform: soundMode === 'MUTE' ? 'translateY(6px)' : 'translateY(-6px)',
             transition: 'transform 0.2s'
           }}>
             {soundMode === 'MUTE' ? (
-              <VolumeX size={isMobile ? 16 : 18} color="#666" strokeWidth={2} />
+              <VolumeX size={18} color="#666" strokeWidth={2} />
             ) : (
-              <Volume2 size={isMobile ? 16 : 18} color="#666" strokeWidth={2} />
+              <Volume2 size={18} color="#666" strokeWidth={2} />
             )}
           </div>
         </button>
         <div style={{
-          fontSize: isMobile ? '7px' : '8px',
+          fontSize: '8px',
           fontWeight: 'bold',
           color: 'rgba(255, 255, 255, 0.9)',
           textTransform: 'uppercase',
@@ -811,41 +790,41 @@ export function GameUI() {
   );
 }
 
-function DisplayBox({ label, value, unit, isMobile }: { label: string; value: string; unit: string; isMobile?: boolean }) {
+function DisplayBox({ label, value, unit }: { label: string; value: string; unit: string }) {
   return (
     <div style={{
       backgroundColor: 'white',
-      border: isMobile ? '1.5px solid #333' : '2px solid #333',
-      borderRadius: isMobile ? '8px' : '12px',
-      padding: isMobile ? '4px 8px' : '6px 12px',
-      minWidth: isMobile ? '130px' : '170px',
+      border: '2px solid #333',
+      borderRadius: '12px',
+      padding: '6px 12px',
+      minWidth: '170px',
       boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
     }}>
       <div style={{
-        fontSize: isMobile ? '9px' : '11px',
+        fontSize: '11px',
         fontWeight: '900',
         color: '#333',
-        marginBottom: isMobile ? '2px' : '3px'
+        marginBottom: '3px'
       }}>
         {label}
       </div>
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: isMobile ? '4px' : '6px'
+        gap: '6px'
       }}>
         <div style={{
-          fontSize: isMobile ? '22px' : '28px',
+          fontSize: '28px',
           fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
-          padding: isMobile ? '3px 8px' : '4px 10px',
-          borderRadius: isMobile ? '6px' : '8px',
+          padding: '4px 10px',
+          borderRadius: '8px',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
-          letterSpacing: isMobile ? '0.5px' : '1px',
+          letterSpacing: '1px',
           flex: '1',
           textShadow: '0 0 1px #ff0000'
         }}>
@@ -853,11 +832,11 @@ function DisplayBox({ label, value, unit, isMobile }: { label: string; value: st
         </div>
         {unit && (
           <div style={{
-            fontSize: isMobile ? '13px' : '16px',
+            fontSize: '16px',
             fontWeight: 'bold',
             color: '#fff',
             fontFamily: "'Roboto', sans-serif",
-            paddingRight: isMobile ? '2px' : '4px',
+            paddingRight: '4px',
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {unit}
