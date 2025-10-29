@@ -101,7 +101,7 @@ export function GameCanvas() {
         boxSizing: 'border-box'
       }}>
         <div style={{
-          fontSize: '36px',
+          fontSize: '44px',
           fontWeight: 'bold',
           color: '#ff0000',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
