@@ -93,12 +93,12 @@ export function GameStats() {
       flexDirection: 'column',
       gap: '12px',
       pointerEvents: 'auto',
-      background: 'linear-gradient(to bottom, rgba(245, 245, 245, 0.95) 0%, rgba(235, 235, 235, 0.95) 100%)',
-      backdropFilter: 'blur(10px)',
+      background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+      backdropFilter: 'blur(12px)',
       border: '3px solid #333',
       borderRadius: '16px',
       padding: '16px',
-      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
       width: '200px'
     }}>
       <button
