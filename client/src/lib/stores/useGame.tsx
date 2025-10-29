@@ -122,7 +122,16 @@ export const useGame = create<GameState>()(
     },
     
     calculatePrizeMultiplier: (row: number, stake: number | 'FREE') => {
-      // Rows 10+ are cash prizes (unchanged)
+      // For FREE mode, rows 10-13 give points instead of cash
+      if (stake === 'FREE') {
+        if (row >= 13) return { multiplier: 1600, type: 'points' as const };
+        if (row >= 12) return { multiplier: 800, type: 'points' as const };
+        if (row >= 11) return { multiplier: 400, type: 'points' as const };
+        if (row >= 10) return { multiplier: 200, type: 'points' as const };
+        if (row >= 9) return { multiplier: 100, type: 'points' as const };
+      }
+      
+      // Rows 10+ are cash prizes for paid games
       if (row >= 13) return { multiplier: 100, type: 'cash' as const };
       if (row >= 12) return { multiplier: 10, type: 'cash' as const };
       if (row >= 11) return { multiplier: 5, type: 'cash' as const };

@@ -5,14 +5,14 @@ const CELL_SIZE = 50;
 const CELL_SPACING = 3;
 
 const PRIZE_TIERS = [
-  { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', textColor: '#fff' },
-  { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
-  { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
-  { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', textColor: '#000' },
-  { minRow: 9, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
-  { minRow: 8, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 6, color: '#ffffff', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 13, color: '#cc0000', multiplier: 100, cashMultiplier: 100, freePoints: 1600, textColor: '#fff' },
+  { minRow: 12, color: '#ff8800', multiplier: 10, cashMultiplier: 10, freePoints: 800, textColor: '#fff' },
+  { minRow: 11, color: '#cccc00', multiplier: 5, cashMultiplier: 5, freePoints: 400, textColor: '#000' },
+  { minRow: 10, color: '#00cc66', multiplier: 2, cashMultiplier: 2, freePoints: 200, textColor: '#000' },
+  { minRow: 9, color: '#9966ff', multiplier: 1, cashMultiplier: 1, freePoints: 100, textColor: '#fff' },
+  { minRow: 8, color: '#0099cc', multiplier: 0, textColor: '#fff' },
+  { minRow: 7, color: '#666666', multiplier: 0, textColor: '#fff' },
+  { minRow: 6, color: '#ffffff', multiplier: 0, textColor: '#fff' },
 ];
 
 // Get fixed point values for rows 6-8, scaled by stake
@@ -79,12 +79,23 @@ export function PrizeIndicators() {
           
           let displayText = '';
           
-          if (tier.type === 'points') {
+          // Rows 6-8 are always points
+          if (row <= 8) {
             // For rows 6-8, use fixed points scaled by stake
             const points = getFixedPoints(row, stake);
             displayText = points % 1 === 0 ? `${points}P` : `${points.toFixed(1)}P`;
-          } else {
-            const prizeAmount = stakeAmount * tier.multiplier;
+          } 
+          // Row 9 for FREE mode
+          else if (row === 9 && isFreeMode) {
+            displayText = '100P';
+          }
+          // Rows 10-13 for FREE mode show points
+          else if (row >= 10 && isFreeMode && 'freePoints' in tier) {
+            displayText = `${tier.freePoints}P`;
+          }
+          // Paid games show cash
+          else if ('cashMultiplier' in tier && tier.cashMultiplier !== undefined) {
+            const prizeAmount = stakeAmount * tier.cashMultiplier;
             displayText = `$${prizeAmount.toFixed(2)}`;
           }
           
@@ -126,7 +137,7 @@ export function PrizeIndicators() {
                 fontSize: isMobile ? '22px' : '28px',
                 letterSpacing: '0.3px',
                 fontWeight: 'bold',
-                WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
+                WebkitTextStroke: (row >= 10 && !isFreeMode) ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
                 lineHeight: '1',
                 height: 'auto',
               }}>
