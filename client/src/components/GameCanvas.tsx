@@ -127,7 +127,7 @@ export function GameCanvas() {
           style={{
             border: '4px solid #333',
             borderRadius: '20px',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#373c48',
             boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
           }}
         />
