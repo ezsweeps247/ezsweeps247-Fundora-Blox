@@ -15,11 +15,13 @@ const PRIZE_TIERS = [
   { minRow: 6, color: '#ffffff', multiplier: 0, type: 'points', textColor: '#fff' },
 ];
 
-// Get fixed point values for rows 6-8
-const getFixedPoints = (row: number): number => {
-  if (row === 8) return 75;
-  if (row === 7) return 50;
-  if (row === 6) return 25;
+// Get fixed point values for rows 6-8, scaled by stake
+const getFixedPoints = (row: number, stake: number | 'FREE'): number => {
+  const stakeMultiplier = (stake === 'FREE' || stake === 0) ? 1 : stake;
+  
+  if (row === 8) return 75 * stakeMultiplier;
+  if (row === 7) return 50 * stakeMultiplier;
+  if (row === 6) return 25 * stakeMultiplier;
   return 0;
 };
 
@@ -78,9 +80,9 @@ export function PrizeIndicators() {
           let displayText = '';
           
           if (tier.type === 'points') {
-            // For rows 7-9, use fixed points
-            const points = getFixedPoints(row);
-            displayText = `${points}P`;
+            // For rows 6-8, use fixed points scaled by stake
+            const points = getFixedPoints(row, stake);
+            displayText = points % 1 === 0 ? `${points}P` : `${points.toFixed(1)}P`;
           } else {
             const prizeAmount = stakeAmount * tier.multiplier;
             displayText = `$${prizeAmount.toFixed(2)}`;
