@@ -8,8 +8,8 @@ import { Volume2, VolumeX } from 'lucide-react';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
-const CELL_SIZE = 70;
-const CELL_SPACING = 4;
+const CELL_SIZE = 50;
+const CELL_SPACING = 3;
 const GRID_WIDTH = GRID_COLS * CELL_SIZE + (GRID_COLS - 1) * CELL_SPACING;
 const GRID_HEIGHT = GRID_ROWS * CELL_SIZE + (GRID_ROWS - 1) * CELL_SPACING;
 
@@ -95,13 +95,13 @@ export function GameCanvas() {
         backdropFilter: 'blur(12px)',
         border: '3px solid #333',
         borderRadius: '12px',
-        padding: '8px 16px',
+        padding: '6px 14px',
         boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-        width: `${GRID_WIDTH + 90}px`,
+        width: `${GRID_WIDTH + 60}px`,
         boxSizing: 'border-box'
       }}>
         <div style={{
-          fontSize: '48px',
+          fontSize: '36px',
           fontWeight: 'bold',
           color: '#ff0000',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
@@ -122,8 +122,8 @@ export function GameCanvas() {
       <div style={{ position: 'relative' }}>
         <canvas
           ref={canvasRef}
-          width={GRID_WIDTH + 90}
-          height={GRID_HEIGHT + 60}
+          width={GRID_WIDTH + 60}
+          height={GRID_HEIGHT + 40}
           style={{
             border: '4px solid #333',
             borderRadius: '20px',
@@ -137,7 +137,7 @@ export function GameCanvas() {
       
       {/* Footer bar docked underneath canvas */}
       <div style={{
-        width: `${GRID_WIDTH + 90}px`,
+        width: `${GRID_WIDTH + 60}px`,
         position: 'relative',
         background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
         backdropFilter: 'blur(12px)',
@@ -304,8 +304,8 @@ export function GameCanvas() {
 }
 
 function drawGrid(ctx: CanvasRenderingContext2D) {
-  const offsetX = 45;
-  const offsetY = 30;
+  const offsetX = 30;
+  const offsetY = 20;
   
   for (let row = 0; row < GRID_ROWS; row++) {
     for (let col = 0; col < GRID_COLS; col++) {
@@ -342,8 +342,8 @@ function drawRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, wi
 }
 
 function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
-  const offsetX = 45;
-  const offsetY = 30;
+  const offsetX = 30;
+  const offsetY = 20;
   
   blocks.forEach((block) => {
     block.columns.forEach((isActive: boolean, colIndex: number) => {
@@ -364,8 +364,8 @@ function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
 }
 
 function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: number) {
-  const offsetX = 45;
-  const offsetY = 30;
+  const offsetX = 30;
+  const offsetY = 20;
   
   block.columns.forEach((isActive: boolean, colIndex: number) => {
     if (!isActive) return;

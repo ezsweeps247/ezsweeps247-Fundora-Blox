@@ -1,8 +1,8 @@
 import { useGame } from '@/lib/stores/useGame';
 
 const GRID_ROWS = 14;
-const CELL_SIZE = 70;
-const CELL_SPACING = 4;
+const CELL_SIZE = 50;
+const CELL_SPACING = 3;
 
 const PRIZE_TIERS = [
   { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', textColor: '#fff' },
@@ -80,12 +80,12 @@ export function PrizeIndicators() {
       backdropFilter: 'blur(12px)',
       border: '3px solid #333',
       borderRadius: '16px',
-      padding: '18px 22px',
+      padding: '14px 18px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-      width: isMobile ? '260px' : '330px',
+      width: isMobile ? '200px' : '240px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
-      fontSize: isMobile ? '16px' : '22px',
+      fontSize: isMobile ? '14px' : '18px',
       transform: isMobile ? 'scale(0.8)' : 'none',
       transformOrigin: 'right top'
     }}>
@@ -135,12 +135,12 @@ export function PrizeIndicators() {
               }} />
               <div style={{
                 color: tier.color,
-                padding: isMobile ? '4px 8px' : '8px 14px',
+                padding: isMobile ? '3px 6px' : '6px 10px',
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
-                minWidth: isMobile ? '120px' : '170px',
+                minWidth: isMobile ? '90px' : '120px',
                 textAlign: 'right',
                 opacity: 1,
-                fontSize: isMobile ? '42px' : '56px',
+                fontSize: isMobile ? '30px' : '40px',
                 letterSpacing: '0.5px',
                 fontWeight: 'bold',
                 WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',

@@ -19,18 +19,18 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       backdropFilter: 'blur(12px)',
       border: '2px solid #333',
       borderRadius: '12px',
-      padding: '8px 14px',
-      minWidth: '248px',
+      padding: '6px 10px',
+      minWidth: '208px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
     }}>
       <div style={{
-        fontSize: '15px',
+        fontSize: '12px',
         fontWeight: '900',
         color: '#fff',
-        marginBottom: '4px',
+        marginBottom: '3px',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
       }}>
         {label}
@@ -38,15 +38,15 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '8px'
+        gap: '6px'
       }}>
         <div style={{
-          fontSize: '38px',
+          fontSize: '28px',
           fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
-          padding: '6px 12px',
-          borderRadius: '8px',
+          padding: '4px 8px',
+          borderRadius: '6px',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
           letterSpacing: '1px',
           flex: '1',
@@ -56,11 +56,11 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
         </div>
         {unit && (
           <div style={{
-            fontSize: '22px',
+            fontSize: '16px',
             fontWeight: 'bold',
             color: '#fff',
             fontFamily: "'Roboto', sans-serif",
-            paddingRight: '4px',
+            paddingRight: '3px',
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {unit}
@@ -93,23 +93,23 @@ export function GameStats() {
       top: '-6px',
       display: 'flex',
       flexDirection: 'column',
-      gap: '12px',
+      gap: '10px',
       pointerEvents: 'auto',
       background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
       backdropFilter: 'blur(12px)',
       border: '3px solid #333',
       borderRadius: '16px',
-      padding: '18px',
+      padding: '14px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-      width: '280px'
+      width: '240px'
     }}>
       <button
         {...handleTouchButton(() => {
           window.history.back();
         })}
         style={{
-          padding: '8px 14px',
-          fontSize: '14px',
+          padding: '6px 10px',
+          fontSize: '11px',
           fontWeight: 'bold',
           fontFamily: "'Roboto', sans-serif",
           color: '#ffffff',
