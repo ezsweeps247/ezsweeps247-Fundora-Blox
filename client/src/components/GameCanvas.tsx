@@ -126,7 +126,7 @@ export function GameCanvas() {
           height={GRID_HEIGHT + 20}
           style={{
             border: '4px solid #333',
-            borderRadius: '20px 20px 0 0',
+            borderRadius: '20px',
             backgroundColor: '#ffffff',
             boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
           }}
@@ -141,11 +141,8 @@ export function GameCanvas() {
         position: 'relative',
         background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
         backdropFilter: 'blur(12px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-        borderBottom: '4px solid #333',
-        borderLeft: '4px solid #333',
-        borderRight: '4px solid #333',
-        borderRadius: '0 0 20px 20px',
+        border: '4px solid #333',
+        borderRadius: '20px',
         boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
         padding: '20px 20px',
         display: 'flex',
