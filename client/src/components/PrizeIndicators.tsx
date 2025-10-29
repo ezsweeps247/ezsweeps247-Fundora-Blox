@@ -123,7 +123,8 @@ export function PrizeIndicators() {
                 height: `${CELL_SIZE}px`,
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                justifyContent: 'flex-end',
+                gap: '6px',
                 transition: 'all 0.3s ease',
                 flexDirection: 'row-reverse',
               }}
@@ -138,7 +139,7 @@ export function PrizeIndicators() {
               }} />
               <div style={{
                 color: tier.color,
-                padding: isMobile ? '2px 4px' : '3px 6px',
+                padding: 0,
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
                 minWidth: isMobile ? '70px' : '90px',
                 textAlign: 'right',
@@ -148,6 +149,9 @@ export function PrizeIndicators() {
                 fontWeight: 'bold',
                 WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
                 lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
               }}>
                 {displayText}
               </div>
