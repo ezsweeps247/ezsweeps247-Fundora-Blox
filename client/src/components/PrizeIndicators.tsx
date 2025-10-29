@@ -71,11 +71,14 @@ export function PrizeIndicators() {
   
   const containerHeight = displayedRows.length * (CELL_SIZE + CELL_SPACING);
   
+  const CANVAS_OFFSET_Y = 20;
+  const BORDER_ADJUSTMENT = 4;
+  
   return (
     <div style={{
       position: 'absolute',
       right: 'calc(100% + 10px)',
-      top: '-6px',
+      top: `${CANVAS_OFFSET_Y + BORDER_ADJUSTMENT}px`,
       background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
       backdropFilter: 'blur(12px)',
       border: '3px solid #333',
