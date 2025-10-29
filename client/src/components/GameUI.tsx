@@ -136,7 +136,24 @@ export function GameUI() {
   const [isSaving, setIsSaving] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const queryClient = useQueryClient();
+
+  // Detect mobile/small screens
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 900 || window.innerHeight < 900);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    window.addEventListener('orientationchange', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('orientationchange', checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -287,11 +304,13 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         top: 'calc(50% - 329px)',
-        right: 'calc(50% + 196px)',
+        right: isMobile ? '10px' : 'calc(50% + 196px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
-        pointerEvents: 'auto'
+        pointerEvents: 'auto',
+        transform: isMobile ? 'scale(0.8)' : 'none',
+        transformOrigin: 'top right'
       }}>
         <DisplayBox label="CREDITS" value={credits.toFixed(2)} unit="$" />
         <DisplayBox label="BONUS POINTS" value={formatNumber(bonusPoints)} unit="P" />
@@ -301,12 +320,14 @@ export function GameUI() {
       <div style={{
         position: 'absolute',
         bottom: 'calc(50% - 289px + 40px)',
-        right: 'calc(50% + 196px)',
+        right: isMobile ? '10px' : 'calc(50% + 196px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
         pointerEvents: 'auto',
-        zIndex: 50
+        zIndex: 50,
+        transform: isMobile ? 'scale(0.8)' : 'none',
+        transformOrigin: 'bottom right'
       }}>
         <DisplayBox 
           label="STAKE" 

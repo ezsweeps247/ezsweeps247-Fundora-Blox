@@ -66,15 +66,20 @@ export function PrizeIndicators() {
   
   const displayedRows = [13, 12, 11, 10, 9, 8, 7]; // Removed row 6 - it no longer gives prizes
   
+  // Detect mobile for responsive sizing
+  const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
+  
   return (
     <div style={{
       position: 'absolute',
       left: 'calc(100% - 2px)',
       top: '10px',
-      width: '200px',
+      width: isMobile ? '150px' : '200px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
-      fontSize: '18px',
+      fontSize: isMobile ? '14px' : '18px',
+      transform: isMobile ? 'scale(0.8)' : 'none',
+      transformOrigin: 'left top'
     }}>
       {displayedRows.map((row) => {
         const tier = getPrizeTier(row);
@@ -117,12 +122,12 @@ export function PrizeIndicators() {
             }} />
             <div style={{
               color: tier.type === 'points' ? '#ffffff' : tier.color,
-              padding: '6px 12px',
+              padding: isMobile ? '4px 8px' : '6px 12px',
               textShadow: '2px 2px 3px rgba(0, 0, 0, 0.8)',
-              minWidth: '110px',
+              minWidth: isMobile ? '80px' : '110px',
               textAlign: 'left',
               opacity: 1,
-              fontSize: '28px',
+              fontSize: isMobile ? '20px' : '28px',
               letterSpacing: '0.5px',
               fontWeight: 'bold',
             }}>
