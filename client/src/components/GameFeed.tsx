@@ -101,7 +101,7 @@ export function GameFeed() {
       borderRadius: '12px',
       padding: '8px',
       width: '170px',
-      height: '200px',
+      height: '380px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
       display: 'flex',
       flexDirection: 'column',
