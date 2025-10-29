@@ -5,20 +5,20 @@ const CELL_SIZE = 50;
 const CELL_SPACING = 3;
 
 const PRIZE_TIERS = [
-  { minRow: 14, color: '#cc0000', multiplier: 100, type: 'cash', textColor: '#fff' },
-  { minRow: 13, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
-  { minRow: 12, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
-  { minRow: 11, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
-  { minRow: 10, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 9, color: '#00cc66', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 8, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', textColor: '#fff' },
+  { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
+  { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
+  { minRow: 10, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
+  { minRow: 9, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 8, color: '#00cc66', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
 ];
 
-// Get fixed point values for rows 8-10
+// Get fixed point values for rows 7-9
 const getFixedPoints = (row: number): number => {
-  if (row === 10) return 75;
-  if (row === 9) return 50;
-  if (row === 8) return 25;
+  if (row === 9) return 75;
+  if (row === 8) return 50;
+  if (row === 7) return 25;
   return 0;
 };
 
@@ -38,7 +38,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [14, 13, 12, 11, 10, 9, 8];
+  const displayedRows = [13, 12, 11, 10, 9, 8, 7];
   
   // Detect mobile for responsive sizing
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
