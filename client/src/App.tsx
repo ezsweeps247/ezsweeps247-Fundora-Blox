@@ -46,7 +46,7 @@ function App() {
       top: 0,
       left: 0,
       overflow: 'hidden',
-      background: '#f8f8f8',
+      background: '#3a3a3a',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
