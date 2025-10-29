@@ -9,10 +9,10 @@ const PRIZE_TIERS = [
   { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
   { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
   { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', textColor: '#000' },
-  { minRow: 6, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
   { minRow: 9, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
   { minRow: 8, color: '#333333', multiplier: 0, type: 'points', textColor: '#fff' },
   { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 6, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
 ];
 
 // Get fixed point values for rows 7-9
