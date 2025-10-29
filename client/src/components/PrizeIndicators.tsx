@@ -9,17 +9,17 @@ const PRIZE_TIERS = [
   { minRow: 12, color: '#ff8800', multiplier: 10, type: 'cash', textColor: '#fff' },
   { minRow: 11, color: '#cccc00', multiplier: 5, type: 'cash', textColor: '#000' },
   { minRow: 10, color: '#00cc66', multiplier: 2, type: 'cash', textColor: '#000' },
-  { minRow: 9, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 8, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 7, color: '#333333', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 6, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
+  { minRow: 9, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
+  { minRow: 8, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
+  { minRow: 6, color: '#333333', multiplier: 0, type: 'points', textColor: '#fff' },
 ];
 
-// Get fixed point values for rows 7-9
+// Get fixed point values for rows 6-8
 const getFixedPoints = (row: number): number => {
-  if (row === 9) return 75;
-  if (row === 8) return 50;
-  if (row === 7) return 25;
+  if (row === 8) return 75;
+  if (row === 7) return 50;
+  if (row === 6) return 25;
   return 0;
 };
 
