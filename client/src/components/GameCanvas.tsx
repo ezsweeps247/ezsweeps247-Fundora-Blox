@@ -65,7 +65,12 @@ export function GameCanvas() {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      marginTop: '-40px'
+      marginTop: '-40px',
+      width: `${GRID_WIDTH + 600}px`,
+      height: `${GRID_HEIGHT + 40}px`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }}>
       <div style={{ position: 'relative' }}>
         <canvas
