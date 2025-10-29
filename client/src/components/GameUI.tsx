@@ -336,7 +336,7 @@ export function GameUI() {
       
       <div className="game-controls" style={{
         position: 'absolute',
-        bottom: 'calc(50% - 330px)',
+        bottom: 'calc(50% - 380px)',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
