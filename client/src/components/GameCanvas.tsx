@@ -57,7 +57,7 @@ export function GameCanvas() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [blocks, currentBlock, currentBlockPosition, phase, updateBlockPosition]);
+  }, [blocks, currentBlock, currentBlockPosition, phase]);
   
   return (
     <div style={{
