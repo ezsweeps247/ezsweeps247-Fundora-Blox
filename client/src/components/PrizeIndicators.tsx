@@ -39,7 +39,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [13, 12, 11, 10, 6, 9, 8, 7];
+  const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
   
   // Detect mobile for responsive sizing
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
