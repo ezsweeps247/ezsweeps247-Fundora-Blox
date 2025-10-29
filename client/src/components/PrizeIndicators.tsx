@@ -124,14 +124,14 @@ export function PrizeIndicators() {
             <div style={{
               color: tier.color,
               padding: isMobile ? '4px 8px' : '6px 12px',
-              textShadow: tier.type === 'cash' ? '2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.6)' : '2px 2px 3px rgba(0, 0, 0, 0.8)',
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
               minWidth: isMobile ? '80px' : '110px',
               textAlign: 'right',
               opacity: 1,
               fontSize: isMobile ? '28px' : '36px',
               letterSpacing: '0.5px',
               fontWeight: 'bold',
-              WebkitTextStroke: tier.type === 'cash' ? '1px rgba(0, 0, 0, 0.5)' : 'none',
+              WebkitTextStroke: tier.type === 'cash' ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
             }}>
               {displayText}
             </div>
