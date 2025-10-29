@@ -15,37 +15,11 @@ const PRIZE_TIERS = [
   { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
 ];
 
-// Get stake-dependent point values for rows 7-9
-const getStakeDependentPoints = (row: number, stake: number | 'FREE'): number => {
-  const stakeAmount = typeof stake === 'number' ? stake : 0;
-  
-  if (row >= 9) {
-    // Row 9
-    if (stakeAmount >= 20) return 700;
-    if (stakeAmount >= 10) return 500;
-    if (stakeAmount >= 5) return 350;
-    if (stakeAmount >= 2) return 200;
-    return 150; // $1 or FREE
-  }
-  
-  if (row >= 8) {
-    // Row 8
-    if (stakeAmount >= 20) return 650;
-    if (stakeAmount >= 10) return 450;
-    if (stakeAmount >= 5) return 300;
-    if (stakeAmount >= 2) return 150;
-    return 100; // $1 or FREE
-  }
-  
-  if (row >= 7) {
-    // Row 7
-    if (stakeAmount >= 20) return 600;
-    if (stakeAmount >= 10) return 400;
-    if (stakeAmount >= 5) return 250;
-    if (stakeAmount >= 2) return 100;
-    return 25; // $1 or FREE
-  }
-  
+// Get fixed point values for rows 7-9
+const getFixedPoints = (row: number): number => {
+  if (row === 9) return 75;
+  if (row === 8) return 50;
+  if (row === 7) return 25;
   return 0;
 };
 
@@ -104,9 +78,9 @@ export function PrizeIndicators() {
           let displayText = '';
           
           if (tier.type === 'points') {
-            // For rows 7-9, use stake-dependent points
-            const points = getStakeDependentPoints(row, stake);
-            displayText = `${points.toLocaleString()} P`;
+            // For rows 7-9, use fixed points
+            const points = getFixedPoints(row);
+            displayText = `${points}P`;
           } else {
             const prizeAmount = stakeAmount * tier.multiplier;
             displayText = `$${prizeAmount.toFixed(2)}`;
