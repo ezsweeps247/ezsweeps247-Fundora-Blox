@@ -48,16 +48,15 @@ function App() {
       overflow: 'hidden',
       background: '#3a3a3a',
       display: 'flex',
-      alignItems: 'flex-end',
-      justifyContent: 'center',
-      paddingBottom: '80px'
+      alignItems: 'center',
+      justifyContent: 'center'
     }}>
       <div style={{
         width: '1200px',
         height: '1000px',
         position: 'relative',
         transform: `scale(${scale})`,
-        transformOrigin: 'center bottom',
+        transformOrigin: 'center center',
       }}>
         <GameCanvas />
         <GameUI />
