@@ -1,7 +1,7 @@
 import { useGame } from '@/lib/stores/useGame';
 
 const GRID_ROWS = 14;
-const CELL_SIZE = 38;
+const CELL_SIZE = 48;
 const CELL_SPACING = 2;
 
 const PRIZE_TIERS = [

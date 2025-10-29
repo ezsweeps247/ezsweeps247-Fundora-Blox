@@ -5,7 +5,7 @@ import { GameStats } from './GameStats';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
-const CELL_SIZE = 38;
+const CELL_SIZE = 48;
 const CELL_SPACING = 2;
 const GRID_WIDTH = GRID_COLS * CELL_SIZE + (GRID_COLS - 1) * CELL_SPACING;
 const GRID_HEIGHT = GRID_ROWS * CELL_SIZE + (GRID_ROWS - 1) * CELL_SPACING;
