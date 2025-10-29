@@ -123,7 +123,7 @@ export function GameCanvas() {
         <canvas
           ref={canvasRef}
           width={GRID_WIDTH + 80}
-          height={GRID_HEIGHT + 20}
+          height={GRID_HEIGHT + 20 + (5 * (CELL_SIZE + CELL_SPACING))}
           style={{
             border: '4px solid #333',
             borderRadius: '20px',
