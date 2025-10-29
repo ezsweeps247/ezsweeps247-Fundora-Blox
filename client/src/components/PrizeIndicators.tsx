@@ -12,7 +12,6 @@ const PRIZE_TIERS = [
   { minRow: 9, color: '#0099cc', multiplier: 0, type: 'points', textColor: '#fff' },
   { minRow: 8, color: '#333333', multiplier: 0, type: 'points', textColor: '#fff' },
   { minRow: 7, color: '#666666', multiplier: 0, type: 'points', textColor: '#fff' },
-  { minRow: 6, color: '#9966ff', multiplier: 1, type: 'cash', textColor: '#fff' },
 ];
 
 // Get fixed point values for rows 7-9
@@ -39,7 +38,7 @@ export function PrizeIndicators() {
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
   
-  const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
+  const displayedRows = [13, 12, 11, 10, 9, 8, 7];
   
   // Detect mobile for responsive sizing
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
