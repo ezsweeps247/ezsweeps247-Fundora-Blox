@@ -12,16 +12,18 @@ function App() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // Game requires approximately 900px width and 900px height at full scale
-      const requiredWidth = 900;
-      const requiredHeight = 900;
+      // Game is designed for 1200px width and 1000px height at full scale
+      // This ensures all UI elements (left prize indicators, right stats, etc.) fit properly
+      const designWidth = 1200;
+      const designHeight = 1000;
       
       // Calculate scale factors for width and height
-      const scaleX = vw / requiredWidth;
-      const scaleY = vh / requiredHeight;
+      const scaleX = vw / designWidth;
+      const scaleY = vh / designHeight;
       
-      // Use the smaller scale to ensure everything fits
-      const newScale = Math.min(scaleX, scaleY, 1); // Cap at 1 to avoid scaling up
+      // Use the smaller scale to ensure everything fits without overflow
+      // Cap at 1 to prevent scaling larger than design size
+      const newScale = Math.min(scaleX, scaleY, 1);
       
       setScale(newScale);
     };
@@ -40,7 +42,9 @@ function App() {
     <div style={{ 
       width: '100vw', 
       height: '100vh', 
-      position: 'relative', 
+      position: 'fixed',
+      top: 0,
+      left: 0,
       overflow: 'hidden',
       background: '#f8f8f8',
       display: 'flex',
@@ -48,8 +52,8 @@ function App() {
       justifyContent: 'center'
     }}>
       <div style={{
-        width: '100%',
-        height: '100%',
+        width: `${1200 * scale}px`,
+        height: `${1000 * scale}px`,
         position: 'relative',
         transform: `scale(${scale})`,
         transformOrigin: 'center center',
