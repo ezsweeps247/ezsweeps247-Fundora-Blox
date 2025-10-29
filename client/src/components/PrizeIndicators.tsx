@@ -72,14 +72,14 @@ export function PrizeIndicators() {
   return (
     <div style={{
       position: 'absolute',
-      left: 'calc(100% - 2px)',
+      right: 'calc(100% - 2px)',
       top: '10px',
       width: isMobile ? '150px' : '200px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
       fontSize: isMobile ? '14px' : '18px',
       transform: isMobile ? 'scale(0.8)' : 'none',
-      transformOrigin: 'left top'
+      transformOrigin: 'right top'
     }}>
       {displayedRows.map((row) => {
         const tier = getPrizeTier(row);
@@ -104,12 +104,13 @@ export function PrizeIndicators() {
             style={{
               position: 'absolute',
               top: `${yPosition}px`,
-              left: 0,
+              right: 0,
               height: `${CELL_SIZE}px`,
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
               transition: 'all 0.3s ease',
+              flexDirection: 'row-reverse',
             }}
           >
             <div style={{
@@ -117,7 +118,7 @@ export function PrizeIndicators() {
               height: 0,
               borderTop: '8px solid transparent',
               borderBottom: '8px solid transparent',
-              borderLeft: `12px solid ${tier.color}`,
+              borderRight: `12px solid ${tier.color}`,
               opacity: 1,
             }} />
             <div style={{
@@ -125,7 +126,7 @@ export function PrizeIndicators() {
               padding: isMobile ? '4px 8px' : '6px 12px',
               textShadow: '2px 2px 3px rgba(0, 0, 0, 0.8)',
               minWidth: isMobile ? '80px' : '110px',
-              textAlign: 'left',
+              textAlign: 'right',
               opacity: 1,
               fontSize: isMobile ? '20px' : '28px',
               letterSpacing: '0.5px',
