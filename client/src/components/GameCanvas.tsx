@@ -226,8 +226,9 @@ export function GameCanvas() {
             {...handleTouchButton(phase === 'ready' ? () => { start(); } : (phase === 'playing' ? stopBlock : () => {}))}
             disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
             style={{
-              padding: '8px 60px',
+              padding: '8px 24px',
               minHeight: '45px',
+              minWidth: '240px',
               fontSize: '20px',
               fontWeight: 'bold',
               background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
