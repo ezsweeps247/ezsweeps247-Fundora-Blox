@@ -15,16 +15,17 @@ function App() {
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       
-      // Calculate scale based on viewport size vs design width (1400px)
+      // Design dimensions
       const designWidth = 1400;
-      const designHeight = viewportHeight;
+      const designHeight = 900; // Fixed design height for consistent aspect ratio
       
+      // Calculate scale to fit viewport while maintaining aspect ratio
       const scaleX = viewportWidth / designWidth;
       const scaleY = viewportHeight / designHeight;
-      const scale = Math.min(scaleX, scaleY, 1);
+      const scale = Math.min(scaleX, scaleY);
       
       container.style.transform = `scale(${scale})`;
-      container.style.transformOrigin = 'center center';
+      container.style.transformOrigin = 'top center';
     };
     
     updateScale();
@@ -46,7 +47,7 @@ function App() {
         ref={containerRef}
         style={{
           width: '1400px',
-          height: '100vh',
+          height: '900px',
           position: 'relative',
           background: '#f8f8f8',
           boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)'
