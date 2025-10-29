@@ -130,7 +130,8 @@ export function GameCanvas() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px'
+          gap: '8px',
+          marginRight: '30px'
         }}>
           <button
             {...handleTouchButton(cycleSoundMode)}
@@ -252,7 +253,8 @@ export function GameCanvas() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px'
+          gap: '8px',
+          marginLeft: '30px'
         }}>
           <StakeSelector />
           <div style={{
