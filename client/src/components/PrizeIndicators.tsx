@@ -1,8 +1,8 @@
 import { useGame } from '@/lib/stores/useGame';
 
 const GRID_ROWS = 14;
-const CELL_SIZE = 96;
-const CELL_SPACING = 4;
+const CELL_SIZE = 72;
+const CELL_SPACING = 3;
 
 const PRIZE_TIERS = [
   { minRow: 13, color: '#cc0000', multiplier: 100, type: 'cash', textColor: '#fff' },
