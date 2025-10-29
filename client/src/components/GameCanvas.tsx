@@ -1,7 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useGame } from '@/lib/stores/useGame';
+import { useAudio } from '@/lib/stores/useAudio';
 import { PrizeIndicators } from './PrizeIndicators';
 import { GameStats } from './GameStats';
+import { StakeSelector } from './StakeSelector';
+import { Volume2, VolumeX } from 'lucide-react';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
@@ -59,18 +62,34 @@ export function GameCanvas() {
     };
   }, [blocks, currentBlock, currentBlockPosition, phase]);
   
+  const soundMode = useAudio(state => state.soundMode);
+  const cycleSoundMode = useAudio(state => state.cycleSoundMode);
+  const stake = useGame(state => state.stake);
+  const credits = useGame(state => state.credits);
+  const start = useGame(state => state.start);
+  const stopBlock = useGame(state => state.stopBlock);
+
+  const handleTouchButton = (callback: () => void) => {
+    return {
+      onClick: callback,
+      onTouchStart: (e: React.TouchEvent) => {
+        e.preventDefault();
+        callback();
+      }
+    };
+  };
+
   return (
     <div style={{
       position: 'absolute',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      marginTop: '-40px',
-      width: `${GRID_WIDTH + 600}px`,
-      height: `${GRID_HEIGHT + 40}px`,
+      marginTop: '-80px',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center'
+      gap: '0px'
     }}>
       <div style={{ position: 'relative' }}>
         <canvas
@@ -79,13 +98,176 @@ export function GameCanvas() {
           height={GRID_HEIGHT + 20}
           style={{
             border: '4px solid #333',
-            borderRadius: '20px',
+            borderRadius: '20px 20px 0 0',
             backgroundColor: '#ffffff',
             boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
           }}
         />
         <PrizeIndicators />
         <GameStats />
+      </div>
+      
+      {/* Footer bar docked underneath canvas */}
+      <div style={{
+        width: `${GRID_WIDTH + 28}px`,
+        position: 'relative',
+        background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+        backdropFilter: 'blur(12px)',
+        borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+        borderBottom: '4px solid #333',
+        borderLeft: '4px solid #333',
+        borderRight: '4px solid #333',
+        borderRadius: '0 0 20px 20px',
+        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
+        padding: '20px 40px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        {/* Sound toggle */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <button
+            {...handleTouchButton(cycleSoundMode)}
+            style={{
+              width: '45px',
+              height: '70px',
+              background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
+              border: 'none',
+              borderRadius: '16px',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
+              transition: 'all 0.2s',
+              position: 'relative',
+              padding: '6px'
+            }}
+          >
+            <div style={{
+              width: '33px',
+              height: '42px',
+              background: 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
+              borderRadius: '12px',
+              boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              transform: soundMode === 'MUTE' ? 'translateY(6px)' : 'translateY(-6px)',
+              transition: 'transform 0.2s'
+            }}>
+              {soundMode === 'MUTE' ? (
+                <VolumeX size={18} color="#666" strokeWidth={2} />
+              ) : (
+                <Volume2 size={18} color="#666" strokeWidth={2} />
+              )}
+            </div>
+          </button>
+          <div style={{
+            fontSize: '8px',
+            fontWeight: 'bold',
+            color: 'rgba(255, 255, 255, 0.9)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.3px',
+            textAlign: 'center',
+            fontFamily: "'Roboto', sans-serif",
+            textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+            lineHeight: '1.2'
+          }}>
+            {soundMode === 'MUTE' && 'MUTE'}
+            {soundMode === 'ALL_ON' && <>ALL ON</>}
+            {soundMode === 'SE_OFF' && <>SE OFF<br/>BG ON</>}
+            {soundMode === 'BG_OFF' && <>BG OFF<br/>SE ON</>}
+          </div>
+        </div>
+
+        {/* Game button */}
+        <div className="game-controls" style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <button
+            {...handleTouchButton(phase === 'ready' ? () => { start(); } : (phase === 'playing' ? stopBlock : () => {}))}
+            disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
+            style={{
+              padding: '8px 60px',
+              minHeight: '45px',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
+                ? 'linear-gradient(to top, #999 0%, #666 100%)' 
+                : 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '25px',
+              cursor: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)) ? 'not-allowed' : 'pointer',
+              boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
+              textTransform: 'uppercase',
+              fontFamily: "'Roboto', sans-serif",
+              position: 'relative',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              if (phase !== 'ended' && phase !== 'demo' && (phase !== 'ready' || stake === 'FREE' || stake <= credits)) {
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (phase !== 'ended' && phase !== 'demo' && (phase !== 'ready' || stake === 'FREE' || stake <= credits)) {
+                e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
+              }
+            }}
+          >
+            {phase === 'ended' || phase === 'demo' ? 'PLEASE WAIT' : 
+             phase === 'playing' ? 'STOP' :
+             (stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
+          </button>
+          <div style={{
+            fontSize: '11px',
+            fontWeight: 'bold',
+            color: 'rgba(255, 255, 255, 0.7)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            textAlign: 'center',
+            textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+          }}>
+            STOP BLOCKS
+          </div>
+        </div>
+
+        {/* Stake selector */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <StakeSelector />
+          <div style={{
+            fontSize: '9px',
+            fontWeight: 'bold',
+            color: 'rgba(255, 255, 255, 0.7)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            textAlign: 'center',
+            fontFamily: "'Roboto', sans-serif",
+            textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+          }}>
+            CHOOSE STAKE
+          </div>
+        </div>
       </div>
     </div>
   );
