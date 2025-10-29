@@ -16,6 +16,7 @@ export function SoundManager() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
+  const bassFilterRef = useRef<BiquadFilterNode | null>(null);
   const audioBufferRef = useRef<AudioBuffer | null>(null);
   const hitBufferRef = useRef<AudioBuffer | null>(null);
   
@@ -58,6 +59,9 @@ export function SoundManager() {
         sourceNodeRef.current.stop();
         sourceNodeRef.current.disconnect();
       }
+      if (bassFilterRef.current) {
+        bassFilterRef.current.disconnect();
+      }
       if (gainNodeRef.current) {
         gainNodeRef.current.disconnect();
       }
@@ -86,18 +90,31 @@ export function SoundManager() {
         gainNode.gain.value = 0.25;
         gainNodeRef.current = gainNode;
         
-        source.connect(gainNode);
+        // Create bass reduction filter to prevent distortion
+        const bassFilter = audioContextRef.current.createBiquadFilter();
+        bassFilter.type = 'lowshelf';
+        bassFilter.frequency.value = 250; // Affects frequencies below 250Hz
+        bassFilter.gain.value = -12; // Reduce bass by 12dB
+        bassFilterRef.current = bassFilter;
+        
+        // Connect: source -> bass filter -> gain -> destination
+        source.connect(bassFilter);
+        bassFilter.connect(gainNode);
         gainNode.connect(audioContextRef.current.destination);
         
         source.start(0);
         sourceNodeRef.current = source;
-        console.log('Background music started playing (seamless loop)');
+        console.log('Background music started playing (seamless loop with bass reduction)');
       }
     } else {
       if (sourceNodeRef.current) {
         sourceNodeRef.current.stop();
         sourceNodeRef.current.disconnect();
         sourceNodeRef.current = null;
+      }
+      if (bassFilterRef.current) {
+        bassFilterRef.current.disconnect();
+        bassFilterRef.current = null;
       }
       if (gainNodeRef.current) {
         gainNodeRef.current.disconnect();
