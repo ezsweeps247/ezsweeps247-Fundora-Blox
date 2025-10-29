@@ -2,8 +2,36 @@ import "@fontsource/roboto";
 import { GameCanvas } from "./components/GameCanvas";
 import { GameUI } from "./components/GameUI";
 import { SoundManager } from "./components/SoundManager";
+import { useEffect, useRef } from "react";
 
 function App() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const updateScale = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate scale based on viewport size vs design width (1400px)
+      const designWidth = 1400;
+      const designHeight = viewportHeight;
+      
+      const scaleX = viewportWidth / designWidth;
+      const scaleY = viewportHeight / designHeight;
+      const scale = Math.min(scaleX, scaleY, 1);
+      
+      container.style.transform = `scale(${scale})`;
+      container.style.transformOrigin = 'center center';
+    };
+    
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
+  
   return (
     <div style={{ 
       width: '100vw', 
@@ -14,14 +42,15 @@ function App() {
       overflow: 'hidden',
       background: '#f8f8f8'
     }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '1400px',
-        height: '100%',
-        position: 'relative',
-        background: '#f8f8f8',
-        boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)'
-      }}>
+      <div 
+        ref={containerRef}
+        style={{
+          width: '1400px',
+          height: '100vh',
+          position: 'relative',
+          background: '#f8f8f8',
+          boxShadow: '0 0 40px rgba(0, 0, 0, 0.15)'
+        }}>
         <GameCanvas />
         <GameUI />
         <SoundManager />

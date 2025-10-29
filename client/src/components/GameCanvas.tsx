@@ -11,7 +11,6 @@ const GRID_HEIGHT = GRID_ROWS * CELL_SIZE + (GRID_ROWS - 1) * CELL_SPACING;
 
 export function GameCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   
   const blocks = useGame(state => state.blocks);
@@ -21,30 +20,6 @@ export function GameCanvas() {
   const updateBlockPosition = useGame(state => state.updateBlockPosition);
   
   const lastTimeRef = useRef(Date.now());
-  
-  useEffect(() => {
-    const updateScale = () => {
-      const container = containerRef.current;
-      if (!container) return;
-      
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      const maxWidth = Math.min(viewportWidth, 1400);
-      
-      const canvasWidth = GRID_WIDTH + 20;
-      const canvasHeight = GRID_HEIGHT + 20;
-      
-      const scaleX = (maxWidth * 0.85) / canvasWidth;
-      const scaleY = (viewportHeight * 0.75) / canvasHeight;
-      const scale = Math.min(scaleX, scaleY, 1);
-      
-      container.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    };
-    
-    updateScale();
-    window.addEventListener('resize', updateScale);
-    return () => window.removeEventListener('resize', updateScale);
-  }, []);
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -84,16 +59,13 @@ export function GameCanvas() {
   }, [blocks, currentBlock, currentBlockPosition, phase, updateBlockPosition]);
   
   return (
-    <div 
-      ref={containerRef}
-      style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        marginTop: '-40px',
-        transformOrigin: 'center center'
-      }}>
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      marginTop: '-40px'
+    }}>
       <div style={{ 
         position: 'relative'
       }}>
