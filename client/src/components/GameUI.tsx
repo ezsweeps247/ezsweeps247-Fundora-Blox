@@ -252,7 +252,7 @@ export function GameUI() {
       {/* Back to Casino Button - Positioned above grid canvas */}
       <div style={{
         position: 'absolute',
-        top: isMobile ? '50px' : 'calc(50% - 395px)',
+        top: isMobile ? '60px' : 'calc(50% - 380px)',
         left: '50%',
         transform: 'translateX(-50%)',
         pointerEvents: 'none',
