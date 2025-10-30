@@ -127,8 +127,8 @@ export function GameCanvas() {
           style={{
             border: '4px solid rgba(255, 255, 255, 0.2)',
             borderRadius: '20px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05)'
+            backgroundColor: '#373c48',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.2)'
           }}
         />
         <PrizeIndicators />
@@ -318,7 +318,7 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
         ctx.globalAlpha = 0.7;
       }
       
-      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 16);
       ctx.fill();
       
       // Add subtle border for glass effect
