@@ -97,33 +97,33 @@ export function GameFeed() {
     <div style={{
       background: 'rgba(255, 255, 255, 0.06)',
       backdropFilter: 'blur(12px) saturate(180%)',
-      border: '2px solid rgba(255, 255, 255, 0.12)',
-      borderRadius: '12px',
-      padding: '6px 10px',
-      width: '208px',
-      height: '300px',
+      border: '3px solid rgba(255, 255, 255, 0.12)',
+      borderRadius: '16px',
+      padding: '10px 14px',
+      width: '300px',
+      height: '420px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.3)',
       display: 'flex',
       flexDirection: 'column',
       position: 'relative'
     }}>
       <div style={{
-        fontSize: '14px',
+        fontSize: '20px',
         fontWeight: '900',
         color: '#fff',
-        marginBottom: '8px',
+        marginBottom: '12px',
         textAlign: 'left',
-        letterSpacing: '0.5px',
+        letterSpacing: '0.7px',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
       }}>
         LIVE FEED
         <div style={{
           display: 'inline-block',
-          width: '8px',
-          height: '8px',
+          width: '12px',
+          height: '12px',
           borderRadius: '50%',
           backgroundColor: isConnected ? '#00ff00' : '#ff0000',
-          marginLeft: '8px',
+          marginLeft: '12px',
           animation: isConnected ? 'pulse 2s ease-in-out infinite' : 'none'
         }} />
       </div>
@@ -133,17 +133,17 @@ export function GameFeed() {
         overflowY: 'auto',
         overflowX: 'hidden',
         backgroundColor: '#000',
-        borderRadius: '6px',
-        padding: '4px',
+        borderRadius: '8px',
+        padding: '6px',
         scrollbarWidth: 'thin',
         scrollbarColor: '#333 #000'
       }}>
         {history.length === 0 ? (
           <div style={{
             color: '#666',
-            fontSize: '13px',
+            fontSize: '18px',
             textAlign: 'center',
-            padding: '20px 5px',
+            padding: '30px 8px',
             fontFamily: "'Roboto', sans-serif"
           }}>
             Waiting for games...
@@ -153,20 +153,20 @@ export function GameFeed() {
             <div
               key={item.id}
               style={{
-                marginBottom: '8px',
-                paddingBottom: '8px',
+                marginBottom: '12px',
+                paddingBottom: '12px',
                 borderBottom: index < history.length - 1 ? '1px solid #222' : 'none',
                 animation: index === 0 ? 'slideIn 0.3s ease-out' : 'none'
               }}
             >
               <div style={{
-                fontSize: '20px',
+                fontSize: '28px',
                 fontWeight: 'bold',
                 color: '#ffffff',
                 fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
-                marginBottom: '3px',
-                textShadow: '0 0 2px #ffffff',
-                letterSpacing: '0.5px',
+                marginBottom: '5px',
+                textShadow: '0 0 3px #ffffff',
+                letterSpacing: '0.7px',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -178,19 +178,19 @@ export function GameFeed() {
                 display: 'flex',
                 justifyContent: 'flex-start',
                 alignItems: 'center',
-                gap: '10px',
+                gap: '14px',
                 textAlign: 'left'
               }}>
                 <div style={{
-                  fontSize: '18px',
+                  fontSize: '26px',
                   color: '#ffffff',
                   fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
-                  textShadow: '0 0 2px #ffffff'
+                  textShadow: '0 0 3px #ffffff'
                 }}>
                   {item.score}
                 </div>
                 <div style={{
-                  fontSize: '16px',
+                  fontSize: '22px',
                   color: item.prizeType === 'cash' ? '#00ff00' : '#ffaa00',
                   fontFamily: "'Roboto', sans-serif",
                   fontWeight: 'bold'
@@ -199,10 +199,10 @@ export function GameFeed() {
                 </div>
               </div>
               <div style={{
-                fontSize: '13px',
+                fontSize: '18px',
                 color: '#888',
                 fontFamily: "'Roboto', sans-serif",
-                marginTop: '2px',
+                marginTop: '3px',
                 textAlign: 'left'
               }}>
                 <span style={{ fontWeight: 'bold' }}>${item.stake}</span> • Row <span style={{ fontWeight: 'bold' }}>{item.highestRow}</span>
@@ -228,14 +228,14 @@ export function GameFeed() {
           }
         }
         div::-webkit-scrollbar {
-          width: 4px;
+          width: 6px;
         }
         div::-webkit-scrollbar-track {
           background: #000;
         }
         div::-webkit-scrollbar-thumb {
           background: #333;
-          border-radius: 2px;
+          border-radius: 3px;
         }
         div::-webkit-scrollbar-thumb:hover {
           background: #555;
