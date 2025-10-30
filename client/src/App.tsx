@@ -12,10 +12,10 @@ function App() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // Game is designed for 1650px width and 1380px height at full scale
+      // Game is designed for 2050px width and 1700px height at full scale
       // This ensures all UI elements (left prize indicators, right stats, etc.) fit properly
-      const designWidth = 1650;
-      const designHeight = 1380;
+      const designWidth = 2050;
+      const designHeight = 1700;
       
       // Calculate scale factors for width and height
       const scaleX = vw / designWidth;
@@ -52,8 +52,8 @@ function App() {
       justifyContent: 'center'
     }}>
       <div style={{
-        width: '1650px',
-        height: '1380px',
+        width: '2050px',
+        height: '1700px',
         position: 'relative',
         transform: `scale(${scale})`,
         transformOrigin: 'center center',
