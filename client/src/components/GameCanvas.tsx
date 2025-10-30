@@ -361,7 +361,7 @@ function drawPlacedBlocks(ctx: CanvasRenderingContext2D, blocks: any[]) {
       gradient.addColorStop(1, '#aa2222');
       
       ctx.fillStyle = gradient;
-      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 16);
       ctx.fill();
     });
   });
@@ -390,7 +390,7 @@ function drawMovingBlock(ctx: CanvasRenderingContext2D, block: any, position: nu
     ctx.shadowBlur = 10;
     
     ctx.fillStyle = gradient;
-    drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+    drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 16);
     ctx.fill();
     
     ctx.shadowBlur = 0;
@@ -435,7 +435,7 @@ function drawDemoMode(ctx: CanvasRenderingContext2D, delta: number) {
       gradient.addColorStop(1, '#aa2222');
       
       ctx.fillStyle = gradient;
-      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
+      drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 16);
       ctx.fill();
     } else {
       const elapsedTime = demoTime - (block.stopTime - 1.5);
