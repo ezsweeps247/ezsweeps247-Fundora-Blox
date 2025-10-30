@@ -15,13 +15,13 @@ function formatNumber(num: number): string {
 function DisplayBox({ label, value, unit }: { label: string; value: string; unit: string }) {
   return (
     <div style={{
-      background: '#f5f5f0',
-      backdropFilter: 'blur(12px)',
-      border: '3px solid #666',
+      background: 'rgba(255, 255, 255, 0.06)',
+      backdropFilter: 'blur(12px) saturate(180%)',
+      border: '3px solid rgba(255, 255, 255, 0.12)',
       borderRadius: '16px',
       padding: '10px 14px',
       minWidth: '300px',
-      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.2)',
+      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.3)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
@@ -29,8 +29,9 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       <div style={{
         fontSize: '17px',
         fontWeight: '900',
-        color: '#333',
-        marginBottom: '5px'
+        color: '#fff',
+        marginBottom: '5px',
+        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
       }}>
         {label}
       </div>
@@ -57,9 +58,10 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
           <div style={{
             fontSize: '22px',
             fontWeight: 'bold',
-            color: '#333',
+            color: '#fff',
             fontFamily: "'Roboto', sans-serif",
-            paddingRight: '4px'
+            paddingRight: '4px',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {unit}
           </div>
@@ -93,12 +95,12 @@ export function GameStats() {
       flexDirection: 'column',
       gap: '14px',
       pointerEvents: 'auto',
-      background: '#f5f5f0',
-      backdropFilter: 'blur(12px)',
-      border: '4px solid #666',
+      background: 'rgba(255, 255, 255, 0.08)',
+      backdropFilter: 'blur(16px) saturate(180%)',
+      border: '4px solid rgba(255, 255, 255, 0.15)',
       borderRadius: '20px',
       padding: '20px',
-      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.3)',
+      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.2), 0 8px 32px rgba(0,0,0,0.5)',
       width: '340px'
     }}>
       <button

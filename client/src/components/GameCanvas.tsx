@@ -91,12 +91,12 @@ export function GameCanvas() {
     }}>
       {/* Title Container */}
       <div style={{
-        background: '#f5f5f0',
-        backdropFilter: 'blur(12px)',
-        border: '4px solid #666',
+        background: 'rgba(255, 255, 255, 0.08)',
+        backdropFilter: 'blur(16px) saturate(180%)',
+        border: '4px solid rgba(255, 255, 255, 0.15)',
         borderRadius: '16px',
         padding: '10px 20px',
-        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.3)',
+        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.2), 0 8px 32px rgba(0,0,0,0.5)',
         width: `${GRID_WIDTH + 60}px`,
         boxSizing: 'border-box'
       }}>
@@ -125,10 +125,10 @@ export function GameCanvas() {
           width={GRID_WIDTH + 60}
           height={GRID_HEIGHT + 40}
           style={{
-            border: '4px solid #666',
+            border: '4px solid rgba(255, 255, 255, 0.2)',
             borderRadius: '20px',
-            backgroundColor: '#f5f5f0',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05)'
           }}
         />
         <PrizeIndicators />
@@ -139,11 +139,11 @@ export function GameCanvas() {
       <div style={{
         width: `${GRID_WIDTH + 60}px`,
         position: 'relative',
-        background: '#f5f5f0',
-        backdropFilter: 'blur(12px)',
-        border: '4px solid #666',
+        background: 'rgba(255, 255, 255, 0.08)',
+        backdropFilter: 'blur(16px) saturate(180%)',
+        border: '4px solid rgba(255, 255, 255, 0.15)',
         borderRadius: '20px',
-        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.3)',
+        boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.2), 0 8px 32px rgba(0,0,0,0.5)',
         padding: '20px 15px',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
@@ -197,11 +197,12 @@ export function GameCanvas() {
           <div style={{
             fontSize: '11px',
             fontWeight: 'bold',
-            color: '#333',
+            color: 'rgba(255, 255, 255, 0.9)',
             textTransform: 'uppercase',
             letterSpacing: '0.4px',
             textAlign: 'center',
             fontFamily: "'Roboto', sans-serif",
+            textShadow: '0 1px 3px rgba(0,0,0,0.8)',
             lineHeight: '1.3'
           }}>
             {soundMode === 'MUTE' && 'MUTE'}
@@ -263,10 +264,11 @@ export function GameCanvas() {
           <div style={{
             fontSize: '15px',
             fontWeight: 'bold',
-            color: '#555',
+            color: 'rgba(255, 255, 255, 0.8)',
             textTransform: 'uppercase',
             letterSpacing: '0.7px',
-            textAlign: 'center'
+            textAlign: 'center',
+            textShadow: '0 1px 2px rgba(0,0,0,0.5)'
           }}>
             STOP BLOCKS
           </div>
@@ -284,11 +286,12 @@ export function GameCanvas() {
           <div style={{
             fontSize: '13px',
             fontWeight: 'bold',
-            color: '#555',
+            color: 'rgba(255, 255, 255, 0.8)',
             textTransform: 'uppercase',
             letterSpacing: '0.7px',
             textAlign: 'center',
-            fontFamily: "'Roboto', sans-serif"
+            fontFamily: "'Roboto', sans-serif",
+            textShadow: '0 1px 2px rgba(0,0,0,0.5)'
           }}>
             CHOOSE STAKE
           </div>
@@ -308,15 +311,21 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
       const y = offsetY + (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
       
       if (row === 9 || row === 13) {
-        ctx.fillStyle = '#d8d8d3';
-        ctx.globalAlpha = 0.8;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.globalAlpha = 0.9;
       } else {
-        ctx.fillStyle = '#e8e8e3';
-        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.globalAlpha = 0.7;
       }
       
       drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 6);
       ctx.fill();
+      
+      // Add subtle border for glass effect
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
       ctx.globalAlpha = 1.0;
     }
   }
