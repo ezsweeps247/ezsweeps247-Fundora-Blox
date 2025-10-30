@@ -8,7 +8,7 @@ import { Volume2, VolumeX } from 'lucide-react';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
-const CELL_SIZE = 50;
+const CELL_SIZE = 57;
 const CELL_SPACING = 3;
 const GRID_WIDTH = GRID_COLS * CELL_SIZE + (GRID_COLS - 1) * CELL_SPACING;
 const GRID_HEIGHT = GRID_ROWS * CELL_SIZE + (GRID_ROWS - 1) * CELL_SPACING;
