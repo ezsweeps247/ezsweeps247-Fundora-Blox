@@ -127,8 +127,8 @@ export function GameCanvas() {
           style={{
             border: '4px solid rgba(255, 255, 255, 0.2)',
             borderRadius: '20px',
-            backgroundColor: '#373c48',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.2)'
+            backgroundColor: '#b8bcc8',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.1)'
           }}
         />
         <PrizeIndicators />
