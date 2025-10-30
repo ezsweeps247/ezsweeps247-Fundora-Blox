@@ -15,13 +15,13 @@ function formatNumber(num: number): string {
 function DisplayBox({ label, value, unit }: { label: string; value: string; unit: string }) {
   return (
     <div style={{
-      background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+      background: '#f5f5f0',
       backdropFilter: 'blur(12px)',
-      border: '3px solid #333',
+      border: '3px solid #666',
       borderRadius: '16px',
       padding: '10px 14px',
       minWidth: '300px',
-      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
+      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.2)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
@@ -29,9 +29,8 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       <div style={{
         fontSize: '17px',
         fontWeight: '900',
-        color: '#fff',
-        marginBottom: '5px',
-        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+        color: '#333',
+        marginBottom: '5px'
       }}>
         {label}
       </div>
@@ -58,10 +57,9 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
           <div style={{
             fontSize: '22px',
             fontWeight: 'bold',
-            color: '#fff',
+            color: '#333',
             fontFamily: "'Roboto', sans-serif",
-            paddingRight: '4px',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            paddingRight: '4px'
           }}>
             {unit}
           </div>
@@ -95,12 +93,12 @@ export function GameStats() {
       flexDirection: 'column',
       gap: '14px',
       pointerEvents: 'auto',
-      background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+      background: '#f5f5f0',
       backdropFilter: 'blur(12px)',
-      border: '4px solid #333',
+      border: '4px solid #666',
       borderRadius: '20px',
       padding: '20px',
-      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
+      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.3)',
       width: '340px'
     }}>
       <button
@@ -113,12 +111,10 @@ export function GameStats() {
           fontWeight: 'bold',
           fontFamily: "'Roboto', sans-serif",
           color: '#ffffff',
-          background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.85) 0%, rgba(60, 65, 75, 0.90) 100%)',
-          backdropFilter: 'blur(10px)',
-          border: '2px solid rgba(255, 255, 255, 0.25)',
+          background: 'linear-gradient(to bottom, #555 0%, #333 100%)',
+          border: '2px solid #444',
           borderRadius: '8px',
           cursor: 'pointer',
-          textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           transition: 'all 0.2s ease',
           letterSpacing: '1px',

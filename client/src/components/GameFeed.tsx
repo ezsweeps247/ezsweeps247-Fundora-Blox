@@ -95,14 +95,14 @@ export function GameFeed() {
 
   return (
     <div style={{
-      background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
+      background: '#f5f5f0',
       backdropFilter: 'blur(12px)',
-      border: '2px solid #333',
+      border: '2px solid #666',
       borderRadius: '12px',
       padding: '6px 10px',
       width: '208px',
       height: '300px',
-      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
+      boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.3), inset 0 -1px 3px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.2)',
       display: 'flex',
       flexDirection: 'column',
       position: 'relative'
@@ -110,11 +110,10 @@ export function GameFeed() {
       <div style={{
         fontSize: '14px',
         fontWeight: '900',
-        color: '#fff',
+        color: '#333',
         marginBottom: '8px',
         textAlign: 'left',
-        letterSpacing: '0.5px',
-        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+        letterSpacing: '0.5px'
       }}>
         LIVE FEED
         <div style={{
