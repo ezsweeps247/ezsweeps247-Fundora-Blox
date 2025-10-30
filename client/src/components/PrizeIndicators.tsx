@@ -1,8 +1,8 @@
 import { useGame } from '@/lib/stores/useGame';
 
 const GRID_ROWS = 14;
-const CELL_SIZE = 50;
-const CELL_SPACING = 3;
+const CELL_SIZE = 85;
+const CELL_SPACING = 5;
 
 const PRIZE_TIERS = [
   { minRow: 13, color: '#cc0000', multiplier: 100, cashMultiplier: 100, freePoints: 1600, textColor: '#fff' },
@@ -54,18 +54,18 @@ export function PrizeIndicators() {
   return (
     <div style={{
       position: 'absolute',
-      right: 'calc(100% + 10px)',
+      right: 'calc(100% + 15px)',
       top: `${CANVAS_OFFSET_Y + BORDER_ADJUSTMENT}px`,
       background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
       backdropFilter: 'blur(12px)',
-      border: '3px solid #333',
-      borderRadius: '16px',
-      padding: '14px 18px',
+      border: '4px solid #333',
+      borderRadius: '20px',
+      padding: '20px 26px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-      width: isMobile ? '200px' : '240px',
+      width: isMobile ? '280px' : '340px',
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
-      fontSize: isMobile ? '14px' : '18px',
+      fontSize: isMobile ? '20px' : '26px',
       transform: isMobile ? 'scale(0.8)' : 'none',
       transformOrigin: 'right top'
     }}>
@@ -120,9 +120,9 @@ export function PrizeIndicators() {
               <div style={{
                 width: 0,
                 height: 0,
-                borderTop: '10px solid transparent',
-                borderBottom: '10px solid transparent',
-                borderRight: `16px solid ${tier.color}`,
+                borderTop: '14px solid transparent',
+                borderBottom: '14px solid transparent',
+                borderRight: `22px solid ${tier.color}`,
                 opacity: 1,
                 flexShrink: 0,
               }} />
@@ -130,12 +130,12 @@ export function PrizeIndicators() {
                 color: tier.color,
                 padding: 0,
                 margin: 0,
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
-                minWidth: isMobile ? '70px' : '90px',
+                textShadow: '2px 2px 3px rgba(0, 0, 0, 0.9)',
+                minWidth: isMobile ? '100px' : '130px',
                 textAlign: 'right',
                 opacity: 1,
-                fontSize: isMobile ? '22px' : '28px',
-                letterSpacing: '0.3px',
+                fontSize: isMobile ? '32px' : '40px',
+                letterSpacing: '0.5px',
                 fontWeight: 'bold',
                 WebkitTextStroke: (row >= 10 && !isFreeMode) ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
                 lineHeight: '1',

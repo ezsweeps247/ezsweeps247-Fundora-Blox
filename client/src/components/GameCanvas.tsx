@@ -93,24 +93,24 @@ export function GameCanvas() {
       <div style={{
         background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
         backdropFilter: 'blur(12px)',
-        border: '3px solid #333',
-        borderRadius: '12px',
-        padding: '6px 14px',
+        border: '4px solid #333',
+        borderRadius: '16px',
+        padding: '10px 20px',
         boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
         width: `${GRID_WIDTH + 60}px`,
         boxSizing: 'border-box'
       }}>
         <div style={{
-          fontSize: '44px',
+          fontSize: '62px',
           fontWeight: 'bold',
           color: '#ff0000',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
           textShadow: `
-            0 0 10px rgba(255, 0, 0, 0.6),
-            0 0 20px rgba(255, 0, 0, 0.4),
-            2px 2px 4px rgba(0, 0, 0, 0.8)
+            0 0 14px rgba(255, 0, 0, 0.6),
+            0 0 28px rgba(255, 0, 0, 0.4),
+            3px 3px 6px rgba(0, 0, 0, 0.8)
           `,
-          letterSpacing: '12px',
+          letterSpacing: '16px',
           textAlign: 'center',
           lineHeight: '1',
           whiteSpace: 'nowrap'
@@ -160,50 +160,50 @@ export function GameCanvas() {
           <button
             {...handleTouchButton(cycleSoundMode)}
             style={{
-              width: '45px',
-              height: '70px',
+              width: '64px',
+              height: '100px',
               background: 'linear-gradient(to bottom, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%)',
               border: 'none',
-              borderRadius: '16px',
+              borderRadius: '22px',
               cursor: 'pointer',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.2)',
+              boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 6px rgba(255,255,255,0.5), 0 6px 12px rgba(0,0,0,0.2)',
               transition: 'all 0.2s',
               position: 'relative',
-              padding: '6px'
+              padding: '8px'
             }}
           >
             <div style={{
-              width: '33px',
-              height: '42px',
+              width: '48px',
+              height: '60px',
               background: 'linear-gradient(to bottom, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%)',
-              borderRadius: '12px',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)',
+              borderRadius: '16px',
+              boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 2px 3px rgba(255,255,255,0.8)',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              transform: soundMode === 'MUTE' ? 'translateY(6px)' : 'translateY(-6px)',
+              transform: soundMode === 'MUTE' ? 'translateY(8px)' : 'translateY(-8px)',
               transition: 'transform 0.2s'
             }}>
               {soundMode === 'MUTE' ? (
-                <VolumeX size={18} color="#666" strokeWidth={2} />
+                <VolumeX size={26} color="#666" strokeWidth={2} />
               ) : (
-                <Volume2 size={18} color="#666" strokeWidth={2} />
+                <Volume2 size={26} color="#666" strokeWidth={2} />
               )}
             </div>
           </button>
           <div style={{
-            fontSize: '8px',
+            fontSize: '11px',
             fontWeight: 'bold',
             color: 'rgba(255, 255, 255, 0.9)',
             textTransform: 'uppercase',
-            letterSpacing: '0.3px',
+            letterSpacing: '0.4px',
             textAlign: 'center',
             fontFamily: "'Roboto', sans-serif",
             textShadow: '0 1px 3px rgba(0,0,0,0.8)',
-            lineHeight: '1.2'
+            lineHeight: '1.3'
           }}>
             {soundMode === 'MUTE' && 'MUTE'}
             {soundMode === 'ALL_ON' && <>ALL ON</>}
@@ -224,19 +224,19 @@ export function GameCanvas() {
             {...handleTouchButton(phase === 'ready' ? () => { start(); } : (phase === 'playing' ? stopBlock : () => {}))}
             disabled={phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)}
             style={{
-              padding: '6px 24px',
-              minHeight: '44px',
-              minWidth: '260px',
-              fontSize: '20px',
+              padding: '10px 34px',
+              minHeight: '62px',
+              minWidth: '370px',
+              fontSize: '28px',
               fontWeight: 'bold',
               background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
                 ? 'linear-gradient(to top, #999 0%, #666 100%)' 
                 : 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
               color: 'white',
               border: 'none',
-              borderRadius: '25px',
+              borderRadius: '35px',
               cursor: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits)) ? 'not-allowed' : 'pointer',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
+              boxShadow: '0 6px 12px rgba(0,0,0,0.4), inset 0 -3px 6px rgba(255,255,255,0.2), inset 0 3px 6px rgba(0,0,0,0.3)',
               textTransform: 'uppercase',
               fontFamily: "'Roboto', sans-serif",
               position: 'relative',
@@ -246,14 +246,14 @@ export function GameCanvas() {
               if (phase !== 'ended' && phase !== 'demo' && (phase !== 'ready' || stake === 'FREE' || stake <= credits)) {
                 e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(255,255,255,0.25), inset 0 3px 6px rgba(0,0,0,0.3)';
               }
             }}
             onMouseLeave={(e) => {
               if (phase !== 'ended' && phase !== 'demo' && (phase !== 'ready' || stake === 'FREE' || stake <= credits)) {
                 e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.4), inset 0 -3px 6px rgba(255,255,255,0.2), inset 0 3px 6px rgba(0,0,0,0.3)';
               }
             }}
           >
@@ -262,11 +262,11 @@ export function GameCanvas() {
              (stake !== 'FREE' && stake > credits) ? 'INSUFFICIENT CREDITS' : 'START'}
           </button>
           <div style={{
-            fontSize: '11px',
+            fontSize: '15px',
             fontWeight: 'bold',
             color: 'rgba(255, 255, 255, 0.7)',
             textTransform: 'uppercase',
-            letterSpacing: '0.5px',
+            letterSpacing: '0.7px',
             textAlign: 'center',
             textShadow: '0 1px 2px rgba(0,0,0,0.5)'
           }}>
@@ -284,11 +284,11 @@ export function GameCanvas() {
         }}>
           <StakeSelector />
           <div style={{
-            fontSize: '9px',
+            fontSize: '13px',
             fontWeight: 'bold',
             color: 'rgba(255, 255, 255, 0.7)',
             textTransform: 'uppercase',
-            letterSpacing: '0.5px',
+            letterSpacing: '0.7px',
             textAlign: 'center',
             fontFamily: "'Roboto', sans-serif",
             textShadow: '0 1px 2px rgba(0,0,0,0.5)'

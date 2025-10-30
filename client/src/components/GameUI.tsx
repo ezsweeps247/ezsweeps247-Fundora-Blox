@@ -41,38 +41,38 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
   return (
     <div style={{
       position: 'absolute',
-      bottom: 'calc(50% - 300px)',
-      right: 'calc(50% + 240px)',
+      bottom: 'calc(50% - 420px)',
+      right: 'calc(50% + 340px)',
       pointerEvents: 'none',
       zIndex: 100,
-      width: '200px'
+      width: '280px'
     }}>
       <div style={{
-        fontSize: '28px',
+        fontSize: '40px',
         fontWeight: 'bold',
         color: color,
         textShadow: `
-          0 0 8px ${glowColor},
-          0 0 15px ${glowColor},
-          2px 2px 4px rgba(0, 0, 0, 0.8)
+          0 0 12px ${glowColor},
+          0 0 22px ${glowColor},
+          3px 3px 6px rgba(0, 0, 0, 0.8)
         `,
         fontFamily: "'Roboto', sans-serif",
-        letterSpacing: '1px',
+        letterSpacing: '1.5px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
         backgroundColor: 'transparent',
-        padding: '6px 12px',
-        borderRadius: '8px',
-        border: `2px solid ${color}`,
+        padding: '8px 16px',
+        borderRadius: '12px',
+        border: `3px solid ${color}`,
         boxShadow: `
-          0 0 15px ${glowColor},
-          inset 0 0 15px rgba(0, 0, 0, 0.5)
+          0 0 20px ${glowColor},
+          inset 0 0 20px rgba(0, 0, 0, 0.5)
         `
       }}>
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: '18px',
+        fontSize: '26px',
         fontWeight: '900',
         color: '#ffffff',
         textShadow: `
@@ -80,17 +80,17 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
           -2px -2px 0 #000,
           2px -2px 0 #000,
           -2px 2px 0 #000,
-          0 0 4px rgba(0, 0, 0, 0.8)
+          0 0 6px rgba(0, 0, 0, 0.8)
         `,
         fontFamily: "'Arial Black', 'Arial', sans-serif",
         textAlign: 'center',
-        marginTop: '4px',
+        marginTop: '6px',
         backgroundColor: 'transparent',
-        padding: '3px 8px',
-        borderRadius: '4px',
+        padding: '4px 12px',
+        borderRadius: '6px',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
-        letterSpacing: '0.5px'
+        letterSpacing: '0.7px'
       } as React.CSSProperties}>
         {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
       </div>
@@ -246,79 +246,79 @@ export function GameUI() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '12px',
+            gap: '16px',
             background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(50, 55, 65, 0.92) 15%, rgba(60, 65, 75, 0.94) 35%, rgba(55, 60, 70, 0.95) 50%, rgba(60, 65, 75, 0.94) 65%, rgba(50, 55, 65, 0.92) 85%, rgba(40, 45, 55, 0.90) 100%)',
-            padding: '24px 40px 28px 40px',
-            borderRadius: '16px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
-            backdropFilter: 'blur(10px)',
+            padding: '34px 56px 40px 56px',
+            borderRadius: '20px',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.1)',
+            border: '2px solid rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(12px)',
             pointerEvents: 'auto',
             zIndex: 100
           }}>
             <div style={{ 
-              fontSize: '22px', 
+              fontSize: '32px', 
               fontWeight: 'bold',
               color: '#ffffff',
-              marginBottom: '4px',
-              textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+              marginBottom: '6px',
+              textShadow: '0 3px 6px rgba(0,0,0,0.5)'
             }}>
               Game Over
             </div>
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px',
-              marginBottom: '4px'
+              gap: '16px',
+              marginBottom: '6px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: '32px',
+                gap: '45px',
                 alignItems: 'center'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
-                    fontSize: '12px', 
+                    fontSize: '17px', 
                     color: 'rgba(255, 255, 255, 0.6)', 
-                    marginBottom: '4px',
+                    marginBottom: '6px',
                     fontWeight: 'bold',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.7px'
                   }}>
                     SCORE
                   </div>
                   <div style={{ 
-                    fontSize: '32px', 
+                    fontSize: '46px', 
                     color: '#ff6666', 
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
-                    textShadow: '0 0 10px rgba(255, 102, 102, 0.5)'
+                    textShadow: '0 0 14px rgba(255, 102, 102, 0.5)'
                   }}>
                     {score}
                   </div>
                 </div>
                 <div style={{
-                  width: '2px',
-                  height: '50px',
+                  width: '3px',
+                  height: '70px',
                   backgroundColor: 'rgba(255, 255, 255, 0.2)'
                 }} />
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
-                    fontSize: '12px', 
+                    fontSize: '17px', 
                     color: 'rgba(255, 255, 255, 0.6)', 
-                    marginBottom: '4px',
+                    marginBottom: '6px',
                     fontWeight: 'bold',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.7px'
                   }}>
                     PRIZE
                   </div>
                   <div style={{ 
-                    fontSize: '32px', 
+                    fontSize: '46px', 
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
                     color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
                     textShadow: potentialPrize.amount === 0 
-                      ? '0 0 10px rgba(255, 170, 68, 0.5)' 
-                      : (potentialPrize.type === 'cash' ? '0 0 10px rgba(68, 255, 68, 0.5)' : '0 0 10px rgba(255, 170, 68, 0.5)')
+                      ? '0 0 14px rgba(255, 170, 68, 0.5)' 
+                      : (potentialPrize.type === 'cash' ? '0 0 14px rgba(68, 255, 68, 0.5)' : '0 0 14px rgba(255, 170, 68, 0.5)')
                   }}>
                     {potentialPrize.amount === 0 
                       ? '0P'
@@ -332,26 +332,26 @@ export function GameUI() {
               {bonusPoints > 0 && (
                 <div style={{
                   textAlign: 'center',
-                  padding: '8px 16px',
+                  padding: '12px 22px',
                   background: 'rgba(255, 170, 68, 0.15)',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(255, 170, 68, 0.3)'
+                  borderRadius: '12px',
+                  border: '2px solid rgba(255, 170, 68, 0.3)'
                 }}>
                   <div style={{
-                    fontSize: '11px',
+                    fontSize: '15px',
                     color: 'rgba(255, 255, 255, 0.7)',
-                    marginBottom: '2px',
+                    marginBottom: '3px',
                     fontWeight: 'bold',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.7px'
                   }}>
                     BONUS POINTS EARNED
                   </div>
                   <div style={{
-                    fontSize: '24px',
+                    fontSize: '34px',
                     color: '#ffaa44',
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
-                    textShadow: '0 0 8px rgba(255, 170, 68, 0.5)'
+                    textShadow: '0 0 12px rgba(255, 170, 68, 0.5)'
                   }}>
                     +{formatNumber(bonusPoints)}P
                   </div>
@@ -361,28 +361,28 @@ export function GameUI() {
             <button
               {...handleTouchButton(() => { setUserInteracted(true); restart(); })}
               style={{
-                padding: '12px 48px',
-                fontSize: '18px',
+                padding: '16px 68px',
+                fontSize: '26px',
                 fontWeight: 'bold',
-                marginTop: '4px',
+                marginTop: '6px',
                 background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '30px',
+                borderRadius: '42px',
                 cursor: 'pointer',
                 textTransform: 'uppercase',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)',
+                boxShadow: '0 6px 12px rgba(0,0,0,0.4), inset 0 -3px 6px rgba(255,255,255,0.2), inset 0 3px 6px rgba(0,0,0,0.3)',
                 transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.25), inset 0 2px 4px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(255,255,255,0.25), inset 0 3px 6px rgba(0,0,0,0.3)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.2), inset 0 2px 4px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.4), inset 0 -3px 6px rgba(255,255,255,0.2), inset 0 3px 6px rgba(0,0,0,0.3)';
               }}
             >
               Play Again

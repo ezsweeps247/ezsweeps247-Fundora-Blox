@@ -17,20 +17,20 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
     <div style={{
       background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
       backdropFilter: 'blur(12px)',
-      border: '2px solid #333',
-      borderRadius: '12px',
-      padding: '6px 10px',
-      minWidth: '208px',
+      border: '3px solid #333',
+      borderRadius: '16px',
+      padding: '10px 14px',
+      minWidth: '300px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.2)',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column'
     }}>
       <div style={{
-        fontSize: '12px',
+        fontSize: '17px',
         fontWeight: '900',
         color: '#fff',
-        marginBottom: '3px',
+        marginBottom: '5px',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
       }}>
         {label}
@@ -38,29 +38,29 @@ function DisplayBox({ label, value, unit }: { label: string; value: string; unit
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '6px'
+        gap: '8px'
       }}>
         <div style={{
-          fontSize: '28px',
+          fontSize: '40px',
           fontWeight: 'bold',
           color: '#ff0000',
           backgroundColor: '#000',
-          padding: '4px 8px',
-          borderRadius: '6px',
+          padding: '6px 12px',
+          borderRadius: '8px',
           fontFamily: "'Digital-7 Mono', 'Digital-7', monospace",
-          letterSpacing: '1px',
+          letterSpacing: '1.5px',
           flex: '1',
-          textShadow: '0 0 1px #ff0000'
+          textShadow: '0 0 2px #ff0000'
         }}>
           {value}
         </div>
         {unit && (
           <div style={{
-            fontSize: '16px',
+            fontSize: '22px',
             fontWeight: 'bold',
             color: '#fff',
             fontFamily: "'Roboto', sans-serif",
-            paddingRight: '3px',
+            paddingRight: '4px',
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {unit}
@@ -89,39 +89,39 @@ export function GameStats() {
   return (
     <div style={{
       position: 'absolute',
-      left: 'calc(100% + 10px)',
-      top: '-6px',
+      left: 'calc(100% + 15px)',
+      top: '-8px',
       display: 'flex',
       flexDirection: 'column',
-      gap: '10px',
+      gap: '14px',
       pointerEvents: 'auto',
       background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.65) 0%, rgba(50, 55, 65, 0.70) 15%, rgba(60, 65, 75, 0.75) 35%, rgba(55, 60, 70, 0.75) 50%, rgba(60, 65, 75, 0.75) 65%, rgba(50, 55, 65, 0.70) 85%, rgba(40, 45, 55, 0.65) 100%)',
       backdropFilter: 'blur(12px)',
-      border: '3px solid #333',
-      borderRadius: '16px',
-      padding: '14px',
+      border: '4px solid #333',
+      borderRadius: '20px',
+      padding: '20px',
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), inset 0 -1px 3px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.3)',
-      width: '240px'
+      width: '340px'
     }}>
       <button
         {...handleTouchButton(() => {
           window.history.back();
         })}
         style={{
-          padding: '6px 10px',
-          fontSize: '11px',
+          padding: '10px 14px',
+          fontSize: '15px',
           fontWeight: 'bold',
           fontFamily: "'Roboto', sans-serif",
           color: '#ffffff',
           background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.85) 0%, rgba(60, 65, 75, 0.90) 100%)',
           backdropFilter: 'blur(10px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.25)',
-          borderRadius: '6px',
+          border: '2px solid rgba(255, 255, 255, 0.25)',
+          borderRadius: '8px',
           cursor: 'pointer',
           textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           transition: 'all 0.2s ease',
-          letterSpacing: '0.8px',
+          letterSpacing: '1px',
           width: '100%'
         }}
         onMouseEnter={(e) => {
