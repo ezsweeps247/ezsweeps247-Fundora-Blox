@@ -229,12 +229,12 @@ export function MobileGameLayout() {
         }}>
           {/* Title */}
           <div style={{
-            fontSize: '14px',
+            fontSize: '20px',
             fontWeight: 'bold',
             color: '#ff0000',
             fontFamily: "'Digital-7 Mono', monospace",
-            letterSpacing: '1.5px',
-            textShadow: '0 0 8px rgba(255, 0, 0, 0.5)',
+            letterSpacing: '2px',
+            textShadow: '0 0 10px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 0, 0, 0.4)',
             lineHeight: '1',
           }}>
             FUNDORA BLOX
@@ -370,14 +370,14 @@ export function MobileGameLayout() {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: 'linear-gradient(145deg, #2a2a3e, #1a1a2e)',
-              border: '2px solid rgba(255, 255, 255, 0.1)',
+              background: 'linear-gradient(145deg, rgba(70,70,75,0.9), rgba(45,45,50,0.9))',
+              border: '2px solid rgba(255, 255, 255, 0.2)',
               color: '#fff',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               cursor: 'pointer',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.1)',
             }}
           >
             {soundMode === 'MUTE' ? <VolumeX size={24} /> : <Volume2 size={24} />}
@@ -400,17 +400,17 @@ export function MobileGameLayout() {
             fontSize: '20px',
             fontWeight: 'bold',
             background: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
-              ? 'linear-gradient(145deg, #666, #444)'
+              ? 'linear-gradient(145deg, rgba(60,60,65,0.9), rgba(40,40,45,0.9))'
               : phase === 'playing'
-              ? 'linear-gradient(145deg, #ff6b6b, #ff4444)'
-              : 'linear-gradient(145deg, #44ff44, #00cc00)',
+              ? 'linear-gradient(145deg, rgba(180,60,60,0.95), rgba(140,40,40,0.95))'
+              : 'linear-gradient(145deg, rgba(60,140,60,0.95), rgba(40,100,40,0.95))',
             color: '#fff',
-            border: 'none',
+            border: '2px solid rgba(255, 255, 255, 0.25)',
             borderRadius: '30px',
             cursor: (phase === 'ended' || phase === 'demo' || (phase === 'ready' && stake !== 'FREE' && stake > credits))
               ? 'not-allowed' 
               : 'pointer',
-            boxShadow: '0 6px 12px rgba(0, 0, 0, 0.4)',
+            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255,255,255,0.2)',
             textTransform: 'uppercase',
             letterSpacing: '1px',
           }}
@@ -433,15 +433,17 @@ export function MobileGameLayout() {
             style={{
               width: '50px',
               height: '25px',
-              background: phase === 'ready' ? '#ff8800' : '#666',
-              border: 'none',
+              background: phase === 'ready' 
+                ? 'linear-gradient(145deg, rgba(90,90,95,0.95), rgba(60,60,65,0.95))' 
+                : 'linear-gradient(145deg, #555, #444)',
+              border: '2px solid rgba(255, 255, 255, 0.2)',
               borderRadius: '12px 12px 0 0',
               color: '#fff',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.15)',
             }}
           >
             <ChevronUp size={16} />
@@ -466,15 +468,17 @@ export function MobileGameLayout() {
             style={{
               width: '50px',
               height: '25px',
-              background: phase === 'ready' ? '#ff8800' : '#666',
-              border: 'none',
+              background: phase === 'ready' 
+                ? 'linear-gradient(145deg, rgba(90,90,95,0.95), rgba(60,60,65,0.95))' 
+                : 'linear-gradient(145deg, #555, #444)',
+              border: '2px solid rgba(255, 255, 255, 0.2)',
               borderRadius: '0 0 12px 12px',
               color: '#fff',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.15)',
             }}
           >
             <ChevronDown size={16} />
