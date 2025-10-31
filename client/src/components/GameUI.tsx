@@ -46,7 +46,7 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
       pointerEvents: 'none',
       zIndex: 100,
       width: '280px',
-      opacity: 0.25
+      opacity: 0.12
     }}>
       <div style={{
         fontSize: '24px',
