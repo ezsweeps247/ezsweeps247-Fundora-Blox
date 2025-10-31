@@ -127,6 +127,7 @@ export function MobileGameLayout() {
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
+      drawPrizeIndicators(ctx, dimensions);
       drawGrid(ctx, dimensions);
       drawPlacedBlocks(ctx, blocks, dimensions);
       
@@ -519,6 +520,41 @@ export function MobileGameLayout() {
 }
 
 // Drawing functions
+function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any) {
+  const { cellSize, cellSpacing, padding } = dimensions;
+  const offsetX = padding;
+  const offsetY = padding;
+  
+  // Draw prize zone indicators for rows 6-13
+  const prizeRows = [
+    { row: 13, color: '#cc0000' },
+    { row: 12, color: '#ff8800' },
+    { row: 11, color: '#cccc00' },
+    { row: 10, color: '#00cc66' },
+    { row: 9, color: '#9966ff' },
+    { row: 8, color: '#0099cc' },
+    { row: 7, color: '#666666' },
+    { row: 6, color: '#ffffff' },
+  ];
+  
+  prizeRows.forEach(({ row, color }) => {
+    const y = offsetY + (GRID_ROWS - 1 - row) * (cellSize + cellSpacing);
+    const x = offsetX;
+    const width = GRID_COLS * cellSize + (GRID_COLS - 1) * cellSpacing;
+    const height = cellSize;
+    
+    // Parse hex color and add transparency
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.15;
+    
+    const radius = Math.min(6, cellSize * 0.15);
+    drawRoundedRect(ctx, x, y, width, height, radius);
+    ctx.fill();
+    
+    ctx.globalAlpha = 1.0;
+  });
+}
+
 function drawGrid(ctx: CanvasRenderingContext2D, dimensions: any) {
   const { cellSize, cellSpacing, padding } = dimensions;
   const offsetX = padding;
