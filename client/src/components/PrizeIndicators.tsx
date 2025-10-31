@@ -1,8 +1,13 @@
 import { useGame } from '@/lib/stores/useGame';
 
+interface PrizeIndicatorsProps {
+  scale?: number;
+  cellSize?: number;
+}
+
 const GRID_ROWS = 14;
-const CELL_SIZE = 85;
-const CELL_SPACING = 5;
+const BASE_CELL_SIZE = 85;
+const BASE_CELL_SPACING = 5;
 
 const PRIZE_TIERS = [
   { minRow: 13, color: '#cc0000', multiplier: 100, cashMultiplier: 100, freePoints: 1600, textColor: '#fff' },
@@ -34,7 +39,7 @@ function getPrizeTier(row: number) {
   return PRIZE_TIERS[PRIZE_TIERS.length - 1];
 }
 
-export function PrizeIndicators() {
+export function PrizeIndicators({ scale = 1, cellSize: propCellSize }: PrizeIndicatorsProps) {
   const stake = useGame(state => state.stake);
   const highestRow = useGame(state => state.highestRow);
   
@@ -43,30 +48,31 @@ export function PrizeIndicators() {
   
   const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
   
-  // Detect mobile for responsive sizing
-  const isMobile = typeof window !== 'undefined' && (window.innerWidth < 900 || window.innerHeight < 900);
+  // Use provided cellSize or calculate based on scale
+  const CELL_SIZE = propCellSize || BASE_CELL_SIZE;
+  const CELL_SPACING = Math.floor(CELL_SIZE * 0.08);
   
   const containerHeight = displayedRows.length * (CELL_SIZE + CELL_SPACING);
   
-  const CANVAS_OFFSET_Y = 20;
-  const BORDER_ADJUSTMENT = -16;
+  const CANVAS_OFFSET_Y = 10 * scale;
+  const BORDER_ADJUSTMENT = -8 * scale;
   
   return (
     <div style={{
       position: 'absolute',
-      right: 'calc(100% + 15px)',
+      right: `calc(100% + ${8 * scale}px)`,
       top: `${CANVAS_OFFSET_Y + BORDER_ADJUSTMENT}px`,
       background: 'rgba(255, 255, 255, 0.08)',
       backdropFilter: 'blur(16px) saturate(180%)',
-      border: '4px solid rgba(255, 255, 255, 0.15)',
-      borderRadius: '20px',
-      padding: '20px 26px',
+      border: `${Math.max(2, 3 * scale)}px solid rgba(255, 255, 255, 0.15)`,
+      borderRadius: `${12 * scale}px`,
+      padding: `${10 * scale}px ${13 * scale}px`,
       boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.2), 0 8px 32px rgba(0,0,0,0.5)',
-      width: isMobile ? '280px' : '340px',
+      width: `${170 * scale}px`,
       fontFamily: "'Arial Black', sans-serif",
       fontWeight: 'bold',
-      fontSize: isMobile ? '20px' : '26px',
-      transform: isMobile ? 'scale(0.8)' : 'none',
+      fontSize: `${13 * scale}px`,
+      transform: 'none',
       transformOrigin: 'right top'
     }}>
       <div style={{
@@ -120,9 +126,9 @@ export function PrizeIndicators() {
               <div style={{
                 width: 0,
                 height: 0,
-                borderTop: '14px solid transparent',
-                borderBottom: '14px solid transparent',
-                borderRight: `22px solid ${tier.color}`,
+                borderTop: `${7 * scale}px solid transparent`,
+                borderBottom: `${7 * scale}px solid transparent`,
+                borderRight: `${11 * scale}px solid ${tier.color}`,
                 opacity: 1,
                 flexShrink: 0,
               }} />
@@ -130,14 +136,14 @@ export function PrizeIndicators() {
                 color: tier.color,
                 padding: 0,
                 margin: 0,
-                textShadow: '2px 2px 3px rgba(0, 0, 0, 0.9)',
-                minWidth: isMobile ? '100px' : '130px',
+                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',
+                minWidth: `${65 * scale}px`,
                 textAlign: 'right',
                 opacity: 1,
-                fontSize: isMobile ? '32px' : '40px',
-                letterSpacing: '0.5px',
+                fontSize: `${20 * scale}px`,
+                letterSpacing: '0.25px',
                 fontWeight: 'bold',
-                WebkitTextStroke: (row >= 10 && !isFreeMode) ? '0.5px rgba(0, 0, 0, 0.4)' : 'none',
+                WebkitTextStroke: (row >= 10 && !isFreeMode) ? '0.25px rgba(0, 0, 0, 0.4)' : 'none',
                 lineHeight: '1',
                 height: 'auto',
               }}>

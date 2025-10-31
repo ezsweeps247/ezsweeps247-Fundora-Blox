@@ -1,7 +1,12 @@
 import { useGame } from '@/lib/stores/useGame';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
-export function StakeSelector() {
+interface StakeSelectorProps {
+  scale?: number;
+  fontSize?: any;
+}
+
+export function StakeSelector({ scale = 1, fontSize }: StakeSelectorProps) {
   const cycleStake = useGame(state => state.cycleStake);
   const phase = useGame(state => state.phase);
 
@@ -19,7 +24,7 @@ export function StakeSelector() {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      gap: '6px',
+      gap: `${4 * scale}px`,
       fontFamily: "'Roboto', sans-serif",
       justifyContent: 'center'
     }}>
@@ -27,13 +32,13 @@ export function StakeSelector() {
         {...handleTouchButton(() => cycleStake('up'))}
         disabled={phase !== 'ready'}
         style={{
-          width: '64px',
-          height: '50px',
+          width: `${40 * scale}px`,
+          height: `${32 * scale}px`,
           background: phase === 'ready' 
             ? 'linear-gradient(135deg, #FFB84D 0%, #FF8C00 100%)' 
             : 'linear-gradient(135deg, #ccc 0%, #999 100%)',
           border: 'none',
-          borderRadius: '14px',
+          borderRadius: `${8 * scale}px`,
           cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
           display: 'flex',
           justifyContent: 'center',
@@ -56,20 +61,20 @@ export function StakeSelector() {
           }
         }}
       >
-        <ChevronUp size={28} color={phase === 'ready' ? '#fff' : '#666'} strokeWidth={3} />
+        <ChevronUp size={18 * scale} color={phase === 'ready' ? '#fff' : '#666'} strokeWidth={3} />
       </button>
       
       <button
         {...handleTouchButton(() => cycleStake('down'))}
         disabled={phase !== 'ready'}
         style={{
-          width: '64px',
-          height: '50px',
+          width: `${40 * scale}px`,
+          height: `${32 * scale}px`,
           background: phase === 'ready' 
             ? 'linear-gradient(135deg, #FFB84D 0%, #FF8C00 100%)' 
             : 'linear-gradient(135deg, #ccc 0%, #999 100%)',
           border: 'none',
-          borderRadius: '14px',
+          borderRadius: `${8 * scale}px`,
           cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
           display: 'flex',
           justifyContent: 'center',
@@ -92,7 +97,7 @@ export function StakeSelector() {
           }
         }}
       >
-        <ChevronDown size={28} color={phase === 'ready' ? '#fff' : '#666'} strokeWidth={3} />
+        <ChevronDown size={18 * scale} color={phase === 'ready' ? '#fff' : '#666'} strokeWidth={3} />
       </button>
     </div>
   );

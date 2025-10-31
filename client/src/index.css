@@ -52,6 +52,11 @@ button {
     font-size: 14px;
   }
   
+  /* Prevent mobile browser bounce/refresh on overscroll */
+  html, body {
+    overscroll-behavior: none;
+  }
+  
   /* Ensure UI elements don't overflow */
   .score-displays {
     top: 10px !important;
