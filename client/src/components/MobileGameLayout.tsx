@@ -127,7 +127,7 @@ export function MobileGameLayout() {
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      drawPrizeIndicators(ctx, dimensions);
+      drawPrizeIndicators(ctx, dimensions, state.stake);
       drawGrid(ctx, dimensions);
       drawPlacedBlocks(ctx, blocks, dimensions);
       
@@ -520,10 +520,34 @@ export function MobileGameLayout() {
 }
 
 // Drawing functions
-function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any) {
+function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any, stake: number | 'FREE') {
   const { cellSize, cellSpacing, padding } = dimensions;
   const offsetX = padding;
   const offsetY = padding;
+  
+  const isFreeMode = stake === 'FREE';
+  const stakeAmount = typeof stake === 'number' ? stake : 0;
+  
+  // Calculate prize text for each row
+  const getPrizeText = (row: number): string => {
+    if (row <= 8) {
+      const points = getFixedPoints(row, stake);
+      return points % 1 === 0 ? `${points}P` : `${points.toFixed(1)}P`;
+    }
+    
+    const tier = getPrizeTier(row);
+    
+    if (row === 9 && isFreeMode) {
+      return '100P';
+    } else if (row >= 10 && isFreeMode && 'freePoints' in tier) {
+      return `${tier.freePoints}P`;
+    } else if ('cashMultiplier' in tier && tier.cashMultiplier !== undefined) {
+      const prizeAmount = stakeAmount * tier.cashMultiplier;
+      return `$${prizeAmount.toFixed(2)}`;
+    }
+    
+    return '';
+  };
   
   // Draw prize zone indicators for rows 6-13
   const prizeRows = [
@@ -543,7 +567,7 @@ function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any) {
     const width = GRID_COLS * cellSize + (GRID_COLS - 1) * cellSpacing;
     const height = cellSize;
     
-    // Parse hex color and add transparency
+    // Draw colored background
     ctx.fillStyle = color;
     ctx.globalAlpha = 0.15;
     
@@ -552,6 +576,32 @@ function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any) {
     ctx.fill();
     
     ctx.globalAlpha = 1.0;
+    
+    // Draw prize text in center
+    const prizeText = getPrizeText(row);
+    if (prizeText) {
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.6;
+      ctx.font = `bold ${Math.max(12, cellSize * 0.35)}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      
+      const centerX = x + width / 2;
+      const centerY = y + height / 2;
+      
+      // Draw text shadow for better visibility
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+      ctx.shadowBlur = 4;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      
+      ctx.fillText(prizeText, centerX, centerY);
+      
+      // Reset shadow
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+      ctx.globalAlpha = 1.0;
+    }
   });
 }
 
