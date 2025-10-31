@@ -77,8 +77,8 @@ export function MobileGameLayout() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // Reserve space for top bar (60px) and bottom controls (120px)
-      const availableHeight = vh - 180;
+      // Reserve space for top bar (60px), balance bar (45px), and bottom controls (120px)
+      const availableHeight = vh - 225;
       const availableWidth = vw - 20; // 10px padding on each side
       
       // Calculate cell size to fit the game board
@@ -268,54 +268,83 @@ export function MobileGameLayout() {
           </div>
         </div>
         
-        {/* Stats Toggle */}
-        <button
-          onClick={() => setShowStats(!showStats)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: '#fff',
-            padding: '5px',
-            cursor: 'pointer',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {showStats ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Empty space for balance */}
+        <div style={{ width: '40px' }}></div>
       </div>
       
-      {/* Stats Overlay */}
-      {showStats && (
+      {/* Balance Bar - Always Visible */}
+      <div style={{
+        background: 'linear-gradient(90deg, rgba(70,70,75,0.92) 0%, rgba(50,50,55,0.92) 50%, rgba(70,70,75,0.92) 100%)',
+        backdropFilter: 'blur(15px) saturate(160%)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+        padding: '8px 15px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        boxShadow: '0 2px 15px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1)',
+      }}>
+        {/* Credits */}
         <div style={{
-          position: 'absolute',
-          top: '60px',
-          right: '0',
-          background: 'linear-gradient(135deg, rgba(70,70,75,0.98) 0%, rgba(45,45,50,0.98) 50%, rgba(30,30,35,0.98) 100%)',
-          backdropFilter: 'blur(20px) saturate(180%)',
-          padding: '15px',
-          borderLeft: '2px solid rgba(255, 255, 255, 0.2)',
-          borderBottom: '2px solid rgba(255, 255, 255, 0.2)',
-          borderBottomLeftRadius: '20px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1)',
-          zIndex: 100,
-          minWidth: '150px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(255, 0, 0, 0.08)',
+          padding: '6px 12px',
+          borderRadius: '12px',
+          border: '2px solid rgba(255, 0, 0, 0.3)',
+          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)',
         }}>
-          <div style={{ marginBottom: '10px' }}>
-            <div style={{ fontSize: '10px', color: '#999' }}>CREDITS</div>
-            <div style={{ fontSize: '20px', color: '#ff0000', fontWeight: 'bold' }}>
-              ${credits.toFixed(2)}
-            </div>
+          <div style={{
+            fontSize: '10px',
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontWeight: '600',
+            letterSpacing: '0.5px',
+          }}>
+            CREDITS
           </div>
-          <div>
-            <div style={{ fontSize: '10px', color: '#999' }}>BONUS POINTS</div>
-            <div style={{ fontSize: '20px', color: '#ffaa00', fontWeight: 'bold' }}>
-              {formatNumber(bonusPoints)}P
-            </div>
+          <div style={{
+            fontSize: '18px',
+            color: '#ff0000',
+            fontWeight: 'bold',
+            textShadow: '0 0 8px rgba(255, 0, 0, 0.5)',
+            fontFamily: "'Digital-7 Mono', monospace",
+            letterSpacing: '1px',
+          }}>
+            ${credits.toFixed(2)}
           </div>
         </div>
-      )}
+
+        {/* Bonus Points */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(255, 170, 0, 0.08)',
+          padding: '6px 12px',
+          borderRadius: '12px',
+          border: '2px solid rgba(255, 170, 0, 0.3)',
+          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)',
+        }}>
+          <div style={{
+            fontSize: '10px',
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontWeight: '600',
+            letterSpacing: '0.5px',
+          }}>
+            POINTS
+          </div>
+          <div style={{
+            fontSize: '18px',
+            color: '#ffaa00',
+            fontWeight: 'bold',
+            textShadow: '0 0 8px rgba(255, 170, 0, 0.5)',
+            fontFamily: "'Digital-7 Mono', monospace",
+            letterSpacing: '1px',
+          }}>
+            {formatNumber(bonusPoints)}P
+          </div>
+        </div>
+      </div>
       
       {/* Game Canvas Container */}
       <div style={{
