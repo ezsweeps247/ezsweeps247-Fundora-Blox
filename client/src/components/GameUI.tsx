@@ -267,145 +267,179 @@ export function GameUI({ isMobile = false }: GameUIProps) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: isMobile ? '12px' : '16px',
-            background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(50, 55, 65, 0.92) 15%, rgba(60, 65, 75, 0.94) 35%, rgba(55, 60, 70, 0.95) 50%, rgba(60, 65, 75, 0.94) 65%, rgba(50, 55, 65, 0.92) 85%, rgba(40, 45, 55, 0.90) 100%)',
-            padding: isMobile ? '24px 36px' : '34px 56px 40px 56px',
-            borderRadius: '20px',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.1)',
-            border: '2px solid rgba(255, 255, 255, 0.15)',
-            backdropFilter: 'blur(12px)',
+            gap: isMobile ? '20px' : '24px',
+            background: 'linear-gradient(135deg, rgba(55,55,60,0.98) 0%, rgba(45,45,50,0.98) 100%)',
+            padding: isMobile ? '32px 40px' : '40px 60px',
+            borderRadius: '24px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 1px rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            backdropFilter: 'blur(20px) saturate(180%)',
             pointerEvents: 'auto',
             zIndex: 100,
             maxWidth: isMobile ? '90vw' : 'auto',
             width: isMobile ? 'auto' : 'auto'
           }}>
             <div style={{ 
-              fontSize: isMobile ? '24px' : '32px', 
-              fontWeight: 'bold',
+              fontSize: isMobile ? '28px' : '36px', 
+              fontWeight: '700',
               color: '#ffffff',
-              marginBottom: '6px',
-              textShadow: '0 3px 6px rgba(0,0,0,0.5)'
+              letterSpacing: '0.5px',
+              textShadow: '0 2px 12px rgba(0,0,0,0.4)'
             }}>
               Game Over
             </div>
+            
+            {/* Stats Container */}
             <div style={{
               display: 'flex',
-              flexDirection: 'column',
-              gap: isMobile ? '12px' : '16px',
-              marginBottom: '6px'
+              gap: isMobile ? '24px' : '40px',
+              alignItems: 'center',
+              padding: isMobile ? '16px 24px' : '20px 32px',
+              background: 'rgba(0,0,0,0.2)',
+              borderRadius: '16px',
+              border: '1px solid rgba(255,255,255,0.08)',
             }}>
-              <div style={{
-                display: 'flex',
-                gap: isMobile ? '20px' : '45px',
-                alignItems: 'center'
-              }}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ 
-                    fontSize: isMobile ? '14px' : '17px', 
-                    color: 'rgba(255, 255, 255, 0.6)', 
-                    marginBottom: '6px',
-                    fontWeight: 'bold',
-                    letterSpacing: '0.7px'
-                  }}>
-                    SCORE
-                  </div>
-                  <div style={{ 
-                    fontSize: isMobile ? '32px' : '46px', 
-                    color: '#ff6666', 
-                    fontWeight: 'bold',
-                    fontFamily: "'Digital-7 Mono', monospace",
-                    textShadow: '0 0 14px rgba(255, 102, 102, 0.5)'
-                  }}>
-                    {score}
-                  </div>
+              <div style={{ textAlign: 'center', position: 'relative' }}>
+                <div style={{ 
+                  fontSize: isMobile ? '10px' : '11px', 
+                  color: 'rgba(255, 255, 255, 0.5)', 
+                  marginBottom: '8px',
+                  fontWeight: '600',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase'
+                }}>
+                  Score
+                </div>
+                <div style={{ 
+                  fontSize: isMobile ? '36px' : '48px', 
+                  color: '#ff3333', 
+                  fontWeight: 'bold',
+                  fontFamily: "'Digital-7 Mono', monospace",
+                  letterSpacing: '1px',
+                  textShadow: '0 0 16px rgba(255, 51, 51, 0.5)'
+                }}>
+                  {score}
                 </div>
                 <div style={{
-                  width: isMobile ? '2px' : '3px',
-                  height: isMobile ? '50px' : '70px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)'
-                }} />
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ 
-                    fontSize: isMobile ? '14px' : '17px', 
-                    color: 'rgba(255, 255, 255, 0.6)', 
-                    marginBottom: '6px',
-                    fontWeight: 'bold',
-                    letterSpacing: '0.7px'
-                  }}>
-                    PRIZE
-                  </div>
-                  <div style={{ 
-                    fontSize: isMobile ? '32px' : '46px', 
-                    fontWeight: 'bold',
-                    fontFamily: "'Digital-7 Mono', monospace",
-                    color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),
-                    textShadow: potentialPrize.amount === 0 
-                      ? '0 0 14px rgba(255, 170, 68, 0.5)' 
-                      : (potentialPrize.type === 'cash' ? '0 0 14px rgba(68, 255, 68, 0.5)' : '0 0 14px rgba(255, 170, 68, 0.5)')
-                  }}>
-                    {potentialPrize.amount === 0 
-                      ? '0P'
-                      : potentialPrize.type === 'cash' 
-                        ? `$${potentialPrize.amount.toFixed(2)}`
-                        : `${potentialPrize.amount.toLocaleString()}P`
-                    }
-                  </div>
+                  position: 'absolute',
+                  bottom: '-8px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '80%',
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent, #ff3333, transparent)',
+                  opacity: 0.4,
+                }}></div>
+              </div>
+              
+              <div style={{
+                width: '1px',
+                height: isMobile ? '60px' : '80px',
+                background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent)',
+              }}></div>
+              
+              <div style={{ textAlign: 'center', position: 'relative' }}>
+                <div style={{ 
+                  fontSize: isMobile ? '10px' : '11px', 
+                  color: 'rgba(255, 255, 255, 0.5)', 
+                  marginBottom: '8px',
+                  fontWeight: '600',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase'
+                }}>
+                  Prize
+                </div>
+                <div style={{ 
+                  fontSize: isMobile ? '36px' : '48px', 
+                  fontWeight: 'bold',
+                  fontFamily: "'Digital-7 Mono', monospace",
+                  letterSpacing: '1px',
+                  color: potentialPrize.amount === 0 ? '#ffaa00' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa00'),
+                  textShadow: potentialPrize.amount === 0 
+                    ? '0 0 16px rgba(255, 170, 0, 0.5)' 
+                    : (potentialPrize.type === 'cash' ? '0 0 16px rgba(68, 255, 68, 0.5)' : '0 0 16px rgba(255, 170, 0, 0.5)')
+                }}>
+                  {potentialPrize.amount === 0 
+                    ? '0P'
+                    : potentialPrize.type === 'cash' 
+                      ? `$${potentialPrize.amount.toFixed(2)}`
+                      : `${potentialPrize.amount.toLocaleString()}P`
+                  }
+                </div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-8px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '80%',
+                  height: '2px',
+                  background: potentialPrize.amount === 0 
+                    ? 'linear-gradient(90deg, transparent, #ffaa00, transparent)'
+                    : (potentialPrize.type === 'cash' 
+                      ? 'linear-gradient(90deg, transparent, #44ff44, transparent)' 
+                      : 'linear-gradient(90deg, transparent, #ffaa00, transparent)'),
+                  opacity: 0.4,
+                }}></div>
+              </div>
+            </div>
+            
+            {bonusPoints > 0 && (
+              <div style={{
+                textAlign: 'center',
+                padding: isMobile ? '16px 24px' : '20px 32px',
+                background: 'rgba(255, 170, 0, 0.08)',
+                borderRadius: '16px',
+                border: '1px solid rgba(255, 170, 0, 0.2)',
+                width: '100%',
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '11px' : '12px',
+                  color: 'rgba(255, 255, 255, 0.6)',
+                  marginBottom: '8px',
+                  fontWeight: '600',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase'
+                }}>
+                  Bonus Points Earned
+                </div>
+                <div style={{
+                  fontSize: isMobile ? '32px' : '40px',
+                  color: '#ffaa00',
+                  fontWeight: 'bold',
+                  fontFamily: "'Digital-7 Mono', monospace",
+                  letterSpacing: '1px',
+                  textShadow: '0 0 16px rgba(255, 170, 0, 0.5)'
+                }}>
+                  +{formatNumber(bonusPoints)}P
                 </div>
               </div>
-              {bonusPoints > 0 && (
-                <div style={{
-                  textAlign: 'center',
-                  padding: '12px 22px',
-                  background: 'rgba(255, 170, 68, 0.15)',
-                  borderRadius: '12px',
-                  border: '2px solid rgba(255, 170, 68, 0.3)'
-                }}>
-                  <div style={{
-                    fontSize: '15px',
-                    color: 'rgba(255, 255, 255, 0.7)',
-                    marginBottom: '3px',
-                    fontWeight: 'bold',
-                    letterSpacing: '0.7px'
-                  }}>
-                    BONUS POINTS EARNED
-                  </div>
-                  <div style={{
-                    fontSize: '34px',
-                    color: '#ffaa44',
-                    fontWeight: 'bold',
-                    fontFamily: "'Digital-7 Mono', monospace",
-                    textShadow: '0 0 12px rgba(255, 170, 68, 0.5)'
-                  }}>
-                    +{formatNumber(bonusPoints)}P
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
+            
             <button
               {...handleTouchButton(() => { setUserInteracted(true); restart(); })}
               style={{
-                padding: '16px 68px',
-                fontSize: '26px',
-                fontWeight: 'bold',
-                marginTop: '6px',
-                background: 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)',
+                padding: isMobile ? '14px 56px' : '16px 72px',
+                fontSize: isMobile ? '22px' : '24px',
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '42px',
+                borderRadius: '16px',
                 cursor: 'pointer',
-                textTransform: 'uppercase',
-                boxShadow: '0 6px 12px rgba(0,0,0,0.4), inset 0 -3px 6px rgba(255,255,255,0.2), inset 0 3px 6px rgba(0,0,0,0.3)',
-                transition: 'all 0.2s'
+                letterSpacing: '0.5px',
+                boxShadow: '0 8px 24px rgba(255, 0, 0, 0.3), 0 2px 8px rgba(0,0,0,0.2)',
+                transition: 'all 0.2s ease',
+                textTransform: 'uppercase'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to top, #ff9999 0%, #ff6666 30%, #ee3333 70%, #aa0000 100%)';
+                e.currentTarget.style.background = 'linear-gradient(135deg, #ff5555 0%, #dd0000 100%)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(255,255,255,0.25), inset 0 3px 6px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 0, 0, 0.4), 0 4px 12px rgba(0,0,0,0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to top, #ff8888 0%, #ff5555 30%, #dd2222 70%, #990000 100%)';
+                e.currentTarget.style.background = 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.4), inset 0 -3px 6px rgba(255,255,255,0.2), inset 0 3px 6px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 0, 0, 0.3), 0 2px 8px rgba(0,0,0,0.2)';
               }}
             >
               Play Again
