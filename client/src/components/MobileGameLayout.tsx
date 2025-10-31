@@ -221,12 +221,11 @@ export function MobileGameLayout() {
           <Home size={20} />
         </button>
         
-        {/* Center: Title and Prize */}
+        {/* Center: Title */}
         <div style={{
           display: 'flex',
-          flexDirection: 'column',
+          justifyContent: 'center',
           alignItems: 'center',
-          gap: '2px',
         }}>
           {/* Title */}
           <div style={{
@@ -239,33 +238,6 @@ export function MobileGameLayout() {
             lineHeight: '1',
           }}>
             FUNDORA BLOX
-          </div>
-          
-          {/* Current Prize Indicator */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            padding: '2px 10px',
-            borderRadius: '12px',
-            border: `1px solid ${currentPrize.color}`,
-          }}>
-            <div style={{
-              fontSize: '8px',
-              color: 'rgba(255, 255, 255, 0.7)',
-              fontWeight: 'bold',
-            }}>
-              ROW {currentPrize.row}
-            </div>
-            <div style={{
-              fontSize: '12px',
-              fontWeight: 'bold',
-              color: currentPrize.color,
-              textShadow: `0 0 4px ${currentPrize.color}`,
-            }}>
-              {currentPrize.text}
-            </div>
           </div>
         </div>
         
