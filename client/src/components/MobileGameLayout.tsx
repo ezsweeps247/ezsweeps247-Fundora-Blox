@@ -269,7 +269,7 @@ export function MobileGameLayout() {
           position: 'relative',
         }}>
           <div style={{
-            fontSize: '9px',
+            fontSize: '11px',
             color: 'rgba(255, 255, 255, 0.5)',
             fontWeight: '600',
             letterSpacing: '1px',
@@ -278,7 +278,7 @@ export function MobileGameLayout() {
             Credits
           </div>
           <div style={{
-            fontSize: '20px',
+            fontSize: '24px',
             color: '#ff3333',
             fontWeight: 'bold',
             fontFamily: "'Digital-7 Mono', monospace",
@@ -316,7 +316,7 @@ export function MobileGameLayout() {
           position: 'relative',
         }}>
           <div style={{
-            fontSize: '9px',
+            fontSize: '11px',
             color: 'rgba(255, 255, 255, 0.5)',
             fontWeight: '600',
             letterSpacing: '1px',
@@ -325,7 +325,7 @@ export function MobileGameLayout() {
             Row {currentPrize.row}
           </div>
           <div style={{
-            fontSize: '20px',
+            fontSize: '24px',
             color: currentPrize.color,
             fontWeight: 'bold',
             fontFamily: "'Digital-7 Mono', monospace",
@@ -363,7 +363,7 @@ export function MobileGameLayout() {
           position: 'relative',
         }}>
           <div style={{
-            fontSize: '9px',
+            fontSize: '11px',
             color: 'rgba(255, 255, 255, 0.5)',
             fontWeight: '600',
             letterSpacing: '1px',
@@ -372,7 +372,7 @@ export function MobileGameLayout() {
             Points
           </div>
           <div style={{
-            fontSize: '20px',
+            fontSize: '24px',
             color: '#ffaa00',
             fontWeight: 'bold',
             fontFamily: "'Digital-7 Mono', monospace",
