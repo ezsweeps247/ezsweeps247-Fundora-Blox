@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useGame } from '@/lib/stores/useGame';
 import { useAudio } from '@/lib/stores/useAudio';
-import { Volume2, VolumeX, ChevronUp, ChevronDown, Menu, X } from 'lucide-react';
+import { Volume2, VolumeX, ChevronUp, ChevronDown, Menu, X, Home } from 'lucide-react';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
@@ -59,6 +59,7 @@ export function MobileGameLayout() {
   const start = useGame(state => state.start);
   const stopBlock = useGame(state => state.stopBlock);
   const cycleStake = useGame(state => state.cycleStake);
+  const restart = useGame(state => state.restart);
   const soundMode = useAudio(state => state.soundMode);
   const cycleSoundMode = useAudio(state => state.cycleSoundMode);
   
@@ -192,48 +193,78 @@ export function MobileGameLayout() {
         borderBottomLeftRadius: '24px',
         borderBottomRightRadius: '24px',
         boxShadow: '0 4px 30px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(0,0,0,0.3)',
-        display: 'flex',
+        display: 'grid',
+        gridTemplateColumns: '50px 1fr 50px',
         alignItems: 'center',
-        justifyContent: 'space-between',
         padding: '0 10px',
         position: 'relative',
+        gap: '8px',
       }}>
-        {/* Title */}
-        <div style={{
-          fontSize: '18px',
-          fontWeight: 'bold',
-          color: '#ff0000',
-          fontFamily: "'Digital-7 Mono', monospace",
-          letterSpacing: '2px',
-          textShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
-        }}>
-          FUNDORA
-        </div>
+        {/* Home Button */}
+        <button
+          onClick={restart}
+          style={{
+            background: 'linear-gradient(145deg, rgba(60,60,65,0.8), rgba(40,40,45,0.8))',
+            border: '2px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '12px',
+            color: '#fff',
+            width: '40px',
+            height: '40px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.4)',
+          }}
+        >
+          <Home size={20} />
+        </button>
         
-        {/* Current Prize Indicator */}
+        {/* Center: Title and Prize */}
         <div style={{
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px',
-          background: 'rgba(255, 255, 255, 0.1)',
-          padding: '5px 12px',
-          borderRadius: '20px',
-          border: `2px solid ${currentPrize.color}`,
+          gap: '2px',
         }}>
+          {/* Title */}
           <div style={{
-            fontSize: '10px',
-            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: '14px',
             fontWeight: 'bold',
+            color: '#ff0000',
+            fontFamily: "'Digital-7 Mono', monospace",
+            letterSpacing: '1.5px',
+            textShadow: '0 0 8px rgba(255, 0, 0, 0.5)',
+            lineHeight: '1',
           }}>
-            ROW {currentPrize.row}
+            FUNDORA BLOX
           </div>
+          
+          {/* Current Prize Indicator */}
           <div style={{
-            fontSize: '16px',
-            fontWeight: 'bold',
-            color: currentPrize.color,
-            textShadow: `0 0 5px ${currentPrize.color}`,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            background: 'rgba(255, 255, 255, 0.1)',
+            padding: '2px 10px',
+            borderRadius: '12px',
+            border: `1px solid ${currentPrize.color}`,
           }}>
-            {currentPrize.text}
+            <div style={{
+              fontSize: '8px',
+              color: 'rgba(255, 255, 255, 0.7)',
+              fontWeight: 'bold',
+            }}>
+              ROW {currentPrize.row}
+            </div>
+            <div style={{
+              fontSize: '12px',
+              fontWeight: 'bold',
+              color: currentPrize.color,
+              textShadow: `0 0 4px ${currentPrize.color}`,
+            }}>
+              {currentPrize.text}
+            </div>
           </div>
         </div>
         
@@ -246,6 +277,9 @@ export function MobileGameLayout() {
             color: '#fff',
             padding: '5px',
             cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           {showStats ? <X size={24} /> : <Menu size={24} />}
