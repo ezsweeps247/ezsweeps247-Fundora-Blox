@@ -109,7 +109,11 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
   );
 }
 
-export function GameUI() {
+interface GameUIProps {
+  isMobile?: boolean;
+}
+
+export function GameUI({ isMobile = false }: GameUIProps) {
   const phase = useGame(state => state.phase);
   const score = useGame(state => state.score);
   const credits = useGame(state => state.credits);
@@ -135,24 +139,8 @@ export function GameUI() {
   const [isSaving, setIsSaving] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
   const queryClient = useQueryClient();
 
-  // Detect mobile/small screens
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 900 || window.innerHeight < 900);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    window.addEventListener('orientationchange', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      window.removeEventListener('orientationchange', checkMobile);
-    };
-  }, []);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -235,29 +223,64 @@ export function GameUI() {
       pointerEvents: 'none',
       fontFamily: "'Roboto', sans-serif"
     }}>
-      <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />
+      {!isMobile && <ComboIndicator comboMultiplier={comboMultiplier} comboStreak={comboStreak} phase={phase} />}
+      
+      {/* Mobile Combo Indicator */}
+      {isMobile && comboMultiplier > 1 && phase === 'playing' && (
+        <div style={{
+          position: 'absolute',
+          top: '70px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(0, 0, 0, 0.9)',
+          padding: '8px 20px',
+          borderRadius: '20px',
+          border: `2px solid ${comboMultiplier >= 3 ? '#ff3300' : '#ffaa00'}`,
+          boxShadow: `0 0 20px ${comboMultiplier >= 3 ? 'rgba(255, 51, 0, 0.8)' : 'rgba(255, 170, 0, 0.6)'}`,
+          zIndex: 50,
+          textAlign: 'center',
+        }}>
+          <div style={{
+            fontSize: '18px',
+            fontWeight: 'bold',
+            color: comboMultiplier >= 3 ? '#ff3300' : '#ffaa00',
+            textShadow: `0 0 10px ${comboMultiplier >= 3 ? 'rgba(255, 51, 0, 0.8)' : 'rgba(255, 170, 0, 0.6)'}`,
+          }}>
+            COMBO x{comboMultiplier.toFixed(1)}!
+          </div>
+          <div style={{
+            fontSize: '12px',
+            color: '#fff',
+            marginTop: '2px',
+          }}>
+            {comboStreak} Perfect!
+          </div>
+        </div>
+      )}
       
       {phase === 'ended' && (
           <div style={{
             position: 'absolute',
-            top: '45%',
+            top: isMobile ? '50%' : '45%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '16px',
+            gap: isMobile ? '12px' : '16px',
             background: 'linear-gradient(to bottom, rgba(40, 45, 55, 0.90) 0%, rgba(50, 55, 65, 0.92) 15%, rgba(60, 65, 75, 0.94) 35%, rgba(55, 60, 70, 0.95) 50%, rgba(60, 65, 75, 0.94) 65%, rgba(50, 55, 65, 0.92) 85%, rgba(40, 45, 55, 0.90) 100%)',
-            padding: '34px 56px 40px 56px',
+            padding: isMobile ? '24px 36px' : '34px 56px 40px 56px',
             borderRadius: '20px',
             boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.1)',
             border: '2px solid rgba(255, 255, 255, 0.15)',
             backdropFilter: 'blur(12px)',
             pointerEvents: 'auto',
-            zIndex: 100
+            zIndex: 100,
+            maxWidth: isMobile ? '90vw' : 'auto',
+            width: isMobile ? 'auto' : 'auto'
           }}>
             <div style={{ 
-              fontSize: '32px', 
+              fontSize: isMobile ? '24px' : '32px', 
               fontWeight: 'bold',
               color: '#ffffff',
               marginBottom: '6px',
@@ -268,17 +291,17 @@ export function GameUI() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '16px',
+              gap: isMobile ? '12px' : '16px',
               marginBottom: '6px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: '45px',
+                gap: isMobile ? '20px' : '45px',
                 alignItems: 'center'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
-                    fontSize: '17px', 
+                    fontSize: isMobile ? '14px' : '17px', 
                     color: 'rgba(255, 255, 255, 0.6)', 
                     marginBottom: '6px',
                     fontWeight: 'bold',
@@ -287,7 +310,7 @@ export function GameUI() {
                     SCORE
                   </div>
                   <div style={{ 
-                    fontSize: '46px', 
+                    fontSize: isMobile ? '32px' : '46px', 
                     color: '#ff6666', 
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
@@ -297,13 +320,13 @@ export function GameUI() {
                   </div>
                 </div>
                 <div style={{
-                  width: '3px',
-                  height: '70px',
+                  width: isMobile ? '2px' : '3px',
+                  height: isMobile ? '50px' : '70px',
                   backgroundColor: 'rgba(255, 255, 255, 0.2)'
                 }} />
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
-                    fontSize: '17px', 
+                    fontSize: isMobile ? '14px' : '17px', 
                     color: 'rgba(255, 255, 255, 0.6)', 
                     marginBottom: '6px',
                     fontWeight: 'bold',
@@ -312,7 +335,7 @@ export function GameUI() {
                     PRIZE
                   </div>
                   <div style={{ 
-                    fontSize: '46px', 
+                    fontSize: isMobile ? '32px' : '46px', 
                     fontWeight: 'bold',
                     fontFamily: "'Digital-7 Mono', monospace",
                     color: potentialPrize.amount === 0 ? '#ffaa44' : (potentialPrize.type === 'cash' ? '#44ff44' : '#ffaa44'),

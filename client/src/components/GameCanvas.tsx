@@ -5,6 +5,7 @@ import { PrizeIndicators } from './PrizeIndicators';
 import { GameStats } from './GameStats';
 import { StakeSelector } from './StakeSelector';
 import { Volume2, VolumeX } from 'lucide-react';
+import { MobileGameLayout } from './MobileGameLayout';
 
 const GRID_COLS = 7;
 const GRID_ROWS = 14;
@@ -14,7 +15,17 @@ const BASE_CELL_SIZE = 40;
 const BASE_CELL_SPACING = 2;
 const BASE_PADDING = 10;
 
-export function GameCanvas() {
+interface GameCanvasProps {
+  isMobile?: boolean;
+}
+
+export function GameCanvas({ isMobile = false }: GameCanvasProps) {
+  // Use mobile layout if on mobile
+  if (isMobile) {
+    return <MobileGameLayout />;
+  }
+  
+  // Desktop layout continues below
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
