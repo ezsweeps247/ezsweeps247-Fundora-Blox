@@ -186,8 +186,10 @@ export function MobileGameLayout() {
       {/* Top Bar with Prize Indicator */}
       <div style={{
         height: '60px',
-        background: 'rgba(0, 0, 0, 0.8)',
-        borderBottom: '2px solid rgba(255, 255, 255, 0.1)',
+        background: 'linear-gradient(180deg, rgba(80,80,85,0.95) 0%, rgba(50,50,55,0.95) 45%, rgba(35,35,40,0.95) 55%, rgba(25,25,30,0.98) 100%)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        borderBottom: '2px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: '0 4px 30px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(0,0,0,0.3)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -254,11 +256,13 @@ export function MobileGameLayout() {
           position: 'absolute',
           top: '60px',
           right: '0',
-          background: 'rgba(0, 0, 0, 0.95)',
+          background: 'linear-gradient(135deg, rgba(70,70,75,0.98) 0%, rgba(45,45,50,0.98) 50%, rgba(30,30,35,0.98) 100%)',
+          backdropFilter: 'blur(20px) saturate(180%)',
           padding: '15px',
-          borderLeft: '2px solid rgba(255, 255, 255, 0.1)',
-          borderBottom: '2px solid rgba(255, 255, 255, 0.1)',
+          borderLeft: '2px solid rgba(255, 255, 255, 0.2)',
+          borderBottom: '2px solid rgba(255, 255, 255, 0.2)',
           borderBottomLeftRadius: '10px',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1)',
           zIndex: 100,
           minWidth: '150px',
         }}>
@@ -305,8 +309,10 @@ export function MobileGameLayout() {
       {/* Bottom Control Panel */}
       <div style={{
         height: '120px',
-        background: 'rgba(0, 0, 0, 0.9)',
-        borderTop: '2px solid rgba(255, 255, 255, 0.1)',
+        background: 'linear-gradient(0deg, rgba(80,80,85,0.95) 0%, rgba(50,50,55,0.95) 45%, rgba(35,35,40,0.95) 55%, rgba(25,25,30,0.98) 100%)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        borderTop: '2px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: '0 -4px 30px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(0,0,0,0.3)',
         display: 'grid',
         gridTemplateColumns: '1fr 2fr 1fr',
         gap: '10px',
