@@ -311,19 +311,19 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
       const y = offsetY + (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
       
       if (row === 9 || row === 13) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
         ctx.globalAlpha = 0.9;
       } else {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+        ctx.globalAlpha = 0.8;
       }
       
       drawRoundedRect(ctx, x, y, CELL_SIZE, CELL_SIZE, 16);
       ctx.fill();
       
-      // Add subtle border for glass effect
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.lineWidth = 1;
+      // Add darker border for better definition
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)';
+      ctx.lineWidth = 2;
       ctx.stroke();
       
       ctx.globalAlpha = 1.0;
