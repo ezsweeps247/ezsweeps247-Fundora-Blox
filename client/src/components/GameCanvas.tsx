@@ -310,7 +310,7 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
       const x = offsetX + col * (CELL_SIZE + CELL_SPACING);
       const y = offsetY + (GRID_ROWS - 1 - row) * (CELL_SIZE + CELL_SPACING);
       
-      if (row === 6 || row === 13) {
+      if (row === 9 || row === 13) {
         ctx.fillStyle = 'rgba(100, 100, 100, 0.5)';
         ctx.globalAlpha = 1.0;
       } else {
