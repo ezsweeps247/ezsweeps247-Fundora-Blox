@@ -315,6 +315,37 @@ export function MobileGameLayout() {
           </div>
         </div>
 
+        {/* Current Prize Display */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          background: `${currentPrize.color}15`,
+          padding: '6px 12px',
+          borderRadius: '12px',
+          border: `2px solid ${currentPrize.color}50`,
+          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)',
+        }}>
+          <div style={{
+            fontSize: '9px',
+            color: 'rgba(255, 255, 255, 0.5)',
+            fontWeight: '600',
+            letterSpacing: '0.5px',
+          }}>
+            R{currentPrize.row}
+          </div>
+          <div style={{
+            fontSize: '16px',
+            color: currentPrize.color,
+            fontWeight: 'bold',
+            textShadow: `0 0 8px ${currentPrize.color}80`,
+            fontFamily: "'Digital-7 Mono', monospace",
+            letterSpacing: '1px',
+          }}>
+            {currentPrize.text}
+          </div>
+        </div>
+
         {/* Bonus Points */}
         <div style={{
           display: 'flex',
@@ -576,32 +607,6 @@ function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any, sta
     ctx.fill();
     
     ctx.globalAlpha = 1.0;
-    
-    // Draw prize text in center
-    const prizeText = getPrizeText(row);
-    if (prizeText) {
-      ctx.fillStyle = color;
-      ctx.globalAlpha = 0.6;
-      ctx.font = `bold ${Math.max(12, cellSize * 0.35)}px Arial`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      
-      const centerX = x + width / 2;
-      const centerY = y + height / 2;
-      
-      // Draw text shadow for better visibility
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-      ctx.shadowBlur = 4;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-      
-      ctx.fillText(prizeText, centerX, centerY);
-      
-      // Reset shadow
-      ctx.shadowColor = 'transparent';
-      ctx.shadowBlur = 0;
-      ctx.globalAlpha = 1.0;
-    }
   });
 }
 
