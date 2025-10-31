@@ -435,22 +435,28 @@ export function MobileGameLayout() {
               height: '25px',
               background: phase === 'ready' ? '#ff8800' : '#666',
               border: 'none',
-              borderRadius: '5px 5px 0 0',
+              borderRadius: '12px 12px 0 0',
               color: '#fff',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
             }}
           >
             <ChevronUp size={16} />
           </button>
           <div style={{
             background: 'rgba(255, 255, 255, 0.1)',
-            padding: '2px 8px',
+            padding: '4px 10px',
             fontSize: '14px',
             color: stake === 'FREE' ? '#ffaa00' : '#00ff00',
             fontWeight: 'bold',
+            borderRadius: '6px',
+            border: '2px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.3)',
+            minWidth: '50px',
+            textAlign: 'center',
           }}>
             {stake === 'FREE' ? 'FREE' : `$${stake}`}
           </div>
@@ -462,12 +468,13 @@ export function MobileGameLayout() {
               height: '25px',
               background: phase === 'ready' ? '#ff8800' : '#666',
               border: 'none',
-              borderRadius: '0 0 5px 5px',
+              borderRadius: '0 0 12px 12px',
               color: '#fff',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               cursor: phase === 'ready' ? 'pointer' : 'not-allowed',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
             }}
           >
             <ChevronDown size={16} />
