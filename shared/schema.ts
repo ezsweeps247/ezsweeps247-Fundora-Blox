@@ -113,8 +113,8 @@ export type GameHistory = typeof gameHistory.$inferSelect;
 // Player credits for credit management
 export const playerCredits = pgTable("player_credits", {
   id: serial("id").primaryKey(),
-  apiKeyId: integer("api_key_id").references(() => apiKeys.id).notNull(),
-  externalPlayerId: text("external_player_id").notNull(),
+  apiKeyId: integer("api_key_id").references(() => apiKeys.id),
+  externalPlayerId: text("external_player_id").notNull().unique(),
   balance: decimal("balance", { precision: 10, scale: 2 }).notNull().default('0'),
   bonusPoints: integer("bonus_points").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),

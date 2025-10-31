@@ -69,13 +69,13 @@ export class MemStorage implements IStorage {
       const [result] = await db
         .insert(playerCredits)
         .values({
-          apiKeyId: 1, // Default API key for standalone game
+          apiKeyId: null, // Standalone game doesn't need API key
           externalPlayerId: playerId,
           bonusPoints: bonusPoints,
           balance: '0',
         })
         .onConflictDoUpdate({
-          target: [playerCredits.apiKeyId, playerCredits.externalPlayerId],
+          target: playerCredits.externalPlayerId,
           set: {
             bonusPoints: bonusPoints,
             updatedAt: new Date(),
@@ -96,9 +96,7 @@ export class MemStorage implements IStorage {
       const [result] = await db
         .select()
         .from(playerCredits)
-        .where(
-          drizzleSql`${playerCredits.apiKeyId} = 1 AND ${playerCredits.externalPlayerId} = ${playerId}`
-        )
+        .where(eq(playerCredits.externalPlayerId, playerId))
         .limit(1);
 
       if (result) {
@@ -109,7 +107,7 @@ export class MemStorage implements IStorage {
       const [newResult] = await db
         .insert(playerCredits)
         .values({
-          apiKeyId: 1,
+          apiKeyId: null,
           externalPlayerId: playerId,
           bonusPoints: 0,
           balance: '0',
