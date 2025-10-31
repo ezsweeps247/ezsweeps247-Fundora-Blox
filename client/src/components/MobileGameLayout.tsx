@@ -247,106 +247,148 @@ export function MobileGameLayout() {
       
       {/* Balance Bar - Always Visible */}
       <div style={{
-        background: 'linear-gradient(90deg, rgba(70,70,75,0.92) 0%, rgba(50,50,55,0.92) 50%, rgba(70,70,75,0.92) 100%)',
-        backdropFilter: 'blur(15px) saturate(160%)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
-        padding: '8px 15px',
+        background: 'linear-gradient(135deg, rgba(55,55,60,0.95) 0%, rgba(45,45,50,0.95) 100%)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        padding: '14px 20px',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        boxShadow: '0 2px 15px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1)',
+        gap: '20px',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.05)',
       }}>
         {/* Credits */}
         <div style={{
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px',
-          background: 'rgba(255, 0, 0, 0.08)',
-          padding: '6px 12px',
-          borderRadius: '12px',
-          border: '2px solid rgba(255, 0, 0, 0.3)',
-          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)',
-        }}>
-          <div style={{
-            fontSize: '10px',
-            color: 'rgba(255, 255, 255, 0.6)',
-            fontWeight: '600',
-            letterSpacing: '0.5px',
-          }}>
-            CREDITS
-          </div>
-          <div style={{
-            fontSize: '18px',
-            color: '#ff0000',
-            fontWeight: 'bold',
-            textShadow: '0 0 8px rgba(255, 0, 0, 0.5)',
-            fontFamily: "'Digital-7 Mono', monospace",
-            letterSpacing: '1px',
-          }}>
-            ${credits.toFixed(2)}
-          </div>
-        </div>
-
-        {/* Current Prize Display */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          background: `${currentPrize.color}15`,
-          padding: '6px 12px',
-          borderRadius: '12px',
-          border: `2px solid ${currentPrize.color}50`,
-          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)',
+          gap: '4px',
+          flex: 1,
+          position: 'relative',
         }}>
           <div style={{
             fontSize: '9px',
             color: 'rgba(255, 255, 255, 0.5)',
             fontWeight: '600',
-            letterSpacing: '0.5px',
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
           }}>
-            R{currentPrize.row}
+            Credits
           </div>
           <div style={{
-            fontSize: '16px',
+            fontSize: '20px',
+            color: '#ff3333',
+            fontWeight: 'bold',
+            fontFamily: "'Digital-7 Mono', monospace",
+            letterSpacing: '0.5px',
+            textShadow: '0 0 12px rgba(255, 51, 51, 0.4)',
+          }}>
+            ${credits.toFixed(2)}
+          </div>
+          <div style={{
+            position: 'absolute',
+            bottom: '-2px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '60%',
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent, #ff3333, transparent)',
+            opacity: 0.4,
+          }}></div>
+        </div>
+
+        {/* Vertical Separator */}
+        <div style={{
+          width: '1px',
+          height: '40px',
+          background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent)',
+        }}></div>
+
+        {/* Current Prize Display */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '4px',
+          flex: 1,
+          position: 'relative',
+        }}>
+          <div style={{
+            fontSize: '9px',
+            color: 'rgba(255, 255, 255, 0.5)',
+            fontWeight: '600',
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
+          }}>
+            Row {currentPrize.row}
+          </div>
+          <div style={{
+            fontSize: '20px',
             color: currentPrize.color,
             fontWeight: 'bold',
-            textShadow: `0 0 8px ${currentPrize.color}80`,
             fontFamily: "'Digital-7 Mono', monospace",
-            letterSpacing: '1px',
+            letterSpacing: '0.5px',
+            textShadow: `0 0 12px ${currentPrize.color}60`,
           }}>
             {currentPrize.text}
           </div>
+          <div style={{
+            position: 'absolute',
+            bottom: '-2px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '60%',
+            height: '2px',
+            background: `linear-gradient(90deg, transparent, ${currentPrize.color}, transparent)`,
+            opacity: 0.5,
+          }}></div>
         </div>
+
+        {/* Vertical Separator */}
+        <div style={{
+          width: '1px',
+          height: '40px',
+          background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent)',
+        }}></div>
 
         {/* Bonus Points */}
         <div style={{
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px',
-          background: 'rgba(255, 170, 0, 0.08)',
-          padding: '6px 12px',
-          borderRadius: '12px',
-          border: '2px solid rgba(255, 170, 0, 0.3)',
-          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)',
+          gap: '4px',
+          flex: 1,
+          position: 'relative',
         }}>
           <div style={{
-            fontSize: '10px',
-            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: '9px',
+            color: 'rgba(255, 255, 255, 0.5)',
             fontWeight: '600',
-            letterSpacing: '0.5px',
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
           }}>
-            POINTS
+            Points
           </div>
           <div style={{
-            fontSize: '18px',
+            fontSize: '20px',
             color: '#ffaa00',
             fontWeight: 'bold',
-            textShadow: '0 0 8px rgba(255, 170, 0, 0.5)',
             fontFamily: "'Digital-7 Mono', monospace",
-            letterSpacing: '1px',
+            letterSpacing: '0.5px',
+            textShadow: '0 0 12px rgba(255, 170, 0, 0.4)',
           }}>
             {formatNumber(bonusPoints)}P
           </div>
+          <div style={{
+            position: 'absolute',
+            bottom: '-2px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '60%',
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent, #ffaa00, transparent)',
+            opacity: 0.4,
+          }}></div>
         </div>
       </div>
       
