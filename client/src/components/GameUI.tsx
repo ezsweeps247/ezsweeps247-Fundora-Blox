@@ -45,54 +45,54 @@ function ComboIndicator({ comboMultiplier, comboStreak, phase }: { comboMultipli
       right: 'calc(50% + 340px)',
       pointerEvents: 'none',
       zIndex: 100,
-      width: '280px'
+      width: '280px',
+      opacity: 0.25
     }}>
       <div style={{
-        fontSize: '40px',
+        fontSize: '24px',
         fontWeight: 'bold',
         color: color,
         textShadow: `
-          0 0 12px ${glowColor},
-          0 0 22px ${glowColor},
-          3px 3px 6px rgba(0, 0, 0, 0.8)
+          0 0 4px ${glowColor},
+          1px 1px 2px rgba(0, 0, 0, 0.6)
         `,
         fontFamily: "'Roboto', sans-serif",
-        letterSpacing: '1.5px',
+        letterSpacing: '1px',
         textAlign: 'center',
         animation: animate ? 'comboPulse 0.5s ease-out' : 'comboFloat 2s ease-in-out infinite',
         backgroundColor: 'transparent',
-        padding: '8px 16px',
-        borderRadius: '12px',
-        border: `3px solid ${color}`,
+        padding: '4px 10px',
+        borderRadius: '8px',
+        border: `2px solid ${color}`,
         boxShadow: `
-          0 0 20px ${glowColor},
-          inset 0 0 20px rgba(0, 0, 0, 0.5)
+          0 0 8px ${glowColor},
+          inset 0 0 8px rgba(0, 0, 0, 0.3)
         `
       }}>
         COMBO x{comboMultiplier.toFixed(1)}!
       </div>
       <div style={{
-        fontSize: '26px',
-        fontWeight: '900',
+        fontSize: '14px',
+        fontWeight: '700',
         color: '#ffffff',
         textShadow: `
-          2px 2px 0 #000,
-          -2px -2px 0 #000,
-          2px -2px 0 #000,
-          -2px 2px 0 #000,
-          0 0 6px rgba(0, 0, 0, 0.8)
+          1px 1px 0 #000,
+          -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
+          0 0 3px rgba(0, 0, 0, 0.6)
         `,
         fontFamily: "'Arial Black', 'Arial', sans-serif",
         textAlign: 'center',
-        marginTop: '6px',
+        marginTop: '3px',
         backgroundColor: 'transparent',
-        padding: '4px 12px',
-        borderRadius: '6px',
+        padding: '2px 8px',
+        borderRadius: '4px',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
-        letterSpacing: '0.7px'
+        letterSpacing: '0.4px'
       } as React.CSSProperties}>
-        {comboStreak} Perfect Alignment{comboStreak !== 1 ? 's' : ''}!
+        {comboStreak} Perfect!
       </div>
       <style>{`
         @keyframes comboPulse {
