@@ -250,6 +250,8 @@ export function MobileGameLayout() {
         background: 'linear-gradient(135deg, rgba(55,55,60,0.95) 0%, rgba(45,45,50,0.95) 100%)',
         backdropFilter: 'blur(20px) saturate(180%)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        borderBottomLeftRadius: '16px',
+        borderBottomRightRadius: '16px',
         padding: '14px 20px',
         display: 'flex',
         justifyContent: 'space-around',
