@@ -12,7 +12,7 @@ const BASE_CELL_SPACING = 5;
 const PRIZE_TIERS = [
   { minRow: 13, color: '#cc0000', multiplier: 100, cashMultiplier: 100, freePoints: 1600, textColor: '#fff' },
   { minRow: 12, color: '#ff8800', multiplier: 10, cashMultiplier: 10, freePoints: 800, textColor: '#fff' },
-  { minRow: 11, color: '#cccc00', multiplier: 5, cashMultiplier: 5, freePoints: 400, textColor: '#000' },
+  { minRow: 11, color: '#00ffff', multiplier: 5, cashMultiplier: 5, freePoints: 400, textColor: '#000' },
   { minRow: 10, color: '#00cc66', multiplier: 2, cashMultiplier: 2, freePoints: 200, textColor: '#000' },
   { minRow: 9, color: '#9966ff', multiplier: 1, cashMultiplier: 1, freePoints: 100, textColor: '#fff' },
   { minRow: 8, color: '#0099cc', multiplier: 0, textColor: '#fff' },

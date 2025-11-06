@@ -611,7 +611,7 @@ function drawPrizeIndicators(ctx: CanvasRenderingContext2D, dimensions: any, sta
   const prizeRows = [
     { row: 13, color: '#cc0000' },
     { row: 12, color: '#ff8800' },
-    { row: 11, color: '#cccc00' },
+    { row: 11, color: '#00ffff' },
     { row: 10, color: '#00cc66' },
     { row: 9, color: '#9966ff' },
     { row: 8, color: '#0099cc' },
@@ -652,7 +652,7 @@ function drawGrid(ctx: CanvasRenderingContext2D, dimensions: any) {
   const PRIZE_TIERS = [
     { minRow: 13, color: '#cc0000', cashMultiplier: 100, freePoints: 1600 },
     { minRow: 12, color: '#ff8800', cashMultiplier: 10, freePoints: 800 },
-    { minRow: 11, color: '#cccc00', cashMultiplier: 5, freePoints: 400 },
+    { minRow: 11, color: '#00ffff', cashMultiplier: 5, freePoints: 400 },
     { minRow: 10, color: '#00cc66', cashMultiplier: 2, freePoints: 200 },
     { minRow: 9, color: '#9966ff', cashMultiplier: 1, freePoints: 100 },
   ];
