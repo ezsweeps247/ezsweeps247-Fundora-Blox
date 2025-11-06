@@ -154,3 +154,48 @@ Preferred communication style: Simple, everyday language.
 ### Development
 - **TypeScript**: Type safety across frontend and backend
 - **@replit/vite-plugin-runtime-error-modal**: Enhanced error display in development
+
+## Integration API
+
+**External Platform Integration**
+- Comprehensive REST API for hosting software integration
+- API key-based authentication system
+- Webhook support for real-time event notifications
+- Rationale: Enables third-party platforms to embed and monetize the game
+
+**API Endpoints**
+- **Admin API** (`/api/admin/*`): API key management for platform onboarding
+- **Game Sessions** (`/api/game/sessions/*`): Create and manage game sessions
+- **Credits Management** (`/api/game/credits/*`): Load/redeem player credits with transaction audit
+- **Points Management** (`/api/game/points/*`): Award/redeem bonus points for products
+- **Analytics** (`/api/game/analytics/*`): Session statistics and player analytics
+- **History** (`/api/history`): Public game results feed
+
+**API Features**
+- Session-based gameplay tracking with unique embed URLs
+- Atomic credit transactions with balance locking for data integrity
+- Product redemption system with metadata support
+- Real-time webhooks for game events (started, ended, prize.won)
+- HMAC signature verification for webhook security
+- Comprehensive analytics with time-range filtering
+- Player-specific statistics and leaderboards
+
+**Security & Authentication**
+- API key middleware (`server/middleware/apiAuth.ts`) validates requests
+- Admin-only endpoints protected by `X-Admin-Secret` header
+- Webhook signatures use HMAC SHA-256 for payload verification
+- Database transactions ensure atomic credit/point operations
+
+**Integration Flow**
+1. Platform admin generates API key via `/api/admin/keys` endpoint
+2. Platform creates game session with player ID, stake, and initial credits
+3. Game embedded via iframe using returned `sessionToken`
+4. Webhooks notify platform of game events in real-time
+5. Platform manages credits/points via dedicated endpoints
+6. Analytics endpoints provide usage insights and leaderboards
+
+**Documentation**
+- Full API documentation in `API_DOCUMENTATION.md`
+- Interactive examples for all endpoints
+- Webhook payload samples and signature verification
+- Error handling and status codes reference

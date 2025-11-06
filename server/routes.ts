@@ -8,6 +8,7 @@ import historyRouter from "./api/history";
 import analyticsRouter from "./api/analytics";
 import creditsRouter from "./api/credits";
 import pointsRouter from "./api/points";
+import adminRouter from "./api/admin";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -15,6 +16,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+
+  // Admin API routes for API key management
+  app.use("/api/admin", adminRouter);
 
   // Game API routes for external platform integration
   app.use("/api/game", gameRouter);
