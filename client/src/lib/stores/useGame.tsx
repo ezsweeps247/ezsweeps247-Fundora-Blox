@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { useAudio } from "./useAudio";
 
 export type GamePhase = "ready" | "playing" | "ended" | "demo";
 
@@ -538,6 +539,9 @@ export const useGame = create<GameState>()(
         console.log("Cannot stop block - invalid state");
         return;
       }
+      
+      // Play hit sound when stop button is toggled
+      useAudio.getState().playHit();
       
       // Clear demo auto-stop timer if exists
       if (state.demoAutoStopTimer) {

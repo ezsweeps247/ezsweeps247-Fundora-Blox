@@ -136,18 +136,5 @@ export function SoundManager() {
     return unsubscribe;
   }, [playSuccess]);
   
-  useEffect(() => {
-    const unsubscribe = useGame.subscribe(
-      (state) => state.phase,
-      (phase, prevPhase) => {
-        if (phase === 'ended' && prevPhase === 'playing') {
-          playHit();
-        }
-      }
-    );
-    
-    return unsubscribe;
-  }, [playHit]);
-  
   return null;
 }
