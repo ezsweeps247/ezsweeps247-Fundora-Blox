@@ -264,7 +264,7 @@ export function MobileGameLayout() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '4px',
+          gap: '2px',
           flex: 1,
           position: 'relative',
         }}>
@@ -286,6 +286,17 @@ export function MobileGameLayout() {
             textShadow: '0 0 12px rgba(255, 51, 51, 0.4)',
           }}>
             ${credits.toFixed(2)}
+          </div>
+          <div style={{
+            fontSize: '16px',
+            color: '#ffaa00',
+            fontWeight: 'bold',
+            fontFamily: "'Digital-7 Mono', monospace",
+            letterSpacing: '0.5px',
+            textShadow: '0 0 8px rgba(255, 170, 0, 0.4)',
+            marginTop: '2px',
+          }}>
+            {formatNumber(bonusPoints)}P
           </div>
           <div style={{
             position: 'absolute',
