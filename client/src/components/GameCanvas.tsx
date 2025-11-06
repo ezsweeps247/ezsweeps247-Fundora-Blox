@@ -445,7 +445,7 @@ function drawGrid(ctx: CanvasRenderingContext2D, dimensions: any) {
       const tier = PRIZE_TIERS.find(t => row >= t.minRow);
       if (tier) {
         const y = offsetY + (GRID_ROWS - 1 - row) * (cellSize + cellSpacing);
-        const textX = offsetX + GRID_COLS * (cellSize + cellSpacing) - cellSize - 5;
+        const textX = offsetX + GRID_COLS * (cellSize + cellSpacing) - cellSize * 0.15;
         const textY = y + cellSize / 2;
         
         let prizeText = '';
@@ -456,26 +456,14 @@ function drawGrid(ctx: CanvasRenderingContext2D, dimensions: any) {
           prizeText = `$${prizeAmount.toFixed(0)}`;
         }
         
-        // Draw prize text with background
-        ctx.font = `bold ${Math.max(10, cellSize * 0.25)}px Arial`;
+        // Draw large prize text with strong glow
+        ctx.font = `bold ${Math.max(16, cellSize * 0.7)}px Arial`;
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
         
-        // Draw semi-transparent background
-        const textMetrics = ctx.measureText(prizeText);
-        const textWidth = textMetrics.width;
-        const bgPadding = 4;
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(
-          textX - textWidth - bgPadding,
-          textY - cellSize * 0.15,
-          textWidth + bgPadding * 2,
-          cellSize * 0.3
-        );
-        
-        // Draw text with glow
+        // Draw text with strong glow effect
         ctx.shadowColor = tier.color;
-        ctx.shadowBlur = 4;
+        ctx.shadowBlur = 8;
         ctx.fillStyle = tier.color;
         ctx.fillText(prizeText, textX, textY);
         ctx.shadowBlur = 0;
