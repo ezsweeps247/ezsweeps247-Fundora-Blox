@@ -44,7 +44,7 @@ export function SoundManager() {
       .catch(err => console.log('Error loading background music:', err));
     
     // Load hit sound with Web Audio API for low-latency playback
-    fetch('/sounds/hit-new.wav')
+    fetch('/sounds/hit.mp3')
       .then(response => response.arrayBuffer())
       .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
       .then(audioBuffer => {
