@@ -42,9 +42,13 @@ function getPrizeTier(row: number) {
 export function PrizeIndicators({ scale = 1, cellSize: propCellSize }: PrizeIndicatorsProps) {
   const stake = useGame(state => state.stake);
   const highestRow = useGame(state => state.highestRow);
+  const blocks = useGame(state => state.blocks);
   
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
+  
+  // Create a set of rows that have been landed on
+  const landedRows = new Set(blocks.map(block => block.row));
   
   const displayedRows = [13, 12, 11, 10, 9, 8, 7, 6];
   
@@ -107,6 +111,10 @@ export function PrizeIndicators({ scale = 1, cellSize: propCellSize }: PrizeIndi
           
           const isActive = highestRow >= row;
           
+          // Use bright cyan by default, change to tier color only if landed on this row
+          const hasLanded = landedRows.has(row);
+          const displayColor = hasLanded ? tier.color : '#00ffff';
+          
           return (
             <div
               key={row}
@@ -128,12 +136,12 @@ export function PrizeIndicators({ scale = 1, cellSize: propCellSize }: PrizeIndi
                 height: 0,
                 borderTop: `${7 * scale}px solid transparent`,
                 borderBottom: `${7 * scale}px solid transparent`,
-                borderRight: `${11 * scale}px solid ${tier.color}`,
+                borderRight: `${11 * scale}px solid ${displayColor}`,
                 opacity: 1,
                 flexShrink: 0,
               }} />
               <div style={{
-                color: tier.color,
+                color: displayColor,
                 padding: 0,
                 margin: 0,
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.9)',

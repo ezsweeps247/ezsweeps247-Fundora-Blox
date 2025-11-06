@@ -642,11 +642,15 @@ function drawGrid(ctx: CanvasRenderingContext2D, dimensions: any) {
   const offsetX = padding;
   const offsetY = padding;
   
-  // Get current stake for prize calculations
+  // Get current stake and blocks for prize calculations
   const state = useGame.getState();
   const stake = state.stake;
+  const blocks = state.blocks;
   const isFreeMode = stake === 'FREE';
   const stakeAmount = typeof stake === 'number' ? stake : 0;
+  
+  // Create a set of rows that have been landed on
+  const landedRows = new Set(blocks.map(block => block.row));
   
   // Prize tier configuration
   const PRIZE_TIERS = [
@@ -697,15 +701,19 @@ function drawGrid(ctx: CanvasRenderingContext2D, dimensions: any) {
           prizeText = `$${prizeAmount.toFixed(0)}`;
         }
         
+        // Use bright cyan by default, change to tier color only if landed on this row
+        const hasLanded = landedRows.has(row);
+        const displayColor = hasLanded ? tier.color : '#00ffff';
+        
         // Draw large prize text with strong glow
         ctx.font = `bold ${Math.max(16, cellSize * 0.7)}px Arial`;
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
         
         // Draw text with strong glow effect
-        ctx.shadowColor = tier.color;
+        ctx.shadowColor = displayColor;
         ctx.shadowBlur = 8;
-        ctx.fillStyle = tier.color;
+        ctx.fillStyle = displayColor;
         ctx.fillText(prizeText, textX, textY);
         ctx.shadowBlur = 0;
       }
