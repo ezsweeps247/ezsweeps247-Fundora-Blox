@@ -6,12 +6,28 @@ import { eq } from 'drizzle-orm';
 
 const router = Router();
 
-// Simple admin password from environment variable
-// In production, use a proper admin authentication system
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'change-me-in-production';
+// Require admin secret to be set in environment
+const ADMIN_SECRET = process.env.ADMIN_SECRET;
+
+// Warn if ADMIN_SECRET is not set (critical security issue)
+if (!ADMIN_SECRET) {
+  console.warn(
+    '\n⚠️  WARNING: ADMIN_SECRET environment variable is not set!\n' +
+    '   Admin API endpoints are DISABLED for security.\n' +
+    '   Set ADMIN_SECRET in your environment to enable admin functionality.\n'
+  );
+}
 
 // Middleware to check admin authentication
 function requireAdmin(req: any, res: any, next: any) {
+  // Block all admin requests if ADMIN_SECRET is not configured
+  if (!ADMIN_SECRET) {
+    return res.status(503).json({
+      error: 'Service unavailable',
+      message: 'Admin API is disabled. ADMIN_SECRET environment variable must be configured.'
+    });
+  }
+
   const adminSecret = req.headers['x-admin-secret'] as string;
   
   if (!adminSecret || adminSecret !== ADMIN_SECRET) {
@@ -210,6 +226,43 @@ router.patch('/keys/:id/activate', requireAdmin, async (req, res) => {
     res.status(500).json({
       error: 'Server error',
       message: 'Failed to activate API key'
+    });
+  }
+});
+
+/**
+ * DELETE /api/admin/keys/:id
+ * Permanently delete an API key
+ */
+router.delete('/keys/:id', requireAdmin, async (req, res) => {
+  try {
+    const keyId = parseInt(req.params.id);
+
+    const [deletedKey] = await db
+      .delete(apiKeys)
+      .where(eq(apiKeys.id, keyId))
+      .returning();
+
+    if (!deletedKey) {
+      return res.status(404).json({
+        error: 'API key not found',
+        message: 'No API key found with this ID'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'API key deleted successfully',
+      apiKey: {
+        id: deletedKey.id,
+        name: deletedKey.name
+      }
+    });
+  } catch (error) {
+    console.error('Delete API key error:', error);
+    res.status(500).json({
+      error: 'Server error',
+      message: 'Failed to delete API key'
     });
   }
 });
