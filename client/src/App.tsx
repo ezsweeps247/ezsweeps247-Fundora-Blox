@@ -71,7 +71,7 @@ function App() {
         top: 0,
         left: 0,
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(180deg, #3a3a3f 0%, #2d2d32 50%, #1f1f24 100%)',
         display: 'flex',
         flexDirection: 'column',
       }}>
@@ -91,7 +91,7 @@ function App() {
       top: 0,
       left: 0,
       overflow: 'hidden',
-      background: '#ffffff',
+      background: 'linear-gradient(180deg, #3a3a3f 0%, #2d2d32 50%, #1f1f24 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
