@@ -82,7 +82,7 @@ interface GameState {
 }
 
 const GRID_WIDTH = 7;
-const BASE_SPEED = 4.5;
+const BASE_SPEED = 3.5;
 const MIN_SPEED_INCREMENT = 0.4;
 const MAX_SPEED_INCREMENT = 0.7;
 
@@ -99,15 +99,15 @@ const getPointMultiplier = (stake: number | 'FREE'): number => {
 };
 
 // Helper function to get speed multiplier based on stake
-// Higher stakes = faster blocks = more challenging
+// Reduced multipliers to make it easier to reach row 8
 const getStakeSpeedMultiplier = (stake: number | 'FREE'): number => {
-  if (stake === 'FREE') return 0.8;  // Easier
-  if (stake === 0.5) return 0.9;     // Slightly easier
-  if (stake === 1) return 1.2;       // Faster
-  if (stake === 2) return 1.25;      // Slightly faster
-  if (stake === 5) return 1.5;       // Quite challenging
-  if (stake === 10) return 1.7;      // Really challenging
-  if (stake === 20) return 2.0;      // Extremely challenging
+  if (stake === 'FREE') return 0.7;  // Much easier
+  if (stake === 0.5) return 0.8;     // Easier
+  if (stake === 1) return 0.95;      // Slightly easier
+  if (stake === 2) return 1.0;       // Balanced
+  if (stake === 5) return 1.1;       // Slightly challenging
+  if (stake === 10) return 1.2;      // Moderately challenging
+  if (stake === 20) return 1.3;      // Challenging
   return 1.0;
 };
 
@@ -442,17 +442,17 @@ export const useGame = create<GameState>()(
         ? (Math.random() > 0.5 ? 1 : -1)
         : (Math.random() > 0.3 ? -state.movementDirection : state.movementDirection);
       
-      // Calculate speed with AGGRESSIVE increase and GROWING randomness for each row
+      // Calculate speed with moderate increase and controlled randomness for each row
       let rowSpeed: number;
       
       // Calculate progressive speed multiplier that compounds with each row
-      // Each row gets significantly faster than the previous
-      const baseMultiplier = 0.55; // Starting increment per row (increased from 0.35)
-      const progressiveMultiplier = baseMultiplier + (newRow * 0.12); // Increases by 0.12 per row (increased from 0.08)
+      // Reduced values to make it easier to reach row 8
+      const baseMultiplier = 0.35; // Starting increment per row (reduced for easier gameplay)
+      const progressiveMultiplier = baseMultiplier + (newRow * 0.06); // Increases by 0.06 per row (reduced from 0.12)
       
-      // Calculate randomness range that GROWS with each row
-      // Higher rows = wider random variation = more unpredictable
-      const randomnessRange = 0.3 + (newRow * 0.08); // Wider random variation (increased from 0.15 + 0.05)
+      // Calculate randomness range that grows moderately with each row
+      // Reduced randomness to make timing more predictable
+      const randomnessRange = 0.15 + (newRow * 0.04); // Reduced random variation (from 0.3 + 0.08)
       const randomVariation = (Math.random() - 0.5) * randomnessRange; // Can be + or -
       
       // Apply progressive speed formula
