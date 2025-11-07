@@ -23,8 +23,13 @@ function App() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // More aggressive mobile detection
-      const isMobile = vw <= 900 || vh <= 600 || 'ontouchstart' in window || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      // Check for force desktop mode via URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceDesktop = urlParams.get('mode') === 'desktop';
+      
+      // Only detect mobile for actual mobile devices (not desktop iframes or touch screens)
+      const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const isMobile = !forceDesktop && (isMobileDevice && (vw < 768 || vh < 600));
       
       setMobileContext({
         isMobile,
