@@ -23,31 +23,14 @@ function App() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // Detect mobile/embedded views - use responsive layout for better sizing
-      const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      const isEmbedded = vw < 1024 || vh < 800; // Likely embedded in iframe or mobile
-      const isMobile = isMobileDevice || isEmbedded;
-      
+      // Always use responsive layout that adapts to any screen size
       setMobileContext({
-        isMobile,
+        isMobile: true, // Use responsive layout for all screen sizes
         screenWidth: vw,
         screenHeight: vh,
       });
       
-      if (isMobile) {
-        // For mobile/embedded, use responsive layout that fits perfectly
-        setScale(1);
-      } else {
-        // Desktop - full desktop layout
-        const designWidth = 2050;
-        const designHeight = 1700;
-        
-        let scaleX = vw / designWidth;
-        let scaleY = vh / designHeight;
-        
-        const newScale = Math.min(scaleX, scaleY, 1);
-        setScale(newScale);
-      }
+      setScale(1); // Responsive layout handles its own scaling
     };
 
     calculateScale();
@@ -63,28 +46,7 @@ function App() {
     };
   }, []);
 
-  // Mobile layout - completely different structure
-  if (mobileContext.isMobile) {
-    return (
-      <div style={{ 
-        width: '100vw', 
-        height: '100vh', 
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        overflow: 'hidden',
-        background: 'linear-gradient(180deg, #3a3a3f 0%, #2d2d32 50%, #1f1f24 100%)',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        <GameCanvas isMobile={true} />
-        <GameUI isMobile={true} />
-        <SoundManager />
-      </div>
-    );
-  }
-
-  // Desktop layout - original structure
+  // Responsive layout - adapts to any screen size
   return (
     <div style={{ 
       width: '100vw', 
@@ -95,20 +57,11 @@ function App() {
       overflow: 'hidden',
       background: 'linear-gradient(180deg, #3a3a3f 0%, #2d2d32 50%, #1f1f24 100%)',
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
+      flexDirection: 'column',
     }}>
-      <div style={{
-        width: '2050px',
-        height: '1700px',
-        position: 'relative',
-        transform: `scale(${scale})`,
-        transformOrigin: 'center center',
-      }}>
-        <GameCanvas isMobile={false} />
-        <GameUI isMobile={false} />
-        <SoundManager />
-      </div>
+      <GameCanvas isMobile={true} />
+      <GameUI isMobile={true} />
+      <SoundManager />
     </div>
   );
 }
