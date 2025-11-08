@@ -141,7 +141,7 @@ router.post('/sessions', authenticateApiKey, async (req, res) => {
         status: session.status,
         createdAt: session.createdAt,
       },
-      embedUrl: `${req.protocol}://${req.get('host')}?session=${session.sessionToken}&mode=desktop`,
+      embedUrl: `${req.protocol}://${req.get('host')}?session=${session.sessionToken}`,
     });
   } catch (error) {
     console.error('Create session error:', error);

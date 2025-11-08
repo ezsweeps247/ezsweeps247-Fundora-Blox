@@ -23,13 +23,10 @@ function App() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // Check for force desktop mode via URL parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const forceDesktop = urlParams.get('mode') === 'desktop';
-      
-      // Only detect mobile for actual mobile devices (not desktop iframes or touch screens)
+      // Detect mobile/embedded views - use responsive layout for better sizing
       const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      const isMobile = !forceDesktop && (isMobileDevice && (vw < 768 || vh < 600));
+      const isEmbedded = vw < 1024 || vh < 800; // Likely embedded in iframe or mobile
+      const isMobile = isMobileDevice || isEmbedded;
       
       setMobileContext({
         isMobile,
@@ -38,10 +35,10 @@ function App() {
       });
       
       if (isMobile) {
-        // For mobile, we want to use 100% of the screen
-        setScale(1); // We'll handle scaling within the mobile layout itself
+        // For mobile/embedded, use responsive layout that fits perfectly
+        setScale(1);
       } else {
-        // Desktop - original logic
+        // Desktop - full desktop layout
         const designWidth = 2050;
         const designHeight = 1700;
         
